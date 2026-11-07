@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أتمتة المبيعات: من أول رسالة إلى إغلاق الصفقة | عبدالله نبيل</title>
+    <meta name="description" content="نظام كامل يعمل 24/7 لتحويل العملاء المحتملين إلى عملاء دائمين بلا تدخل يدوي. دليل عملي من خبير الأتمتة عبدالله نبيل.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ====== Animations ====== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* ====== Scrollbar ====== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        /* ====== Article Prose ====== */
+        .article-prose h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        .article-prose p {
+            color: #4b5563;
+            line-height: 1.9;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .article-prose blockquote {
+            border-right: 4px solid #155724;
+            padding: 1.25rem 1.5rem;
+            background: #f0fdf4;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #374151;
+        }
+
+        /* ====== Timeline ====== */
+        .timeline-line {
+            position: relative;
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 23px;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #155724, #1e7e34, #28a745, #155724);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-right: 60px;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 900;
+            color: white;
+            background: #155724;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(21, 87, 36, 0.3);
+            z-index: 2;
+        }
+
+        /* ====== Shake CTA ====== */
+        @keyframes gentleShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+        .shake-cta:hover {
+            animation: gentleShake 0.4s ease-in-out;
+        }
+
+        /* ====== Responsive Timeline ====== */
+        @media (max-width: 640px) {
+            .timeline-line::before {
+                right: 15px;
+            }
+            .timeline-item {
+                padding-right: 45px;
+            }
+            .timeline-dot {
+                right: 2px;
+                width: 26px;
+                height: 26px;
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../blog.html" class="text-saudi font-bold relative group">المدونة<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="../about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="../services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="../projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="../blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">المدونة</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="../index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ============================================
+         ARTICLE HERO
+         ============================================ -->
+    <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden bg-gradient-to-b from-orange-50/60 via-amber-50/30 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Breadcrumb -->
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8 fade-up">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../blog.html" class="hover:text-saudi transition-colors">المدونة</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-orange-700 font-bold">المبيعات</span>
+            </div>
+
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <div class="mb-6 flex items-center justify-center gap-3 flex-wrap">
+                    <span class="bg-orange-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">📣 مبيعات</span>
+                    <span class="bg-green-100 text-green-800 text-xs font-bold px-4 py-1.5 rounded-full border border-green-200">🔥 دليل شامل</span>
+                </div>
+                <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                    أتمتة المبيعات: من أول رسالة<br class="hidden sm:block"> إلى <span class="text-gradient">إغلاق الصفقة</span>
+                </h1>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    نظام كامل يعمل 24/7 لتحويل العملاء المحتملين إلى عملاء دائمين—بلا تدخل يدوي
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                            <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <span class="font-semibold text-gray-700">عبدالله نبيل</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span>25 ديسمبر 2024</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>8 دقائق قراءة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         ARTICLE CONTENT + SIDEBAR
+         ============================================ -->
+    <section class="py-12 lg:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
+
+                <!-- ========== MAIN CONTENT ========== -->
+                <div class="lg:col-span-2">
+                    <article class="article-prose max-w-3xl">
+
+                        <!-- Featured Image: Sales Funnel -->
+                        <div class="rounded-2xl overflow-hidden mb-10 bg-gradient-to-b from-orange-50 via-amber-50 to-green-50 shadow-lg border border-orange-200/50 p-8 lg:p-12 fade-up">
+                            <div class="max-w-sm mx-auto">
+                                <div class="bg-orange-200 text-orange-900 rounded-t-3xl px-6 py-4 text-center border-2 border-orange-300">
+                                    <span class="text-2xl block mb-1">👥</span>
+                                    <span class="font-black text-sm">عملاء محتملون (Leads)</span>
+                                    <span class="block text-xs text-orange-700 mt-1">100% يدخلون</span>
+                                </div>
+                                <div class="bg-yellow-200 text-yellow-900 px-8 py-3 text-center border-x-2 border-yellow-300 mx-4">
+                                    <span class="text-xl block mb-1">🎯</span>
+                                    <span class="font-bold text-xs">تصنيف + رد فوري</span>
+                                </div>
+                                <div class="bg-green-200 text-green-900 px-10 py-3 text-center border-x-2 border-green-300 mx-8">
+                                    <span class="text-xl block mb-1">🧠</span>
+                                    <span class="font-bold text-xs">تقييم + متابعة</span>
+                                </div>
+                                <div class="bg-emerald-300 text-emerald-900 px-12 py-3 text-center border-x-2 border-emerald-400 mx-12">
+                                    <span class="text-xl block mb-1">🔄</span>
+                                    <span class="font-bold text-xs">تفاوض + إغلاق</span>
+                                </div>
+                                <div class="bg-saudi text-white rounded-b-3xl px-14 py-4 text-center mx-16 shadow-lg">
+                                    <span class="text-2xl block mb-1">🏆</span>
+                                    <span class="font-black text-sm">صفقات مغلقة</span>
+                                    <span class="block text-xs text-green-200 mt-1">35%+ تحويل</span>
+                                </div>
+                            </div>
+                            <p class="text-center text-xs text-gray-500 mt-6 font-bold">نظام أتمتة المبيعات الكامل — من القمة للقاع بدون تدخل يدوي</p>
+                        </div>
+
+
+                        <!-- ============================================
+                             المقدمة
+                             ============================================ -->
+                        <div class="bg-orange-50 border border-orange-100 rounded-xl p-6 mb-10 fade-up">
+                            <p class="text-gray-700 leading-relaxed text-lg mb-0">
+                                متوسط الشركة السعودية تفقد <strong class="text-red-700">60% من العملاء المحتملين</strong> بين أول تواصل وإغلاق الصفقة. ليس لأن المنتج ضعيف—بل لأن <strong class="text-red-700">المتابعة تتوقف</strong>. في هذا الدليل، أشاركك نظام أتمتة المبيعات الذي بنيته لـ <strong class="text-saudi">15+ شركة</strong>، والذي يُغلق الصفقات وأنت نائم. 😴
+                            </p>
+                        </div>
+
+
+                        <!-- ============================================
+                             المشكلة بالأرقام
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-red-100 pb-3">🔴 المشكلة بالأرقام</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <span class="text-2xl">📉</span>
+                                    </div>
+                                    <span class="text-4xl font-black text-red-700 block counter-val" data-target="60">0</span>
+                                    <span class="text-red-700 font-bold text-lg">%</span>
+                                    <p class="text-xs text-red-600 mt-2 leading-relaxed">نسبة الـ Leads المفقودة بسبب بطء المتابعة</p>
+                                </div>
+                                <div class="bg-orange-50 border-2 border-orange-200 rounded-2xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                    <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <span class="text-2xl">⚡</span>
+                                    </div>
+                                    <span class="text-4xl font-black text-orange-700 block counter-val" data-target="5">0</span>
+                                    <span class="text-orange-700 font-bold text-lg">دقائق</span>
+                                    <p class="text-xs text-orange-600 mt-2 leading-relaxed">الفرق بين رد فوري ورد بعد ساعة — التحويل ينخفض 10x</p>
+                                </div>
+                                <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                                    <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                                        <span class="text-2xl">🔁</span>
+                                    </div>
+                                    <span class="text-4xl font-black text-yellow-700 block counter-val" data-target="12">0</span>
+                                    <span class="text-yellow-700 font-bold text-lg">محاولة</span>
+                                    <p class="text-xs text-yellow-600 mt-2 leading-relaxed">متوسط التواصل اللازم لإغلاق صفقة B2B</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             خريطة الرحلة
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">🗺️ خريطة رحلة المبيعات الآلية</h2>
+                            <p>هذا هو النظام الكامل من لحظة دخول العميل حتى إغلاق الصفقة وما بعدها:</p>
+
+                            <div class="mt-8 overflow-x-auto pb-4">
+                                <div class="flex items-center gap-0 min-w-[700px]">
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-orange-100 border-2 border-orange-300 rounded-xl flex items-center justify-center text-xl shadow-sm">📥</div>
+                                        <span class="text-[10px] font-bold text-orange-700 mt-2 leading-tight">Lead<br>يدخل</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-orange-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-yellow-100 border-2 border-yellow-300 rounded-xl flex items-center justify-center text-xl shadow-sm">🎯</div>
+                                        <span class="text-[10px] font-bold text-yellow-700 mt-2 leading-tight">تصنيف<br>تلقائي</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-yellow-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-green-100 border-2 border-green-300 rounded-xl flex items-center justify-center text-xl shadow-sm">⚡</div>
+                                        <span class="text-[10px] font-bold text-green-700 mt-2 leading-tight">رد<br>فوري</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-green-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-blue-100 border-2 border-blue-300 rounded-xl flex items-center justify-center text-xl shadow-sm">🧠</div>
+                                        <span class="text-[10px] font-bold text-blue-700 mt-2 leading-tight">تقييم<br>الجدية</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-blue-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-indigo-100 border-2 border-indigo-300 rounded-xl flex items-center justify-center text-xl shadow-sm">👤</div>
+                                        <span class="text-[10px] font-bold text-indigo-700 mt-2 leading-tight">توزيع<br>للمندوب</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-indigo-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-purple-100 border-2 border-purple-300 rounded-xl flex items-center justify-center text-xl shadow-sm">🔄</div>
+                                        <span class="text-[10px] font-bold text-purple-700 mt-2 leading-tight">متابعة<br>تلقائية</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-purple-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-emerald-100 border-2 border-emerald-300 rounded-xl flex items-center justify-center text-xl shadow-sm">🔒</div>
+                                        <span class="text-[10px] font-bold text-emerald-700 mt-2 leading-tight">تذكير<br>بالإغلاق</span>
+                                    </div>
+                                    <div class="flex-shrink-0 text-emerald-400 text-lg font-bold">←</div>
+                                    <div class="flex flex-col items-center text-center flex-shrink-0 w-20">
+                                        <div class="w-14 h-14 bg-saudi text-white border-2 border-green-700 rounded-xl flex items-center justify-center text-xl shadow-lg">🏆</div>
+                                        <span class="text-[10px] font-black text-saudi mt-2 leading-tight">صفقة<br>مغلقة!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center mt-4 font-bold">← مرر لرؤية الرحلة الكاملة على الجوال</p>
+                        </div>
+
+
+                        <!-- ============================================
+                             المراحل الست - Timeline
+                             ============================================ -->
+                        <div class="mb-14">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-2 border-b-0 pb-0 fade-up">📋 خطة التنفيذ: 6 مراحل في 14 يوماً</h2>
+                            <p class="text-gray-500 text-sm mb-10 fade-up">كل مرحلة تُبنى على سابقتها. ابدأ بالأولى وأضف الباقي تدريجياً.</p>
+
+                            <div class="timeline-line space-y-12">
+
+                                <!-- المرحلة 1 -->
+                                <div class="timeline-item fade-up">
+                                    <div class="timeline-dot bg-orange-500">1</div>
+                                    <div class="bg-white border-2 border-orange-200 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="text-3xl">🎯</span>
+                                            <div>
+                                                <h3 class="text-xl font-black text-gray-900">المرحلة 1: جمع وتصنيف Leads</h3>
+                                                <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-bold">يوم 1-2</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                            العملاء يأتون من كل مكان: فيسبوك، واتساب، الموقع، المعارض، التوصيات. بدون نظام مركزي، تفقد نصفهم قبل أن تعرف بوجودهم.
+                                        </p>
+                                        <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-orange-700 block mb-2">⚙️ Workflow:</span>
+                                            <div class="flex flex-wrap items-center gap-2 text-xs font-bold text-gray-700">
+                                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200">Lead يدخل</span>
+                                                <span class="text-orange-400">→</span>
+                                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200">Google Sheets مركزي</span>
+                                                <span class="text-orange-400">→</span>
+                                                <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200">ChatGPT يحلل</span>
+                                                <span class="text-orange-400">→</span>
+                                                <span class="bg-orange-200 px-3 py-1.5 rounded-lg border border-orange-300 text-orange-800">تصنيف: ساخن/دافئ/بارد</span>
+                                            </div>
+                                        </div>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-gray-700 block mb-2">💡 مثال عملي:</span>
+                                            <p class="text-gray-600 text-sm mb-0 leading-relaxed">
+                                                Lead سعره فوق مليون ريال + منطقة مرغوبة = <strong class="text-red-600">ساخن 🔥</strong>. يذهب لفريق النخبة فوراً.
+                                            </p>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span class="text-sm font-bold text-green-800">النتيجة: لا يضيع Lead واحد، وكل Lead يصل للشخص المناسب</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المرحلة 2 -->
+                                <div class="timeline-item fade-up">
+                                    <div class="timeline-dot bg-yellow-500">2</div>
+                                    <div class="bg-white border-2 border-yellow-200 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="text-3xl">⚡</span>
+                                            <div>
+                                                <h3 class="text-xl font-black text-gray-900">المرحلة 2: الرد الفوري الذكي</h3>
+                                                <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-bold">يوم 3-4</span>
+                                            </div>
+                                        </div>
+                                        <blockquote class="mb-4" style="border-right-color: #eab308;">
+                                            "السرعة تغلب الجودة في البداية. العميل الذي يحصل على رد خلال دقيقة يشعر بالأهمية."
+                                        </blockquote>
+                                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-yellow-700 block mb-2">⚙️ Workflow:</span>
+                                            <div class="space-y-2 text-sm text-gray-700">
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-yellow-500 font-bold mt-0.5">①</span>
+                                                    <span>Lead ساخن يدخل → واتساب آلي فوري: <strong>"شكراً لاهتمامك، سيتواصل معك أحمد خلال 10 دقائق"</strong></span>
+                                                </div>
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-yellow-500 font-bold mt-0.5">②</span>
+                                                    <span>ربط مع التقويم: <strong>"احجز موعداً مباشرة"</strong> (Calendly)</span>
+                                                </div>
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-yellow-500 font-bold mt-0.5">③</span>
+                                                    <span>إرسال PDF تلقائي: <strong>"كتالوج المنتج + عرض خاص للـ 48 ساعة القادمة"</strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span class="text-sm font-bold text-green-800">النتيجة: عميلك يشعر بالاهتمام فوراً، قبل أن يتصل بمنافسك</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المرحلة 3 -->
+                                <div class="timeline-item fade-up">
+                                    <div class="timeline-dot bg-blue-500">3</div>
+                                    <div class="bg-white border-2 border-blue-200 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="text-3xl">🧠</span>
+                                            <div>
+                                                <h3 class="text-xl font-black text-gray-900">المرحلة 3: تقييم الجدية بالذكاء الاصطناعي</h3>
+                                                <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold">يوم 5-6</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                            <strong class="text-red-600">المشكلة:</strong> 70% من وقت المندوب يُهدر على عملاء غير جادين. الحل: دع الذكاء الاصطناعي يفرز لك.
+                                        </p>
+                                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-blue-700 block mb-3">⚙️ نظام التقييم:</span>
+                                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                                                    <span class="text-lg font-black text-red-600 block">8+</span>
+                                                    <span class="text-xs text-red-700 font-bold">مندوب النخبة</span>
+                                                    <span class="text-[10px] text-red-500 block">+ متابعة يومية</span>
+                                                </div>
+                                                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-center">
+                                                    <span class="text-lg font-black text-yellow-600 block">5-7</span>
+                                                    <span class="text-xs text-yellow-700 font-bold">متابعة أسبوعية</span>
+                                                    <span class="text-[10px] text-yellow-500 block">+ محتوى تعليمي</span>
+                                                </div>
+                                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+                                                    <span class="text-lg font-black text-blue-600 block">&lt;5</span>
+                                                    <span class="text-xs text-blue-700 font-bold">قائمة التغذية</span>
+                                                    <span class="text-[10px] text-blue-500 block">طويلة المدى</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span class="text-sm font-bold text-green-800">النتيجة: المندوب يركز على الصفقات القابلة للإغلاق فقط</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المرحلة 4 -->
+                                <div class="timeline-item fade-up">
+                                    <div class="timeline-dot bg-purple-500">4</div>
+                                    <div class="bg-white border-2 border-purple-200 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="text-3xl">🔄</span>
+                                            <div>
+                                                <h3 class="text-xl font-black text-gray-900">المرحلة 4: المتابعة التلقائية متعددة القنوات</h3>
+                                                <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-bold">يوم 7-10</span>
+                                            </div>
+                                        </div>
+                                        <blockquote class="mb-4" style="border-right-color: #a855f7;">
+                                            "الإغلاق يحتاج 12 لمسة—لكن المندوب يستسلم بعد 2. هذه المشكلة تُحل بالأتمتة."
+                                        </blockquote>
+                                        <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-purple-700 block mb-3">📋 التسلسل الآلي:</span>
+                                            <div class="space-y-3">
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 0</span>
+                                                    <span class="text-xs text-gray-700">💬 واتساب ترحيبي + PDF المنتج</span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 1</span>
+                                                    <span class="text-xs text-gray-700">📞 مكالمة صوتية (إذا لم يرد)</span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 3</span>
+                                                    <span class="text-xs text-gray-700">💬 واتساب: <strong>"هل لديك أسئلة؟"</strong></span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-red-100 text-red-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 7</span>
+                                                    <span class="text-xs text-gray-700">📧 بريد إلكتروني: دراسة حالة مشابهة</span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-orange-100 text-orange-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 14</span>
+                                                    <span class="text-xs text-gray-700">🎁 واتساب: عرض محدود الوقت</span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-gray-100 text-gray-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 21</span>
+                                                    <span class="text-xs text-gray-700">📞 مكالمة أخيرة أو "إلغاء اشتراك" نظيف</span>
+                                                </div>
+                                            </div>
+                                            <p class="text-[11px] text-purple-600 mt-3 font-bold text-center">كل رسالة مخصصة باسم العميل وتفاصيل اهتمامه</p>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span class="text-sm font-bold text-green-800">النتيجة: نسبة التحويل ترتفع من 15% إلى 35%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المرحلة 5 -->
+                                <div class="timeline-item fade-up">
+                                    <div class="timeline-dot bg-emerald-500">5</div>
+                                    <div class="bg-white border-2 border-emerald-200 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="text-3xl">🔒</span>
+                                            <div>
+                                                <h3 class="text-xl font-black text-gray-900">المرحلة 5: إدارة الصفقات والتذكير بالإغلاق</h3>
+                                                <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold">يوم 11-12</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                            <strong class="text-red-600">"الصفقة تموت في آخر متر."</strong> — عرض السعر أُرسل لكن لم يُتابع. التوقيع جاهز لكن أحداً لم يذكّر.
+                                        </p>
+                                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-emerald-700 block mb-3">⚙️ Workflow:</span>
+                                            <div class="space-y-2 text-sm text-gray-700">
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                                                    <span>Deal في مرحلة "عرض سعر" → تذكير تلقائي للمندوب بعد <strong>48 ساعة</strong></span>
+                                                </div>
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                                                    <span>تذكير للعميل: <strong>"عرضك ينتهي خلال يومين"</strong></span>
+                                                </div>
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                                                    <span>ربط مع <strong>DocuSign</strong> للتوقيع الإلكتروني الفوري</span>
+                                                </div>
+                                                <div class="flex items-start gap-2">
+                                                    <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                                                    <span>إشعار للمدير إذا تجاوزت الصفقة <strong>أسبوع بدون حركة</strong></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span class="text-sm font-bold text-green-800">النتيجة: تقليل الصفقات المعلقة بنسبة 50%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المرحلة 6 -->
+                                <div class="timeline-item fade-up">
+                                    <div class="timeline-dot bg-saudi">6</div>
+                                    <div class="bg-white border-2 border-green-200 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="text-3xl">⭐</span>
+                                            <div>
+                                                <h3 class="text-xl font-black text-gray-900">المرحلة 6: ما بعد البيع—تحويل العميل لسفير</h3>
+                                                <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">يوم 13-14</span>
+                                            </div>
+                                        </div>
+                                        <blockquote class="mb-4">
+                                            "البيع الحقيقي يبدأ بعد الإغلاق. العميل الراضي يجلب 3 عملاء آخرين—مجاناً."
+                                        </blockquote>
+                                        <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
+                                            <span class="text-xs font-black text-green-700 block mb-3">⚙️ Workflow بعد البيع:</span>
+                                            <div class="space-y-3">
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 3</span>
+                                                    <span class="text-xs text-gray-700">واتساب: <strong>"كيف تجربتك حتى الآن؟"</strong> 😊</span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-yellow-100 text-yellow-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 7</span>
+                                                    <span class="text-xs text-gray-700">طلب <strong>تقييم Google</strong> + رابط مباشر</span>
+                                                </div>
+                                                <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                                    <span class="bg-purple-100 text-purple-700 text-[10px] font-black px-2 py-1 rounded-full w-16 text-center flex-shrink-0">يوم 30</span>
+                                                    <span class="text-xs text-gray-700">عرض إحالة صديق: <strong>خصم 10% للطرفين</strong> 🎁</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3">
+                                            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span class="text-sm font-bold text-green-800">النتيجة: 30% من عملائك الجدد يأتون من إحالات</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             جدول المقارنة: قبل vs بعد
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">📊 قبل وبعد الأتمتة</h2>
+                            <div class="overflow-x-auto rounded-2xl border-2 border-gray-200 shadow-lg">
+                                <table class="w-full" id="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-gray-50 text-right font-bold text-gray-700 text-sm px-5 py-4 border-b-2 border-gray-200 w-1/3">المعيار</th>
+                                            <th class="bg-red-50 text-center font-bold text-red-700 text-sm px-5 py-4 border-b-2 border-red-200 w-1/3">❌ قبل</th>
+                                            <th class="bg-green-50 text-center font-bold text-green-700 text-sm px-5 py-4 border-b-2 border-green-200 w-1/3">✅ بعد</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-gray-700 text-sm">⚡ سرعة الرد</td>
+                                            <td class="px-5 py-4 text-center text-red-600 font-bold text-sm">4-8 ساعات</td>
+                                            <td class="px-5 py-4 text-center text-green-700 font-bold text-sm">فوري (&lt;1 دقيقة)</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-gray-700 text-sm">📈 نسبة التحويل</td>
+                                            <td class="px-5 py-4 text-center text-red-600 font-bold text-sm"><span class="table-counter" data-target="15">0</span>%</td>
+                                            <td class="px-5 py-4 text-center text-green-700 font-bold text-sm"><span class="table-counter" data-target="35">0</span>%</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-gray-700 text-sm">⏰ وقت المندوب/يوم</td>
+                                            <td class="px-5 py-4 text-center text-red-600 font-bold text-sm">6 ساعات يدوية</td>
+                                            <td class="px-5 py-4 text-center text-green-700 font-bold text-sm">2 ساعة — الباقي إبداع</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-gray-700 text-sm">📉 Leads المفقودة</td>
+                                            <td class="px-5 py-4 text-center text-red-600 font-bold text-sm"><span class="table-counter" data-target="60">0</span>%</td>
+                                            <td class="px-5 py-4 text-center text-green-700 font-bold text-sm"><span class="table-counter" data-target="5">0</span>%</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-gray-700 text-sm">😊 رضا العملاء</td>
+                                            <td class="px-5 py-4 text-center text-red-600 font-bold text-sm"><span class="table-counter" data-target="70">0</span>%</td>
+                                            <td class="px-5 py-4 text-center text-green-700 font-bold text-sm"><span class="table-counter" data-target="92">0</span>%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             الأدوات المستخدمة
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-gray-100 pb-3">🛠️ الأدوات المستخدمة</h2>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-green-50 text-green-800 border-2 border-green-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-green-100 transition-all cursor-default">🔗 N8N</span>
+                                <span class="bg-green-50 text-green-800 border-2 border-green-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-green-100 transition-all cursor-default">💬 WhatsApp API</span>
+                                <span class="bg-purple-50 text-purple-800 border-2 border-purple-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-purple-100 transition-all cursor-default">🤖 ChatGPT</span>
+                                <span class="bg-blue-50 text-blue-800 border-2 border-blue-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-blue-100 transition-all cursor-default">📊 Google Sheets</span>
+                                <span class="bg-cyan-50 text-cyan-800 border-2 border-cyan-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-cyan-100 transition-all cursor-default">📅 Calendly</span>
+                                <span class="bg-yellow-50 text-yellow-800 border-2 border-yellow-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-yellow-100 transition-all cursor-default">✍️ DocuSign</span>
+                                <span class="bg-indigo-50 text-indigo-800 border-2 border-indigo-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-indigo-100 transition-all cursor-default">💬 Slack</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             تكلفة النظام vs العائد
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">💰 تكلفة النظام مقابل العائد</h2>
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 lg:p-8">
+                                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                                    <div class="bg-white rounded-xl p-5 border border-gray-200 text-center shadow-sm">
+                                        <span class="text-sm font-bold text-gray-500 block mb-2">💳 تكلفة الإعداد (مرة واحدة)</span>
+                                        <span class="text-2xl font-black text-gray-900">5,000 — 8,000</span>
+                                        <span class="text-sm text-gray-500"> ريال</span>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-5 border border-gray-200 text-center shadow-sm">
+                                        <span class="text-sm font-bold text-gray-500 block mb-2">📅 تكلفة التشغيل الشهرية</span>
+                                        <span class="text-2xl font-black text-gray-900">300 — 500</span>
+                                        <span class="text-sm text-gray-500"> ريال</span>
+                                    </div>
+                                </div>
+                                <div class="grid sm:grid-cols-2 gap-4">
+                                    <div class="bg-green-100 rounded-xl p-5 border-2 border-green-300 text-center">
+                                        <span class="text-sm font-bold text-green-700 block mb-2">📈 متوسط العائد الشهري</span>
+                                        <span class="text-2xl font-black text-green-800">50,000+</span>
+                                        <span class="text-sm text-green-600"> ريال</span>
+                                    </div>
+                                    <div class="bg-saudi rounded-xl p-5 text-center shadow-lg">
+                                        <span class="text-sm font-bold text-green-200 block mb-2">🏆 عائد الاستثمار (ROI)</span>
+                                        <span class="text-3xl font-black text-white">900%+</span>
+                                        <span class="block text-xs text-green-200 mt-1">في الربع الأول!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             شهادة عميل
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-yellow-100 pb-3">💬 ماذا قال عملاؤنا</h2>
+                            <div class="bg-gradient-to-br from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-2xl p-6 lg:p-8 relative overflow-hidden">
+                                <div class="absolute top-4 right-6 text-6xl text-yellow-200 font-serif leading-none">"</div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center gap-1 mb-4">
+                                        <span class="text-yellow-400 text-lg">★★★★★</span>
+                                    </div>
+                                    <p class="text-gray-800 text-lg leading-relaxed font-semibold mb-6 pr-8">
+                                        "كنّا نشتري Leads بـ 20,000 ريال شهرياً ونفقدها. اليوم، نفس الميزانية تعطينا <strong class="text-saudi">ضعف الإيرادات</strong>—لأننا لا نفقد Lead واحداً."
+                                    </p>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center text-xl font-black text-yellow-800">ف</div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900">فهد السبيعي</h4>
+                                            <p class="text-sm text-gray-500 mb-0">مدير مبيعات، شركة عقارات الرياض</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             أخطاء تُجنبها
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-red-100 pb-3">⚠️ أخطاء تُجنبها</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4 bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-all">
+                                    <span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">❌</span>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm mb-1">أتمتة كل شيء دفعة واحدة</h4>
+                                        <p class="text-red-700 text-sm mb-0">ابدأ بمرحلة واحدة، اختبرها، ثم أضف الباقي تدريجياً.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4 bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-all">
+                                    <span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">❌</span>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm mb-1">إهمال التدريب</h4>
+                                        <p class="text-red-700 text-sm mb-0">المندوب يجب أن يفهم النظام ويثق فيه ليستخدمه بفعالية.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4 bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-all">
+                                    <span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">❌</span>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm mb-1">رسائل آلية باردة</h4>
+                                        <p class="text-red-700 text-sm mb-0">اجعل رسائلك شخصية ودافئة. العميل يشعر بالفرق.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4 bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-all">
+                                    <span class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">❌</span>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm mb-1">نسيان تحديث البيانات</h4>
+                                        <p class="text-red-700 text-sm mb-0">نظّف قوائمك شهرياً. بيانات قديمة = نتائج ضعيفة.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             خطة التنفيذ في 14 يوماً
+                             ============================================ -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-saudi pb-3">📅 خطة التنفيذ في 14 يوماً</h2>
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div class="bg-green-50 border-2 border-green-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="w-12 h-12 bg-saudi text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">1</div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-sm">الأسبوع الأول</h4>
+                                            <span class="text-xs text-green-600 font-bold">يوم 1-7</span>
+                                        </div>
+                                    </div>
+                                    <ul class="space-y-2 text-sm text-gray-700">
+                                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ربط جميع مصادر الـ Leads</li>
+                                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> إعداد الرد الفوري الآلي</li>
+                                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> تدريب الفريق على النظام</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 border-2 border-green-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-1">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="w-12 h-12 bg-saudi text-white rounded-xl flex items-center justify-center font-black text-lg shadow-md">2</div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-sm">الأسبوع الثاني</h4>
+                                            <span class="text-xs text-green-600 font-bold">يوم 8-14</span>
+                                        </div>
+                                    </div>
+                                    <ul class="space-y-2 text-sm text-gray-700">
+                                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> تفعيل التصنيف الذكي بالـ AI</li>
+                                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> تشغيل المتابعة التلقائية</li>
+                                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> مراجعة النتائج والتحسين</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             الخاتمة + CTA
+                             ============================================ -->
+                        <div class="mb-12 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">📌 الخلاصة</h2>
+                            <p>
+                                نظام المبيعات الآلي ليس رفاهية—هو <strong>ضرورة للبقاء في 2025</strong>. كل يوم بدون أتمتة هو صفقات تذهب لمنافسك. الخطوات واضحة، الأدوات متاحة، والنتائج مثبتة من <strong>15+ شركة</strong>.
+                            </p>
+                            <p>
+                                السؤال الوحيد: <strong>هل تبدأ اليوم أم تنتظر حتى يسبقك منافسك؟</strong>
+                            </p>
+
+                            <div class="bg-gradient-to-br from-saudi to-saudi-dark rounded-2xl p-8 text-center text-white mt-8 relative overflow-hidden shadow-2xl">
+                                <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                                <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                                <div class="relative z-10">
+                                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    </div>
+                                    <h3 class="text-2xl font-black mb-3">ابنِ نظام مبيعاتك الآلي اليوم</h3>
+                                    <p class="text-green-100 mb-6 max-w-lg mx-auto leading-relaxed">
+                                        دعني أساعدك في بناء نظام يعمل 24/7 ويُغلق الصفقات بينما فريقك يركز على الإبداع.
+                                    </p>
+                                    <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-black py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shake-cta text-lg">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                        <span>استشارة مجانية — ابدأ الآن</span>
+                                    </a>
+                                    <p class="text-green-200 text-xs mt-4">🕐 أرد على جميع الطلبات خلال 24 ساعة | بدون أي التزام</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ============================================
+                             أزرار المشاركة
+                             ============================================ -->
+                        <div class="border-t border-gray-200 pt-8 fade-up">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <h4 class="font-bold text-gray-700 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                                    شارك المقالة:
+                                </h4>
+                                <div class="flex items-center gap-3">
+                                    <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm hover:shadow-md" title="LinkedIn">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                    </a>
+                                    <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-800 hover:text-white transition-all shadow-sm hover:shadow-md" title="X">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                    <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-700 hover:bg-green-500 hover:text-white transition-all shadow-sm hover:shadow-md" title="واتساب">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                    </a>
+                                    <button onclick="copyArticleLink()" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 hover:bg-saudi hover:text-white transition-all shadow-sm hover:shadow-md" title="نسخ الرابط" id="copy-btn">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الوسوم -->
+                        <div class="mt-8 pt-6 border-t border-gray-100 fade-up">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-sm font-bold text-gray-500">الوسوم:</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">أتمتة المبيعات</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">CRM</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">WhatsApp Bot</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">ChatGPT</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">Sales Funnel</span>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+
+                <!-- ========== SIDEBAR ========== -->
+                <aside class="lg:col-span-1 space-y-8 fade-up" style="transition-delay: 200ms;">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+
+                        <!-- الكاتب -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 text-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg ring-2 ring-orange-200">
+                                <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="eager" decoding="async">
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg">عبدالله نبيل</h3>
+                            <p class="text-sm text-orange-600 font-semibold mb-1">خبير أتمتة المبيعات</p>
+                            <p class="text-xs text-gray-500 mb-3 font-bold">15+ نظام مبيعات آلي منفذ</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">أبني أنظمة مبيعات آلية تعمل 24/7 وتحوّل العملاء المحتملين إلى صفقات مغلقة.</p>
+                            <a href="../index.html#contact" class="block w-full py-3 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all shadow-md hover:shadow-lg text-sm">تواصل مباشرة</a>
+                        </div>
+
+                        <!-- تحميل PDF -->
+                        <div class="bg-orange-600 rounded-2xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="text-3xl mb-3">📄</div>
+                                <h3 class="font-bold mb-2 text-sm">Template خريطة المبيعات</h3>
+                                <p class="text-orange-100 text-xs mb-4 leading-relaxed">خريطة جاهزة لرحلة المبيعات الآلية. عدّلها لتناسب عملك.</p>
+                                <a href="#" class="block w-full py-2.5 bg-white text-orange-700 font-bold rounded-lg hover:bg-gray-100 transition-all text-sm">تحميل مجاناً (PDF)</a>
+                            </div>
+                        </div>
+
+                        <!-- مقالات ذات صلة -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                مقالات ذات صلة
+                            </h3>
+                            <div class="space-y-4">
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">💡</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">كيف توفر 20 ساعة أسبوعياً</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">5 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🏆</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">توفير 35% لشركة عقارات</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">5 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🤖</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">5 طرق لدمج ChatGPT في عملك</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">8 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="../blog.html" class="block text-center mt-5 text-saudi font-bold text-sm hover:underline">عرض جميع المقالات ←</a>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="py-16 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg>
+        </div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-3xl fade-up">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">كل صفقة تخسرها اليوم كان يمكن أن تُغلق آلياً 🏆</h2>
+            <p class="text-xl text-green-100 mb-8 leading-relaxed">
+                15+ شركة بنت أنظمة مبيعات آلية معي. شركتك التالية؟
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>ابنِ نظام مبيعاتك — استشارة مجانية</span>
+                </a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="../index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="../about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="../services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="../projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="../blog.html" class="text-white font-bold text-sm">المدونة</a></li>
+                        <li><a href="../index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a>
+                        <span>|</span>
+                        <a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+                menuIconOpen.classList.toggle('hidden');
+                menuIconClose.classList.toggle('hidden');
+            });
+        }
+
+        document.querySelectorAll('.mobile-nav-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+
+        // =============================================
+        // NAVBAR SHADOW
+        // =============================================
+        var navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        }, { passive: true });
+
+
+        // =============================================
+        // FADE-UP ANIMATION
+        // =============================================
+        function initFadeUp() {
+            var elements = document.querySelectorAll('.fade-up');
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+                elements.forEach(function (el) {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback: show all immediately
+                elements.forEach(function (el) {
+                    el.classList.add('visible');
+                });
+            }
+        }
+
+        // Run on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initFadeUp);
+        } else {
+            initFadeUp();
+        }
+
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                var targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    var offset = 80;
+                    var pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+
+
+        // =============================================
+        // ANIMATED COUNTERS
+        // =============================================
+        function animateCounter(element, target, duration) {
+            var startTime = performance.now();
+
+            function update(currentTime) {
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(target * eased);
+                element.textContent = current;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Counter for stat cards
+        function initCounters() {
+            var statCounters = document.querySelectorAll('.counter-val');
+            if ('IntersectionObserver' in window) {
+                statCounters.forEach(function (counter) {
+                    var observer = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                var target = parseInt(entry.target.getAttribute('data-target'));
+                                animateCounter(entry.target, target, 1500);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    observer.observe(counter);
+                });
+            } else {
+                statCounters.forEach(function (counter) {
+                    counter.textContent = counter.getAttribute('data-target');
+                });
+            }
+
+            // Counter for table
+            var comparisonTable = document.getElementById('comparison-table');
+            if (comparisonTable && 'IntersectionObserver' in window) {
+                var tableObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var counters = comparisonTable.querySelectorAll('.table-counter');
+                            counters.forEach(function (counter, index) {
+                                var target = parseInt(counter.getAttribute('data-target'));
+                                setTimeout(function () {
+                                    animateCounter(counter, target, 1200);
+                                }, index * 150);
+                            });
+                            tableObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                tableObserver.observe(comparisonTable);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            initCounters();
+        }
+
+
+        // =============================================
+        // COPY ARTICLE LINK
+        // =============================================
+        function copyArticleLink() {
+            var url = window.location.href;
+            var btn = document.getElementById('copy-btn');
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function () {
+                    showCopySuccess(btn);
+                }).catch(function () {
+                    fallbackCopy(url, btn);
+                });
+            } else {
+                fallbackCopy(url, btn);
+            }
+        }
+
+        function fallbackCopy(url, btn) {
+            var t = document.createElement('textarea');
+            t.value = url;
+            t.style.position = 'fixed';
+            t.style.opacity = '0';
+            document.body.appendChild(t);
+            t.select();
+            try {
+                document.execCommand('copy');
+                showCopySuccess(btn);
+            } catch (e) {
+                // silent fail
+            }
+            document.body.removeChild(t);
+        }
+
+        function showCopySuccess(btn) {
+            btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            btn.classList.add('bg-saudi', 'text-white');
+            btn.classList.remove('bg-gray-100', 'text-gray-500');
+            setTimeout(function () {
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+                btn.classList.remove('bg-saudi', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-500');
+            }, 2000);
+        }
+    </script>
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

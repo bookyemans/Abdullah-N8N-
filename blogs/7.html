@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كم يكلفك تأخير الأتمتة؟ حاسبة الخسارة الخفية | عبدالله نبيل</title>
+    <meta name="description" content="كل يوم بدون أتمتة هو يوم تخسر فيه أرباحاً وفرصاً. احسب خسارتك الفعلية الآن بحاسبتنا التفاعلية المجانية.">
+    <meta name="keywords" content="حاسبة أتمتة, ROI, تكلفة الأتمتة, خسارة الوقت, N8N, أتمتة الأعمال, توفير التكاليف">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up { opacity:0; transform:translateY(30px); transition:opacity .6s ease-out,transform .6s ease-out; }
+        .fade-up.visible { opacity:1; transform:translateY(0); }
+        .text-gradient { background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-image:linear-gradient(to left,#155724,#1e7e34,#28a745); }
+        .text-gradient-red { background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-image:linear-gradient(to left,#dc2626,#ef4444,#f87171); }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .bg-dots { background-image:radial-gradient(circle,#d1d5db 1px,transparent 1px); background-size:24px 24px; }
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:#f1f1f1; }
+        ::-webkit-scrollbar-thumb { background:#155724; border-radius:4px; }
+        ::-webkit-scrollbar-thumb:hover { background:#1e7e34; }
+
+        .article-prose h2 { font-size:1.5rem; font-weight:800; color:#1f2937; margin-top:2.5rem; margin-bottom:1rem; padding-bottom:.75rem; border-bottom:2px solid #f3f4f6; }
+        .article-prose p { color:#4b5563; line-height:1.9; margin-bottom:1.25rem; font-size:1.05rem; }
+        .article-prose blockquote { border-right:4px solid #155724; padding:1.25rem 1.5rem; background:#f0fdf4; border-radius:.5rem; margin:1.5rem 0; font-style:italic; color:#374151; }
+
+        /* Custom Range Slider */
+        input[type="range"] { -webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:4px; background:#e5e7eb; outline:none; cursor:pointer; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:24px; height:24px; border-radius:50%; background:#155724; cursor:pointer; box-shadow:0 2px 6px rgba(21,87,36,.3); transition:transform .2s; }
+        input[type="range"]::-webkit-slider-thumb:hover { transform:scale(1.2); }
+        input[type="range"]::-moz-range-thumb { width:24px; height:24px; border-radius:50%; background:#155724; cursor:pointer; border:none; box-shadow:0 2px 6px rgba(21,87,36,.3); }
+
+        /* Animated counter */
+        @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.2)} 50%{box-shadow:0 0 30px 10px rgba(220,38,38,.1)} }
+        .result-glow { animation:pulseGlow 2s ease-in-out infinite; }
+
+        /* Shake animation for CTA */
+        @keyframes gentleShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-3px)} 75%{transform:translateX(3px)} }
+        .shake-cta:hover { animation:gentleShake .4s ease-in-out; }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">عبدالله <span class="text-gray-800">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../blog.html" class="text-saudi font-bold relative group">المدونة<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="../about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="../services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="../projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="../blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">المدونة</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4"><a href="../index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a></div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ARTICLE HERO -->
+    <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden bg-gradient-to-b from-green-50/60 via-emerald-50/30 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#f0fdf4"/></svg>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8 fade-up">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../blog.html" class="hover:text-saudi transition-colors">المدونة</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-green-700 font-bold">نصائح</span>
+            </div>
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <div class="mb-6 flex items-center justify-center gap-3 flex-wrap">
+                    <span class="bg-green-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">💡 نصائح</span>
+                    <span class="bg-red-100 text-red-800 text-xs font-bold px-4 py-1.5 rounded-full border border-red-200">🔥 الأكثر قراءة</span>
+                </div>
+                <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                    كم يكلفك <span class="text-gradient-red">تأخير الأتمتة</span>؟<br class="hidden sm:block">حاسبة الخسارة الخفية
+                </h1>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    كل يوم بدون أتمتة هو يوم تخسر فيه أرباحاً وفرصاً. احسب خسارتك الفعلية الآن.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-sm"><img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="lazy" decoding="async"></div>
+                        <span class="font-semibold text-gray-700">عبدالله نبيل</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span>22 ديسمبر 2024</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>6 دقائق قراءة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ARTICLE CONTENT + SIDEBAR -->
+    <section class="py-12 lg:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
+
+                <!-- MAIN CONTENT -->
+                <div class="lg:col-span-2">
+                    <article class="article-prose max-w-3xl fade-up">
+
+                        <!-- Featured Image -->
+                        <div class="rounded-2xl overflow-hidden mb-10 bg-gradient-to-br from-red-100 via-orange-50 to-red-100 h-64 lg:h-80 flex items-center justify-center shadow-lg border border-red-200/50 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-red-200/30 to-transparent"></div>
+                            <div class="text-center relative z-10">
+                                <span class="text-7xl block mb-3">💸</span>
+                                <span class="text-sm font-bold text-red-800 bg-white/80 px-4 py-2 rounded-full shadow-sm">كل يوم تأخير = خسارة حقيقية</span>
+                            </div>
+                        </div>
+
+                        <!-- INTRO -->
+                        <div class="bg-red-50 border border-red-100 rounded-xl p-6 mb-10">
+                            <p class="text-gray-700 leading-relaxed text-lg mb-0">
+                                الأتمتة ليست "نفقة" — هي <strong class="text-red-700">استثمار</strong>. لكن كل يوم تتأخر فيه، تخسر ضعف تكلفتها. المشكلة أن هذه الخسائر <strong class="text-red-700">خفية</strong> — لا تظهر في الفواتير، لكنها تنزف من أرباحك بصمت. لنتحدث عن الأرقام الحقيقية.
+                            </p>
+                        </div>
+
+
+                        <!-- HIDDEN LOSSES -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-red-100 pb-3">🔴 الخسارة الخفية: 3 أنواع تستنزفك يومياً</h2>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <!-- Loss 1 -->
+                                <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">⏰</div>
+                                    <h4 class="font-bold text-red-800 mb-2 text-sm">خسارة الوقت</h4>
+                                    <p class="text-xs text-red-600 leading-relaxed mb-2">موظف يقضي 15 ساعة أسبوعياً في مهام يدوية</p>
+                                    <div class="bg-red-100 rounded-lg p-2 mt-2">
+                                        <span class="text-lg font-black text-red-700">780</span>
+                                        <span class="text-xs text-red-600 block">ساعة مهدورة سنوياً</span>
+                                        <span class="text-xs text-red-500">= 97 يوم عمل!</span>
+                                    </div>
+                                </div>
+
+                                <!-- Loss 2 -->
+                                <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">👥</div>
+                                    <h4 class="font-bold text-red-800 mb-2 text-sm">خسارة الفرص</h4>
+                                    <p class="text-xs text-red-600 leading-relaxed mb-2">عميل يُرد عليه بعد 6 ساعات بدلاً من دقيقة</p>
+                                    <div class="bg-red-100 rounded-lg p-2 mt-2">
+                                        <span class="text-lg font-black text-red-700">40%</span>
+                                        <span class="text-xs text-red-600 block">من العملاء</span>
+                                        <span class="text-xs text-red-500">ينتقلون للمنافس!</span>
+                                    </div>
+                                </div>
+
+                                <!-- Loss 3 -->
+                                <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center hover:shadow-lg transition-shadow">
+                                    <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">📉</div>
+                                    <h4 class="font-bold text-red-800 mb-2 text-sm">خسارة النمو</h4>
+                                    <p class="text-xs text-red-600 leading-relaxed mb-2">مشغول بالروتين بدلاً من التخطيط الاستراتيجي</p>
+                                    <div class="bg-red-100 rounded-lg p-2 mt-2">
+                                        <span class="text-lg font-black text-red-700">∞</span>
+                                        <span class="text-xs text-red-600 block">نمو بطيء</span>
+                                        <span class="text-xs text-red-500">بينما المنافسون يتقدمون</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ⭐ INTERACTIVE CALCULATOR -->
+                        <div class="mb-14 fade-up" id="calculator-section">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-2 border-b-0 pb-0">🧮 احسب خسارتك السنوية في 30 ثانية</h2>
+                            <p class="text-gray-500 text-sm mb-8">أدخل بيانات شركتك واكتشف كم تخسر كل سنة بسبب غياب الأتمتة</p>
+
+                            <div class="bg-gradient-to-br from-gray-50 to-green-50/30 rounded-3xl p-6 lg:p-8 border-2 border-gray-200 shadow-lg">
+
+                                <!-- Input 1: Employees -->
+                                <div class="mb-8">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <label class="font-bold text-gray-800 flex items-center gap-2 text-sm">
+                                            <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-base">👥</span>
+                                            عدد الموظفين
+                                        </label>
+                                        <div class="flex items-center gap-2">
+                                            <input type="number" id="emp-input" min="1" max="50" value="5" class="w-16 text-center font-black text-saudi text-lg border-2 border-green-200 rounded-lg focus:outline-none focus:border-saudi py-1">
+                                            <span class="text-xs text-gray-500">موظف</span>
+                                        </div>
+                                    </div>
+                                    <input type="range" id="emp-slider" min="1" max="50" value="5" class="w-full">
+                                    <div class="flex justify-between text-xs text-gray-400 mt-1"><span>1</span><span>25</span><span>50</span></div>
+                                </div>
+
+                                <!-- Input 2: Manual Hours -->
+                                <div class="mb-8">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <label class="font-bold text-gray-800 flex items-center gap-2 text-sm">
+                                            <span class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center text-base">⏱️</span>
+                                            ساعات العمل اليدوي / أسبوع / موظف
+                                        </label>
+                                        <div class="flex items-center gap-2">
+                                            <input type="number" id="hours-input" min="1" max="40" value="10" class="w-16 text-center font-black text-saudi text-lg border-2 border-yellow-200 rounded-lg focus:outline-none focus:border-saudi py-1">
+                                            <span class="text-xs text-gray-500">ساعة</span>
+                                        </div>
+                                    </div>
+                                    <input type="range" id="hours-slider" min="1" max="40" value="10" class="w-full">
+                                    <div class="flex justify-between text-xs text-gray-400 mt-1"><span>1</span><span>20</span><span>40</span></div>
+                                </div>
+
+                                <!-- Input 3: Salary -->
+                                <div class="mb-8">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <label class="font-bold text-gray-800 flex items-center gap-2 text-sm">
+                                            <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-base">💰</span>
+                                            متوسط الراتب الشهري
+                                        </label>
+                                        <div class="flex items-center gap-2">
+                                            <input type="number" id="salary-input" min="3000" max="20000" step="500" value="7000" class="w-24 text-center font-black text-saudi text-lg border-2 border-blue-200 rounded-lg focus:outline-none focus:border-saudi py-1">
+                                            <span class="text-xs text-gray-500">ر.س</span>
+                                        </div>
+                                    </div>
+                                    <input type="range" id="salary-slider" min="3000" max="20000" step="500" value="7000" class="w-full">
+                                    <div class="flex justify-between text-xs text-gray-400 mt-1"><span>3,000</span><span>10,000</span><span>20,000</span></div>
+                                </div>
+
+                                <!-- Calculate Button -->
+                                <button id="calc-btn" class="w-full py-4 bg-saudi text-white font-black text-lg rounded-2xl hover:bg-saudi-light transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] shake-cta flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                    احسب الخسارة الآن
+                                </button>
+
+                                <!-- Results (Hidden initially) -->
+                                <div id="calc-results" class="hidden mt-8">
+
+                                    <!-- Main Result -->
+                                    <div class="bg-red-50 border-2 border-red-300 rounded-2xl p-6 lg:p-8 text-center mb-6 result-glow">
+                                        <p class="text-sm font-bold text-red-600 mb-2">💸 خسارتك السنوية التقديرية</p>
+                                        <div class="flex items-center justify-center gap-2">
+                                            <span id="total-loss" class="text-4xl lg:text-5xl font-black text-red-700">0</span>
+                                            <span class="text-xl font-bold text-red-500">ريال</span>
+                                        </div>
+                                        <p class="text-xs text-red-500 mt-2">هذا المبلغ يتسرب من شركتك كل سنة بدون أن تلاحظ</p>
+                                    </div>
+
+                                    <!-- Breakdown -->
+                                    <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                                        <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                                            <span class="text-xs text-gray-500 font-bold block mb-1">⏰ تكلفة الوقت المهدور</span>
+                                            <span id="time-cost" class="text-xl font-black text-gray-900">0</span>
+                                            <span class="text-sm text-gray-500"> ريال</span>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                                            <span class="text-xs text-gray-500 font-bold block mb-1">👥 تكلفة الفرص الضائعة (تقدير 30%)</span>
+                                            <span id="opp-cost" class="text-xl font-black text-gray-900">0</span>
+                                            <span class="text-sm text-gray-500"> ريال</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Comparison -->
+                                    <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                                        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+                                            <span class="text-xs text-gray-500 font-bold block mb-1">💰 تكلفة الأتمتة (مرة واحدة)</span>
+                                            <span class="text-xl font-black text-saudi">5,000 — 15,000</span>
+                                            <span class="text-sm text-gray-500"> ريال</span>
+                                        </div>
+                                        <div class="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+                                            <span class="text-xs text-green-600 font-bold block mb-1">📈 توفير سنوي</span>
+                                            <span id="annual-saving" class="text-xl font-black text-green-700">0</span>
+                                            <span class="text-sm text-green-500"> ريال</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- ROI -->
+                                    <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-5 text-center mb-6">
+                                        <div class="flex items-center justify-center gap-6 flex-wrap">
+                                            <div>
+                                                <span class="text-xs text-green-600 font-bold block">⚡ استرداد الاستثمار خلال</span>
+                                                <span id="roi-days" class="text-2xl font-black text-green-700">0</span>
+                                                <span class="text-sm text-green-600"> يوم فقط</span>
+                                            </div>
+                                            <div class="hidden sm:block w-px h-12 bg-green-200"></div>
+                                            <div>
+                                                <span class="text-xs text-green-600 font-bold block">💰 عائد الاستثمار (ROI)</span>
+                                                <span id="roi-percent" class="text-2xl font-black text-green-700">0</span>
+                                                <span class="text-sm text-green-600">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Post-calc CTA -->
+                                    <div class="bg-saudi rounded-2xl p-6 text-center text-white relative overflow-hidden">
+                                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                                        <div class="relative z-10">
+                                            <p class="text-lg font-bold mb-3">الأرقام تتحدث. هل تريد إيقاف هذا النزيف؟ 🩸</p>
+                                            <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all text-sm transform hover:scale-105">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                                إيقاف الخسارة — استشارة مجانية الآن
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- REAL STORY -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-gray-100 pb-3">📖 قصة حقيقية: ثمن التأخير</h2>
+
+                            <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center text-xl">🏢</div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900">شركة X — قطاع الخدمات</h4>
+                                        <span class="text-xs text-gray-500">اسم مستعار لحماية الخصوصية</span>
+                                    </div>
+                                </div>
+
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    تواصلوا معي في يناير 2024 لكنهم قرروا "الانتظار شوي". عادوا بعد <strong>6 أشهر</strong> — وحينها حسبنا الخسارة الفعلية خلال فترة الانتظار:
+                                </p>
+
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
+                                        <span class="text-xs text-red-600 font-bold block mb-1">الخسارة الفعلية</span>
+                                        <span class="text-2xl font-black text-red-700">45,000</span>
+                                        <span class="text-sm text-red-500 block">ريال (وقت + فرص)</span>
+                                    </div>
+                                    <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                                        <span class="text-xs text-green-600 font-bold block mb-1">لو أتمتوا من اليوم الأول</span>
+                                        <span class="text-2xl font-black text-green-700">8,000</span>
+                                        <span class="text-sm text-green-500 block">ريال (تكلفة الأتمتة)</span>
+                                    </div>
+                                </div>
+
+                                <blockquote class="border-red-300 bg-red-50/50" style="border-right-color:#ef4444; -webkit-text-fill-color: unset; background-image:none;">
+                                    "التأخير 6 أشهر كلّفهم <strong>5 أضعاف</strong> تكلفة الأتمتة نفسها. الدرس: <strong>التأخير أغلى من الأتمتة.</strong>"
+                                </blockquote>
+                            </div>
+                        </div>
+
+
+                        <!-- DELAY TABLE -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-red-100 pb-3">⏳ التأخير يتكاثر</h2>
+
+                            <p>كل شهر تأخير لا يضيف تكلفة — بل <strong>يضاعفها</strong>. إليك جدول الخسائر التراكمية لشركة بـ 5 موظفين:</p>
+
+                            <div class="overflow-x-auto rounded-2xl border border-gray-200 mt-6 shadow-sm">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-gray-50 text-right font-bold text-gray-700 text-sm px-5 py-4 border-b-2 border-gray-200">متى تبدأ الأتمتة</th>
+                                            <th class="bg-red-50 text-center font-bold text-red-700 text-sm px-5 py-4 border-b-2 border-red-200">الخسارة السنوية</th>
+                                            <th class="bg-orange-50 text-center font-bold text-orange-700 text-sm px-5 py-4 border-b-2 border-orange-200">فرص ضائعة</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-100 hover:bg-green-50 transition-colors">
+                                            <td class="px-5 py-4 text-right">
+                                                <span class="font-bold text-green-700 flex items-center gap-2 justify-end text-sm">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                    الآن ✅
+                                                </span>
+                                            </td>
+                                            <td class="px-5 py-4 text-center font-black text-green-700 text-sm">0 ريال</td>
+                                            <td class="px-5 py-4 text-center font-bold text-green-600 text-sm">0</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100 hover:bg-yellow-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-yellow-700 text-sm">بعد 3 أشهر</td>
+                                            <td class="px-5 py-4 text-center font-black text-yellow-700 text-sm">12,000 ريال</td>
+                                            <td class="px-5 py-4 text-center font-bold text-yellow-600 text-sm">2-3 عملاء</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100 hover:bg-orange-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-orange-700 text-sm">بعد 6 أشهر</td>
+                                            <td class="px-5 py-4 text-center font-black text-orange-700 text-sm">28,000 ريال</td>
+                                            <td class="px-5 py-4 text-center font-bold text-orange-600 text-sm">5-8 عملاء</td>
+                                        </tr>
+                                        <tr class="hover:bg-red-50 transition-colors">
+                                            <td class="px-5 py-4 text-right font-semibold text-red-700 text-sm">بعد سنة ⚠️</td>
+                                            <td class="px-5 py-4 text-center font-black text-red-700 text-sm">60,000 ريال</td>
+                                            <td class="px-5 py-4 text-center font-bold text-red-600 text-sm">10-15 عميل</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!-- SMART STEP -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">✅ الخطوة الذكية: ابدأ صغيراً</h2>
+
+                            <div class="bg-saudi rounded-2xl p-6 lg:p-8 text-white relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                                <div class="relative z-10">
+                                    <h3 class="text-xl font-black mb-4">لا تحتاج لأتمتة كل شيء اليوم 🎯</h3>
+                                    <div class="space-y-3 mb-6">
+                                        <div class="flex items-start gap-3">
+                                            <span class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold mt-0.5">1</span>
+                                            <p class="text-green-100 text-sm mb-0">ابدأ بـ <strong class="text-white">workflow واحد</strong> يوفر 5 ساعات أسبوعياً</p>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <span class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold mt-0.5">2</span>
+                                            <p class="text-green-100 text-sm mb-0">قِس النتائج خلال <strong class="text-white">أسبوعين</strong></p>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <span class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold mt-0.5">3</span>
+                                            <p class="text-green-100 text-sm mb-0">وسّع تدريجياً بناءً على <strong class="text-white">النتائج الفعلية</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="bg-white/10 rounded-xl p-4 text-center border border-white/20">
+                                            <span class="text-xs text-green-200 block mb-1">💰 التكلفة</span>
+                                            <span class="text-xl font-black">2,500</span>
+                                            <span class="text-sm text-green-200 block">ريال فقط</span>
+                                        </div>
+                                        <div class="bg-white/10 rounded-xl p-4 text-center border border-white/20">
+                                            <span class="text-xs text-green-200 block mb-1">📈 التوفير السنوي</span>
+                                            <span class="text-xl font-black">15,000</span>
+                                            <span class="text-sm text-green-200 block">ريال</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- CONCLUSION + CTA -->
+                        <div class="mb-12 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">📌 الخلاصة</h2>
+
+                            <p>
+                                كل يوم تأخير في الأتمتة هو <strong>خسارة حقيقية ومتراكمة</strong>. ليس رأياً — بل أرقام. الحاسبة أعلاه أثبتت ذلك. السؤال ليس "هل أؤتمت؟" — بل <strong>"كم سأخسر إذا لم أؤتمت اليوم؟"</strong>
+                            </p>
+
+                            <div class="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200/50 rounded-2xl p-8 text-center mt-8">
+                                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">تأخيرك اليوم يكلفك غداً</h3>
+                                <p class="text-gray-600 mb-6 max-w-lg mx-auto">
+                                    دعني أساعدك في أتمتة أول workflow في أقل من أسبوع. لا تدع الخسارة تتراكم.
+                                </p>
+                                <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-saudi text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-saudi-light transition-all duration-300 transform hover:scale-105 hover:shadow-xl shake-cta">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    <span>إيقاف الخسارة — استشارة مجانية الآن</span>
+                                </a>
+                                <p class="text-xs text-gray-500 mt-4">🕐 رد خلال 4 ساعات | بدون أي التزام</p>
+                            </div>
+                        </div>
+
+
+                        <!-- SHARE -->
+                        <div class="border-t border-gray-200 pt-8 fade-up">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <h4 class="font-bold text-gray-700 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                                    شارك الحاسبة:
+                                </h4>
+                                <div class="flex items-center gap-3">
+                                    <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 hover:bg-blue-600 hover:text-white transition-all shadow-sm hover:shadow-md" title="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                                    <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-800 hover:text-white transition-all shadow-sm hover:shadow-md" title="X"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                                    <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-700 hover:bg-green-500 hover:text-white transition-all shadow-sm hover:shadow-md" title="واتساب"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg></a>
+                                    <button onclick="copyArticleLink()" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 hover:bg-saudi hover:text-white transition-all shadow-sm hover:shadow-md" title="نسخ الرابط" id="copy-btn"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAGS -->
+                        <div class="mt-8 pt-6 border-t border-gray-100 fade-up">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-sm font-bold text-gray-500">الوسوم:</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">حاسبة ROI</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">تكلفة التأخير</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">أتمتة</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">توفير تكاليف</span>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+
+                <!-- SIDEBAR -->
+                <aside class="lg:col-span-1 space-y-8 fade-up" style="transition-delay:200ms;">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+
+                        <!-- Author -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 text-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg ring-2 ring-green-200">
+                                <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="eager" decoding="async">
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg">عبدالله نبيل</h3>
+                            <p class="text-sm text-green-600 font-semibold mb-3">خبير تحويل الخسارة إلى ربح</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">أساعد الشركات على اكتشاف خسائرها الخفية وتحويلها إلى أرباح عبر الأتمتة الذكية.</p>
+                            <a href="../index.html#contact" class="block w-full py-3 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all shadow-md hover:shadow-lg text-sm">إيقاف الخسارة الآن</a>
+                        </div>
+
+                        <!-- PDF Download -->
+                        <div class="bg-green-600 rounded-2xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="text-3xl mb-3">📄</div>
+                                <h3 class="font-bold mb-2">دليل حساب ROI</h3>
+                                <p class="text-green-100 text-sm mb-4">تعلم كيف تحسب عائد الاستثمار لأي مشروع أتمتة.</p>
+                                <a href="#" class="block w-full py-2.5 bg-white text-green-700 font-bold rounded-lg hover:bg-gray-100 transition-all text-sm">تحميل مجاناً (PDF)</a>
+                            </div>
+                        </div>
+
+                        <!-- Related -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                حاسبات أخرى
+                            </h3>
+                            <div class="space-y-4">
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">⚖️</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">N8N vs Zapier vs Make: المقارنة</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">7 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🏆</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">توفير 35% لشركة عقارات</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">7 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🤖</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">5 طرق لدمج ChatGPT في عملك</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">6 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="../blog.html" class="block text-center mt-5 text-saudi font-bold text-sm hover:underline">عرض جميع المقالات ←</a>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CTA SECTION -->
+    <section class="py-16 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"><svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg></div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-3xl fade-up">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">كل يوم تنتظره يكلفك أكثر 💸</h2>
+            <p class="text-xl text-green-100 mb-8 leading-relaxed">الحاسبة أعلاه أثبتت ذلك بالأرقام. ابدأ اليوم واحمِ أرباحك من النزيف الخفي.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>إيقاف الخسارة — استشارة مجانية</span>
+                </a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="../index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="../about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="../services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="../projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="../blog.html" class="text-white font-bold text-sm">المدونة</a></li>
+                        <li><a href="../index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500"><a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a><span>|</span><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a></div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation:float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+        // =============================================
+        // NAVBAR SHADOW
+        // =============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 10);
+        }, { passive: true });
+
+        // =============================================
+        // FADE-UP
+        // =============================================
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const id = this.getAttribute('href');
+                if (id === '#' || !id) return;
+                const el = document.querySelector(id);
+                if (el) {
+                    e.preventDefault();
+                    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // =============================================
+        // ⭐ INTERACTIVE CALCULATOR
+        // =============================================
+        const empSlider = document.getElementById('emp-slider');
+        const empInput = document.getElementById('emp-input');
+        const hoursSlider = document.getElementById('hours-slider');
+        const hoursInput = document.getElementById('hours-input');
+        const salarySlider = document.getElementById('salary-slider');
+        const salaryInput = document.getElementById('salary-input');
+        const calcBtn = document.getElementById('calc-btn');
+        const resultsDiv = document.getElementById('calc-results');
+
+        // Sync sliders with inputs
+        function syncPair(slider, input) {
+            slider.addEventListener('input', () => { input.value = slider.value; });
+            input.addEventListener('input', () => {
+                let v = parseInt(input.value);
+                if (isNaN(v)) return;
+                v = Math.max(parseInt(slider.min), Math.min(parseInt(slider.max), v));
+                slider.value = v;
+                input.value = v;
+            });
+        }
+        syncPair(empSlider, empInput);
+        syncPair(hoursSlider, hoursInput);
+        syncPair(salarySlider, salaryInput);
+
+        // Animated counter
+        function animateCounter(element, target, duration) {
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing: ease-out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(start + (target - start) * eased);
+
+                element.textContent = current.toLocaleString('ar-SA');
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Format number
+        function fmt(n) {
+            return Math.round(n).toLocaleString('ar-SA');
+        }
+
+        // Calculate
+        calcBtn.addEventListener('click', () => {
+            const employees = parseInt(empInput.value) || 1;
+            const hoursPerWeek = parseInt(hoursInput.value) || 1;
+            const salary = parseInt(salaryInput.value) || 3000;
+
+            // Hourly rate = salary / 160 (working hours per month)
+            const hourlyRate = salary / 160;
+
+            // Time cost = employees × hours/week × 52 weeks × hourly rate
+            const timeCost = employees * hoursPerWeek * 52 * hourlyRate;
+
+            // Opportunity cost = 30% of time cost
+            const oppCost = timeCost * 0.3;
+
+            // Total
+            const totalLoss = timeCost + oppCost;
+
+            // Automation cost (average)
+            const automationCost = 10000;
+
+            // ROI days = (automationCost / totalLoss) * 365
+            const roiDays = Math.round((automationCost / totalLoss) * 365);
+
+            // ROI percentage = ((totalLoss - automationCost) / automationCost) * 100
+            const roiPercent = Math.round(((totalLoss - automationCost) / automationCost) * 100);
+
+            // Show results
+            resultsDiv.classList.remove('hidden');
+
+            // Animate main counter
+            animateCounter(document.getElementById('total-loss'), totalLoss, 1500);
+
+            // Set breakdown
+            setTimeout(() => {
+                document.getElementById('time-cost').textContent = fmt(timeCost);
+                document.getElementById('opp-cost').textContent = fmt(oppCost);
+                document.getElementById('annual-saving').textContent = fmt(totalLoss);
+                document.getElementById('roi-days').textContent = roiDays > 0 ? roiDays : 1;
+                document.getElementById('roi-percent').textContent = roiPercent > 0 ? roiPercent : 100;
+            }, 300);
+
+            // Scroll to results
+            setTimeout(() => {
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
+
+            // Save to localStorage
+            try {
+                localStorage.setItem('calc_data', JSON.stringify({
+                    employees, hoursPerWeek, salary, totalLoss, timestamp: Date.now()
+                }));
+            } catch (e) { /* ignore */ }
+        });
+
+        // Load from localStorage if available
+        try {
+            const saved = JSON.parse(localStorage.getItem('calc_data'));
+            if (saved && (Date.now() - saved.timestamp) < 86400000) { // 24 hours
+                empSlider.value = empInput.value = saved.employees;
+                hoursSlider.value = hoursInput.value = saved.hoursPerWeek;
+                salarySlider.value = salaryInput.value = saved.salary;
+            }
+        } catch (e) { /* ignore */ }
+
+
+        // =============================================
+        // COPY LINK
+        // =============================================
+        function copyArticleLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                btn.classList.add('bg-saudi', 'text-white');
+                btn.classList.remove('bg-gray-100', 'text-gray-500');
+                setTimeout(() => {
+                    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+                    btn.classList.remove('bg-saudi', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-500');
+                }, 2000);
+            }).catch(() => {
+                const t = document.createElement('textarea');
+                t.value = url;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand('copy');
+                document.body.removeChild(t);
+            });
+        }
+    </script>
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

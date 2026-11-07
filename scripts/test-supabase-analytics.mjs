@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import { onRequestGet as analytics } from '../functions/api/admin/analytics.js';
+import { onRequestGet as visitorDetail } from '../functions/api/admin/visitors/[id].js';
+const env = { SUPABASE_URL:'https://project-ref.supabase.co', SUPABASE_ANON_KEY:'anon', SUPABASE_SERVICE_ROLE_KEY:'service' };
+const requests=[];
+globalThis.fetch=async(input,init={})=>{
+ const url=new URL(String(input));requests.push({url,init});
+ if(url.pathname==='/auth/v1/user') return Response.json({id:'admin-uuid',email:'owner@example.com'});
+ if(url.pathname.endsWith('/admin_profiles')) return Response.json([{user_id:'admin-uuid',role:'owner',is_active:true}]);
+ if(url.pathname==='/rest/v1/rpc/admin_analytics_summary') return Response.json({range_days:30,unique_visitors:7,total_page_views:15,daily:[],top_pages:[],sources:[],event_counts:{page_view:15},sessions:{sessions_in_range:9},countries:[],devices:[]});
+ if(url.pathname==='/rest/v1/visitors') return Response.json([{id:'123e4567-e89b-42d3-a456-426614174000',visitor_key:'visitor-key-123456',first_seen_at:'2026-11-01T00:00:00Z',last_seen_at:'2026-11-06T00:00:00Z'}]);
+ if(url.pathname==='/rest/v1/visitor_sessions') return Response.json([{id:'session-1',started_at:'2026-11-06T00:00:00Z',landing_path:'/'}]);
+ if(url.pathname==='/rest/v1/tracking_events') return Response.json([{event_type:'page_view',page_path:'/',occurred_at:'2026-11-06T00:00:00Z'}]);
+ return Response.json({}, {status:404});
+};
+const authHeaders={Authorization:'Bearer valid-token'};
+let response=await analytics({request:new Request('https://site.example/api/admin/analytics?days=30',{headers:authHeaders}),env});
+assert.equal(response.status,200);
+let data=await response.json();assert.equal(data.unique_visitors,7);assert.equal(data.sessions.sessions_in_range,9);
+const rpc=requests.find(x=>x.url.pathname.endsWith('/rpc/admin_analytics_summary'));
+assert.ok(rpc,'analytics should use bounded server-side RPC, not download raw event rows');
+assert.equal(rpc.init.method,'POST');assert.equal(rpc.init.headers.get('apikey'),'anon');assert.equal(rpc.init.headers.get('authorization'),'Bearer valid-token');
+response=await analytics({request:new Request('https://site.example/api/admin/analytics?days=999',{headers:authHeaders}),env});assert.equal(response.status,200);assert.equal(JSON.parse(requests.filter(x=>x.url.pathname.endsWith('/rpc/admin_analytics_summary')).at(-1).init.body).p_days,90);
+response=await visitorDetail({request:new Request('https://site.example/api/admin/visitors/not-a-uuid',{headers:authHeaders}),env,params:{id:'not-a-uuid'}});assert.equal(response.status,400);
+response=await visitorDetail({request:new Request('https://site.example/api/admin/visitors/123e4567-e89b-42d3-a456-426614174000',{headers:authHeaders}),env,params:{id:'123e4567-e89b-42d3-a456-426614174000'}});assert.equal(response.status,200);data=await response.json();assert.equal(data.sessions.length,1);assert.ok(data.visitor.visitor_key.includes('…'));
+console.log('Supabase analytics tests passed: admin-only RPC, bounded range, visitor UUID validation, session and event timeline.');

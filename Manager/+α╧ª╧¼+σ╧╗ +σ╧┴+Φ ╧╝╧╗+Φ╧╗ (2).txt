@@ -1,0 +1,8 @@
+https://n8n.io/workflows/12921-monitor-construction-execution-from-google-drive-photos-with-gpt41mini-gmail-and-google-sheets/
+
+https://n8n.io/workflows/5478-ai-powered-scrum-master-assistant-with-openai-slack-and-asana-integration/
+
+https://n8n.io/workflows/2800-zoom-ai-meeting-assistant-creates-mail-summary-clickup-tasks-and-follow-up-call/
+
+
+https://n8n.io/workflows/10523-task-escalation-system-with-google-sheets-gmail-telegram-and-jira-automation/

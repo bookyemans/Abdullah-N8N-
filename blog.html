@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المدونة التقنية | عبدالله نبيل - خبير أتمتة N8N</title>
+    <meta name="description" content="مقالات ورؤى عملية حول أتمتة الأعمال، N8N، الذكاء الاصطناعي، والتحول الرقمي من خبير الأتمتة عبدالله نبيل.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        /* Blog card filter */
+        .blog-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .blog-card.hidden-filter {
+            opacity: 0;
+            transform: scale(0.85);
+            position: absolute;
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .blog-card.show-filter {
+            opacity: 1;
+            transform: scale(1);
+            position: relative;
+            pointer-events: auto;
+        }
+
+        .filter-btn.active {
+            background-color: #155724;
+            color: white;
+            border-color: #155724;
+            box-shadow: 0 4px 14px rgba(21, 87, 36, 0.3);
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <!-- SHARED COMPONENT: BLOG_HEADER START -->
+<header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="blog.html" class="text-saudi font-bold relative group">المدونة<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">المدونة</a>
+                <a href="index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- SHARED COMPONENT: BLOG_HEADER END -->
+
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#f0fdf4"/></svg>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6 fade-up">
+                <a href="index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-saudi font-bold">المدونة</span>
+            </div>
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <h1 class="text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 leading-tight mb-6">
+                    المدونة <span class="text-gradient">التقنية</span>
+                </h1>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    رؤى وأفكار عملية في عالم الأتمتة والذكاء الاصطناعي. مقالات مبنية على خبرة حقيقية من 50+ مشروع ناجح لمساعدتك على فهم الإمكانيات واتخاذ قرارات أفضل.
+                </p>
+                <!-- Quick Stats -->
+                <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        <span>14 مقالة منشورة</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                        <span>9 تصنيفات متنوعة</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>قراءة 5-12 دقيقة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         BLOG CONTENT: FILTERS + GRID + SIDEBAR
+         ============================================ -->
+    <section class="py-12 lg:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Filter Bar -->
+            <div class="mb-12 fade-up">
+                <div class="flex flex-wrap items-center justify-center gap-3" id="filter-bar">
+                    <button class="filter-btn active px-5 py-2.5 rounded-full text-sm font-bold border-2 border-saudi bg-saudi text-white hover:shadow-lg transition-all" data-filter="all">
+                        الكل
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-all" data-filter="comparisons">
+                        ⚖️ مقارنات
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-green-400 hover:text-green-600 transition-all" data-filter="tips">
+                        💡 نصائح
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all" data-filter="ai">
+                        🤖 ذكاء اصطناعي
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-orange-400 hover:text-orange-600 transition-all" data-filter="marketing">
+                        📣 تسويق
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-yellow-500 hover:text-yellow-700 transition-all" data-filter="success">
+                        🏆 قصص نجاح
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-all" data-filter="predictions">
+                        🔮 توقعات
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-teal-400 hover:text-teal-600 transition-all" data-filter="finance">
+                        💰 محاسبة ومالية
+                    </button>
+                    <button class="filter-btn px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-pink-400 hover:text-pink-600 transition-all" data-filter="hr">
+                        👥 موارد بشرية
+                    </button>
+                </div>
+                <div class="text-center mt-4">
+                    <p class="text-sm text-gray-500">عرض <span id="visible-count" class="font-bold text-saudi">0</span> مقالة</p>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid lg:grid-cols-4 gap-8">
+
+                <!-- Articles Grid (3 columns on lg) -->
+                <div class="lg:col-span-3">
+                    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8" id="blog-grid">
+                        <p id="blog-loading" class="col-span-full text-center text-gray-500 py-12">جارٍ تحميل المقالات...</p>
+                    </div>
+
+                    <!-- No Results -->
+                    <div id="no-results" class="hidden text-center py-16">
+                        <div class="text-6xl mb-4">📝</div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">لا توجد مقالات في هذا التصنيف بعد</h3>
+                        <p class="text-gray-600">سيتم إضافة مقالات جديدة قريباً. تابعنا!</p>
+                    </div>
+                </div>
+
+                <!-- SIDEBAR -->
+                <aside class="lg:col-span-1 space-y-8 fade-up" style="transition-delay:200ms;">
+
+                    <!-- Categories Widget -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                            التصنيفات
+                        </h3>
+                        <ul class="space-y-2">
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="comparisons">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">مقارنات</span>
+                                    </div>
+                                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">2</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="tips">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">نصائح عملية</span>
+                                    </div>
+                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">2</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="ai">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">ذكاء اصطناعي</span>
+                                    </div>
+                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-bold">2</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="marketing">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-orange-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">تسويق ومبيعات</span>
+                                    </div>
+                                    <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">2</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="success">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">قصص نجاح</span>
+                                    </div>
+                                    <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-bold">2</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="predictions">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-gray-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">توقعات</span>
+                                    </div>
+                                    <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full font-bold">2</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="finance">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-teal-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">محاسبة ومالية</span>
+                                    </div>
+                                    <span class="text-xs bg-teal-100 text-teal-700 px-2 py-0.5 rounded-full font-bold">1</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="sidebar-filter w-full flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-sm transition-all text-right" data-filter="hr">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-pink-500"></span>
+                                        <span class="text-sm font-medium text-gray-700">موارد بشرية</span>
+                                    </div>
+                                    <span class="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full font-bold">1</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter Subscribe -->
+                    <div class="bg-saudi rounded-2xl p-6 text-white relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div class="relative z-10">
+                            <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2">اشترك في النشرة</h3>
+                            <p class="text-green-100 text-sm mb-5 leading-relaxed">احصل على أحدث المقالات ونصائح الأتمتة مباشرة في بريدك. بدون سبام، وعد!</p>
+                            <form class="space-y-3" onsubmit="handleSubscribe(event)">
+                                <input type="text" placeholder="اسمك الأول" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-green-200 focus:outline-none focus:border-white/50 text-sm" required>
+                                <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-green-200 focus:outline-none focus:border-white/50 text-sm" dir="ltr" required>
+                                <button type="submit" class="w-full py-3 bg-white text-saudi font-bold rounded-lg hover:bg-gray-100 transition-all text-sm shadow-lg">
+                                    اشترك الآن مجاناً
+                                </button>
+                            </form>
+                            <p class="text-green-200 text-xs mt-3 text-center">انضم لأكثر من 500 متابع 🚀</p>
+                        </div>
+                        <!-- Success Message -->
+                        <div id="subscribe-success" class="hidden relative z-10 text-center py-4">
+                            <div class="text-4xl mb-3">🎉</div>
+                            <h4 class="font-bold text-lg">تم الاشتراك بنجاح!</h4>
+                            <p class="text-green-100 text-sm mt-1">سنرسل لك أفضل المقالات قريباً.</p>
+                        </div>
+                    </div>
+
+                    <!-- Popular Tags -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            الأكثر بحثاً
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">N8N</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">أتمتة</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">ChatGPT</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">Zapier</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">رؤية 2030</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">API</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">WhatsApp Bot</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">CRM</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">محاسبة</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">موارد بشرية</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">خدمة عملاء</span>
+                            <span class="text-xs bg-white text-gray-600 px-3 py-1.5 rounded-full border border-gray-200 hover:border-saudi hover:text-saudi transition-colors cursor-pointer">مبيعات</span>
+                        </div>
+                    </div>
+
+                    <!-- About the Author -->
+                    <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 text-center">
+                        <div class="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg">
+                            <img src="image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="eager" decoding="async">
+                        </div>
+                        <h3 class="font-bold text-gray-900">عبدالله نبيل</h3>
+                        <p class="text-sm text-gray-500 mb-3">خبير أتمتة N8N</p>
+                        <p class="text-sm text-gray-600 leading-relaxed mb-4">أكتب عن تجاربي الحقيقية في أتمتة الأعمال لمساعدتك على اتخاذ قرارات أفضل.</p>
+                        <a href="about.html" class="text-saudi font-bold text-sm hover:underline">تعرف عليّ أكثر →</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="py-16 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg>
+        </div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-3xl fade-up">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">هل وجدت ما تبحث عنه؟</h2>
+            <p class="text-xl text-green-100 mb-8 leading-relaxed">
+                إذا كنت جاهزاً لتطبيق ما قرأته، تواصل معي ودعنا نحول أفكارك إلى أنظمة تعمل بالفعل.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <span>ناقش مشروعك مجاناً</span>
+                </a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <!-- SHARED COMPONENT: BLOG_FOOTER START -->
+<footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="blog.html" class="text-white font-bold text-sm">المدونة</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2025 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a><span>|</span><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- SHARED COMPONENT: BLOG_FOOTER END -->
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // Central blog catalog renderer and category filters.
+        const blogGrid = document.getElementById('blog-grid');
+        const visibleCountEl = document.getElementById('visible-count');
+        const noResultsEl = document.getElementById('no-results');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const sidebarFilters = document.querySelectorAll('.sidebar-filter');
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+        }
+        function applyFilter(filterValue) {
+            let count = 0;
+            filterBtns.forEach(btn => {
+                const active = btn.dataset.filter === filterValue;
+                btn.classList.toggle('active', active);
+                btn.classList.toggle('bg-saudi', active);
+                btn.classList.toggle('text-white', active);
+                btn.classList.toggle('border-saudi', active);
+            });
+            sidebarFilters.forEach(btn => btn.classList.toggle('bg-white', btn.dataset.filter === filterValue));
+            blogGrid.querySelectorAll('.blog-card').forEach(card => {
+                const show = filterValue === 'all' || card.dataset.category === filterValue;
+                card.classList.toggle('hidden-filter', !show);
+                card.classList.toggle('show-filter', show);
+                if (show) count++;
+            });
+            if (visibleCountEl) visibleCountEl.textContent = count;
+            if (noResultsEl) noResultsEl.classList.toggle('hidden', count !== 0);
+        }
+        function renderBlogCards(posts) {
+            blogGrid.innerHTML = posts.map((post, index) => {
+                const disabled = !post.available || !post.href;
+                const href = disabled ? '#' : escapeHtml(post.href);
+                const background = escapeHtml(post.background || 'bg-gradient-to-br from-gray-100 to-gray-200');
+                return `<article class="blog-card show-filter group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 fade-up" data-category="${escapeHtml(post.category)}" style="transition-delay:${(index % 3) * 80}ms">
+                    <div class="relative h-48 overflow-hidden ${background}">
+                        <div class="absolute inset-0 group-hover:scale-110 transition-transform duration-700 ${background}"></div>
+                        <div class="relative z-10 h-full flex items-center justify-center"><span class="text-6xl">${escapeHtml(post.icon)}</span></div>
+                        <div class="absolute top-4 right-4 z-10"><span class="bg-saudi text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">${escapeHtml(post.badge)}</span></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3"><span class="text-xs text-gray-500">${escapeHtml(post.date)}</span><span class="text-xs text-gray-400">•</span><span class="text-xs text-gray-500">${escapeHtml(post.readingTime)}</span></div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-saudi transition-colors leading-tight">${escapeHtml(post.title)}</h3>
+                        <p class="text-gray-600 text-sm line-clamp-2 mb-4 leading-relaxed">${escapeHtml(post.description)}</p>
+                        <a href="${href}" class="inline-flex items-center gap-1 text-saudi font-bold text-sm group-hover:underline" ${disabled ? 'aria-disabled="true" tabindex="-1" title="المقال غير متاح حالياً"' : ''}>اقرأ المزيد <span aria-hidden="true">←</span></a>
+                    </div>
+                </article>`;
+            }).join('');
+            applyFilter('all');
+        }
+        filterBtns.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.dataset.filter)));
+        sidebarFilters.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.dataset.filter)));
+        fetch('data/blog-posts.json')
+            .then(response => { if (!response.ok) throw new Error('تعذر تحميل كتالوج المقالات'); return response.json(); })
+            .then(data => {
+                if (!data || !Array.isArray(data.posts)) throw new Error('صيغة كتالوج المقالات غير صحيحة');
+                renderBlogCards(data.posts);
+                const loading = document.getElementById('blog-loading');
+                if (loading) loading.remove();
+            })
+            .catch(error => {
+                console.error(error);
+                const loading = document.getElementById('blog-loading');
+                if (loading) loading.textContent = 'تعذر تحميل المقالات حالياً. يرجى المحاولة لاحقاً.';
+            });
+
+        // =============================================
+        // NEWSLETTER SUBSCRIBE
+        // =============================================
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const form = e.target;
+            const successMsg = document.getElementById('subscribe-success');
+
+            // Hide form, show success
+            form.style.display = 'none';
+            successMsg.classList.remove('hidden');
+        }
+
+
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+
+        // =============================================
+        // NAVBAR SHADOW
+        // =============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 10);
+        }, { passive: true });
+
+
+        // =============================================
+        // FADE-UP ANIMATION
+        // =============================================
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
+
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="global-forms.js"></script>
+
+<!-- ✅ الترتيب مهم - النواة أولاً -->
+<script src="shared-tracker-core.js"></script>
+<script src="sheets-tracker.js"></script>
+<script src="telegram-tracker.js"></script>
+
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+</body>
+</html>

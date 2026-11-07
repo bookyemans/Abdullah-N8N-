@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أتمتة قسم الموارد البشرية: من التوظيف إلى التقاعد | عبدالله نبيل</title>
+    <meta name="description" content="دليل شامل لتحويل دورة حياة الموظف بالكامل إلى نظام آلي ذكي يوفر 60% من الوقت ويُقلل الأخطاء البشرية. من خبير الأتمتة عبدالله نبيل.">
+    <meta name="keywords" content="أتمتة الموارد البشرية, HR Automation, N8N, توظيف آلي, إدارة الحضور, رواتب, onboarding, تأهيل الموظفين, رؤية 2030">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ===================== ANIMATIONS ===================== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===================== GRADIENT TEXT ===================== */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+        .text-gradient-purple {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #7c3aed, #8b5cf6, #a78bfa);
+        }
+
+        /* ===================== FLOATING ANIMATION ===================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ===================== BACKGROUND DOTS ===================== */
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* ===================== CUSTOM SCROLLBAR ===================== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        /* ===================== ARTICLE PROSE ===================== */
+        .article-prose h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        .article-prose p {
+            color: #4b5563;
+            line-height: 1.9;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .article-prose blockquote {
+            border-right: 4px solid #155724;
+            padding: 1rem 1.5rem;
+            background: #f0fdf4;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #374151;
+        }
+
+        /* ===================== SECTION CARDS ===================== */
+        .section-card {
+            position: relative;
+            padding-right: 4.5rem;
+        }
+        .section-card::before {
+            content: attr(data-num);
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, #155724, #28a745);
+            color: white;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 14px rgba(21, 87, 36, 0.25);
+        }
+
+        /* ===================== WORKFLOW BOX ===================== */
+        .workflow-box {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            position: relative;
+            overflow: hidden;
+        }
+        .workflow-box::before {
+            content: 'WORKFLOW';
+            position: absolute;
+            top: 0.5rem;
+            left: 0.75rem;
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #89b4fa;
+            letter-spacing: 0.1em;
+            font-family: 'Cairo', sans-serif;
+        }
+        .workflow-box .step {
+            color: #a6e3a1;
+            font-weight: bold;
+        }
+        .workflow-box .arrow {
+            color: #f9e2af;
+            margin: 0 0.25rem;
+        }
+
+        /* ===================== TIMELINE ===================== */
+        .timeline-item {
+            position: relative;
+            padding-right: 3rem;
+            padding-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 0.65rem;
+            top: 2rem;
+            bottom: 0;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-dot {
+            position: absolute;
+            right: 0;
+            top: 0.25rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: #155724;
+            border: 3px solid #dcfce7;
+            z-index: 1;
+        }
+
+        /* ===================== TABLE OF CONTENTS ===================== */
+        .toc-link {
+            transition: all 0.2s;
+        }
+        .toc-link:hover {
+            padding-right: 0.5rem;
+            color: #155724;
+        }
+        .toc-link.active {
+            color: #155724;
+            font-weight: 700;
+            border-right: 3px solid #155724;
+            padding-right: 0.75rem;
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER (FIXED)
+         ============================================ -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../blog.html" class="text-saudi font-bold relative group">المدونة<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <!-- CTA + Mobile Button -->
+                <div class="flex items-center gap-4">
+                    <a href="../index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="../about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="../services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="../projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="../blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">المدونة</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="../index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ============================================
+         ARTICLE HERO
+         ============================================ -->
+    <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden bg-gradient-to-b from-gray-50 via-green-50/30 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#f0fdf4"/></svg>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Breadcrumb -->
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8 fade-up">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../blog.html" class="hover:text-saudi transition-colors">المدونة</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-saudi font-bold">الموارد البشرية</span>
+            </div>
+
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <!-- Category Badges -->
+                <div class="mb-6 flex items-center justify-center gap-3 flex-wrap">
+                    <span class="bg-purple-100 text-purple-800 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">👥 الموارد البشرية</span>
+                    <span class="bg-green-100 text-green-800 text-xs font-bold px-4 py-1.5 rounded-full shadow-sm">✓ للمدراء والمسؤولين</span>
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                    أتمتة قسم <span class="text-gradient">الموارد البشرية</span>: من التوظيف إلى التقاعد
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    دليل شامل لتحويل دورة حياة الموظف بالكامل إلى نظام آلي ذكي يوفر <strong class="text-saudi">60% من الوقت</strong> ويُقلل الأخطاء البشرية بنسبة تصل إلى 90%.
+                </p>
+
+                <!-- Meta Info -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                            <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <span class="font-semibold text-gray-700">عبدالله نبيل</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span>15 يناير 2025</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>12 دقيقة قراءة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FEATURED IMAGE
+         ============================================ -->
+    <section class="pb-8 bg-white fade-up">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <div class="rounded-2xl overflow-hidden shadow-lg border border-green-200/50 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 h-64 lg:h-80 flex items-center justify-center relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-green-200/20 to-transparent"></div>
+                <!-- Employee Lifecycle Diagram -->
+                <div class="relative z-10 w-full max-w-2xl px-6">
+                    <div class="flex items-center justify-between flex-wrap gap-y-4">
+                        <!-- Step 1 -->
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full shadow-md flex items-center justify-center text-xl lg:text-2xl border-2 border-green-300">📋</div>
+                            <span class="text-xs font-bold text-gray-700">التوظيف</span>
+                        </div>
+                        <svg class="w-6 h-6 text-green-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                        <!-- Step 2 -->
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full shadow-md flex items-center justify-center text-xl lg:text-2xl border-2 border-green-300">🎯</div>
+                            <span class="text-xs font-bold text-gray-700">التأهيل</span>
+                        </div>
+                        <svg class="w-6 h-6 text-green-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                        <!-- Step 3 -->
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full shadow-md flex items-center justify-center text-xl lg:text-2xl border-2 border-green-300">📊</div>
+                            <span class="text-xs font-bold text-gray-700">الأداء</span>
+                        </div>
+                        <svg class="w-6 h-6 text-green-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                        <!-- Step 4 -->
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full shadow-md flex items-center justify-center text-xl lg:text-2xl border-2 border-green-300">💰</div>
+                            <span class="text-xs font-bold text-gray-700">الرواتب</span>
+                        </div>
+                        <svg class="w-6 h-6 text-green-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                        <!-- Step 5 -->
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full shadow-md flex items-center justify-center text-xl lg:text-2xl border-2 border-green-300">📚</div>
+                            <span class="text-xs font-bold text-gray-700">التدريب</span>
+                        </div>
+                        <svg class="w-6 h-6 text-green-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                        <!-- Step 6 -->
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-12 h-12 lg:w-14 lg:h-14 bg-white rounded-full shadow-md flex items-center justify-center text-xl lg:text-2xl border-2 border-green-300">🚪</div>
+                            <span class="text-xs font-bold text-gray-700">الخروج</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-3 italic">دورة حياة الموظف الكاملة — كل مرحلة قابلة للأتمتة</p>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         ARTICLE CONTENT + SIDEBAR
+         ============================================ -->
+    <section class="py-12 lg:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
+
+                <!-- ============================
+                     MAIN ARTICLE CONTENT
+                     ============================ -->
+                <div class="lg:col-span-2">
+                    <article class="article-prose max-w-3xl">
+
+                        <!-- ==============================
+                             INTRODUCTION
+                             ============================== -->
+                        <div class="bg-green-50 border border-green-100 rounded-xl p-6 mb-10 fade-up">
+                            <p class="text-gray-700 leading-relaxed text-lg mb-4">
+                                <strong class="text-saudi text-xl">هل يقضي فريقك 20 ساعة أسبوعياً في إدخال بيانات الموظفين يدوياً؟</strong>
+                            </p>
+                            <p class="text-gray-700 leading-relaxed text-lg mb-4">
+                                الموارد البشرية التقليدية — <strong>بطيئة، مُرهقة، مليئة بالأخطاء</strong>. موظف يدخل بيانات يدوياً، آخر ينسى إرسال عقد، ثالث يحسب الرواتب على Excel ويخطئ في الأرقام. هذا ليس نظاماً — هذا فوضى مُنظّمة.
+                            </p>
+                            <p class="text-gray-700 leading-relaxed text-lg mb-0">
+                                في هذا الدليل الشامل، أشاركك <strong class="text-saudi">نظاماً متكاملاً</strong> أبنيه لعملائي لأتمتة <strong class="text-saudi">80% من مهام HR</strong> — من لحظة نشر إعلان الوظيفة حتى آخر يوم عمل للموظف. كل مرحلة موضحة بـ workflow عملي يمكنك تطبيقه.
+                            </p>
+                        </div>
+
+                        <!-- ==============================
+                             TABLE OF CONTENTS (Mobile)
+                             ============================== -->
+                        <div class="lg:hidden bg-gray-50 rounded-xl p-6 border border-gray-100 mb-10 fade-up">
+                            <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2 text-lg">
+                                <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                                محتويات المقالة
+                            </h3>
+                            <nav class="space-y-2">
+                                <a href="#section-1" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">1. التوظيف والتقديم</a>
+                                <a href="#section-2" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">2. التكامل والتأهيل (Onboarding)</a>
+                                <a href="#section-3" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">3. إدارة الأداء والحضور</a>
+                                <a href="#section-4" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">4. الرواتب والمزايا</a>
+                                <a href="#section-5" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">5. التدريب والتطوير</a>
+                                <a href="#section-6" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">6. الخروج والتقاعد</a>
+                                <a href="#comparison-table" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">7. جدول المقارنة الشامل</a>
+                                <a href="#implementation" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">8. خطة التنفيذ في 60 يوماً</a>
+                                <a href="#case-study" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">9. دراسة حالة حقيقية</a>
+                                <a href="#mistakes" class="toc-link block text-sm text-gray-600 hover:text-saudi py-1.5 pr-3 border-r-2 border-transparent">10. الأخطاء الشائعة</a>
+                            </nav>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 1: التوظيف والتقديم
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="section-1">
+                            <div class="section-card" data-num="1">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">📋</span>
+                                    التوظيف والتقديم
+                                </h2>
+                                <p class="text-saudi text-sm font-bold mb-4">التكلفة: 8 ساعات/أسبوع ← 30 دقيقة</p>
+                            </div>
+
+                            <p>
+                                التوظيف هو أكثر عملية تستهلك وقت فريق HR. نشر إعلانات، استقبال طلبات، فلترة السير الذاتية، جدولة مقابلات... كل هذا يتم يدوياً في معظم الشركات. الحل؟ <strong>سلسلة أتمتة متكاملة</strong> تتولى 90% من العمل.
+                            </p>
+
+                            <!-- Workflow -->
+                            <div class="my-6">
+                                <div class="text-xs font-bold text-gray-500 mb-2 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    سلسلة الأتمتة:
+                                </div>
+                                <div class="workflow-box">
+                                    <span class="step">إعلان وظيفي</span> <span class="arrow">←</span>
+                                    <span class="step">استلام طلب</span> <span class="arrow">←</span>
+                                    <span class="step">فلترة ذكية (AI)</span> <span class="arrow">←</span>
+                                    <span class="step">جدولة مقابلة آلية</span> <span class="arrow">←</span>
+                                    <span class="step">إرسال عرض وظيفي</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex flex-wrap gap-2 my-4">
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">LinkedIn Jobs</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Forms</span>
+                                <span class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-bold">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Calendar</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Zoom</span>
+                            </div>
+
+                            <p>
+                                كيف يعمل النظام: عند تقديم المرشح عبر النموذج، يقوم <strong>N8N</strong> بفلترة الطلبات تلقائياً حسب المعايير المطلوبة (سنوات الخبرة، المهارات، الموقع). المرشحون المؤهلون يحصلون على رابط حجز مقابلة تلقائي، والمرفوضون يتلقون إيميل اعتذار مهذب — كل شيء بدون تدخل بشري.
+                            </p>
+
+                            <!-- Real Example -->
+                            <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 mt-4 flex items-start gap-3">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span class="text-lg">💼</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-blue-800 mb-1">مثال حقيقي</h4>
+                                    <p class="text-sm text-blue-700 leading-relaxed mb-0">شركة عقارات سعودية استقبلت <strong>200 طلب توظيف في أسبوع واحد</strong>. أتمتة الفلترة وفّرت 40 ساعة عمل يدوي وقلّصت وقت التوظيف من 3 أسابيع إلى 5 أيام فقط.</p>
+                                </div>
+                            </div>
+
+                            <!-- Before/After -->
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
+                                    <div class="text-2xl mb-2">😫</div>
+                                    <span class="text-xs font-bold text-red-700 block">قبل الأتمتة</span>
+                                    <span class="text-lg font-black text-red-600 block mt-1">3 أسابيع</span>
+                                    <span class="text-xs text-red-500">لإتمام عملية التوظيف</span>
+                                </div>
+                                <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                                    <div class="text-2xl mb-2">🚀</div>
+                                    <span class="text-xs font-bold text-green-700 block">بعد الأتمتة</span>
+                                    <span class="text-lg font-black text-green-600 block mt-1">5 أيام</span>
+                                    <span class="text-xs text-green-500">توفير 76% من الوقت</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">النتيجة: تقليل وقت التوظيف 76% وتوفير 40 ساعة عمل يدوي</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 2: التكامل والتأهيل
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="section-2">
+                            <div class="section-card" data-num="2">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">🎯</span>
+                                    التكامل والتأهيل (Onboarding)
+                                </h2>
+                                <p class="text-saudi text-sm font-bold mb-4">من أسبوع كامل إلى يوم واحد</p>
+                            </div>
+
+                            <p>
+                                أول أسبوع للموظف الجديد هو الأهم. إذا كانت التجربة سيئة — حسابات لم تُفتح، معدات لم تصل، لا أحد يعرف من هو — فأنت تخسره نفسياً قبل أن يبدأ. <strong>نظام Onboarding الآلي</strong> يضمن تجربة احترافية من الثانية الأولى.
+                            </p>
+
+                            <!-- Workflow -->
+                            <div class="my-6">
+                                <div class="text-xs font-bold text-gray-500 mb-2 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    سلسلة الأتمتة:
+                                </div>
+                                <div class="workflow-box">
+                                    <span class="step">قبول العرض</span> <span class="arrow">←</span>
+                                    <span class="step">إنشاء حسابات</span> <span class="arrow">←</span>
+                                    <span class="step">طلب المعدات</span> <span class="arrow">←</span>
+                                    <span class="step">جدولة التدريب</span> <span class="arrow">←</span>
+                                    <span class="step">متابعة أسبوعية</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex flex-wrap gap-2 my-4">
+                                <span class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-bold">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Workspace</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Qiwa</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">HR System</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Slack</span>
+                            </div>
+
+                            <p>
+                                بمجرد قبول الموظف للعرض، يبدأ النظام بالعمل تلقائياً: إنشاء إيميل رسمي، فتح حسابات الأنظمة الداخلية، إرسال طلب معدات لقسم IT، جدولة جلسات تعريفية مع كل قسم، وإرسال رسالة ترحيب عبر واتساب.
+                            </p>
+
+                            <!-- Onboarding Checklist -->
+                            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 mt-6">
+                                <h4 class="font-bold text-gray-800 text-sm mb-3">✅ مهام تتم آلياً عند انضمام موظف جديد:</h4>
+                                <div class="grid sm:grid-cols-2 gap-2">
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>إنشاء إيميل رسمي</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>فتح حسابات الأنظمة</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>طلب جهاز كمبيوتر</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>إعداد بطاقة دخول</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>جدولة جلسة تعريفية</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>إرسال دليل الموظف</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>إضافة للتأمينات</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>تسجيل في نظام البصمة</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>إشعار المدير المباشر</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>متابعة بعد أسبوع</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">النتيجة: تكامل موظف جديد في يوم واحد بدلاً من أسبوع كامل</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 3: الأداء والحضور
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="section-3">
+                            <div class="section-card" data-num="3">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">📊</span>
+                                    إدارة الأداء والحضور
+                                </h2>
+                                <p class="text-saudi text-sm font-bold mb-4">تقارير حضور آلية 100% — لا حاجة لموظف إدخال بيانات</p>
+                            </div>
+
+                            <p>
+                                هل لا يزال لديك موظف يجمع أوراق الحضور ويدخلها في Excel؟ هذه المرحلة يجب أن تكون <strong>أتمتة بنسبة 100%</strong>. بيانات البصمة تُسحب تلقائياً، تُحسب ساعات العمل والتأخيرات، وتُرسل التقارير للمدراء دون أي تدخل.
+                            </p>
+
+                            <!-- Workflow -->
+                            <div class="my-6">
+                                <div class="text-xs font-bold text-gray-500 mb-2 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    سلسلة الأتمتة:
+                                </div>
+                                <div class="workflow-box">
+                                    <span class="step">بصمة / تسجيل دخول</span> <span class="arrow">←</span>
+                                    <span class="step">حساب ساعات العمل</span> <span class="arrow">←</span>
+                                    <span class="step">إشعار التأخير (واتساب)</span> <span class="arrow">←</span>
+                                    <span class="step">تقرير شهري للمدير</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex flex-wrap gap-2 my-4">
+                                <span class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-bold">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">جهاز البصمة</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Sheets</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">WhatsApp Business</span>
+                            </div>
+
+                            <p>
+                                النظام يعمل على مدار الساعة: يكتشف التأخير فوراً ويُرسل إشعاراً للموظف ومديره. في نهاية الشهر، يُولّد تقريراً شاملاً يشمل: أيام الحضور، الغياب، التأخيرات، الإجازات، وساعات العمل الإضافي — كل شيء جاهز للمراجعة بنقرة واحدة.
+                            </p>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">النتيجة: توفير 8 ساعات أسبوعياً — أتمتة 100% لإدخال بيانات الحضور</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 4: الرواتب والمزايا
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="section-4">
+                            <div class="section-card" data-num="4">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">💰</span>
+                                    الرواتب والمزايا
+                                </h2>
+                                <p class="text-saudi text-sm font-bold mb-4">رواتب محسوبة في 10 دقائق بدلاً من يومين</p>
+                            </div>
+
+                            <p>
+                                حساب الرواتب يدوياً = كابوس شهري. خصومات التأخير، بدلات العمل الإضافي، الإجازات المدفوعة، التأمينات الاجتماعية... خطأ واحد في الحساب يعني مشاكل مع الموظفين والجهات الرسمية.
+                            </p>
+
+                            <!-- Workflow -->
+                            <div class="my-6">
+                                <div class="text-xs font-bold text-gray-500 mb-2 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    سلسلة الأتمتة:
+                                </div>
+                                <div class="workflow-box">
+                                    <span class="step">سحب بيانات الحضور</span> <span class="arrow">←</span>
+                                    <span class="step">حساب الرواتب</span> <span class="arrow">←</span>
+                                    <span class="step">إنشاء كشوف</span> <span class="arrow">←</span>
+                                    <span class="step">إرسال للبنك</span> <span class="arrow">←</span>
+                                    <span class="step">إشعار الموظف</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex flex-wrap gap-2 my-4">
+                                <span class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-bold">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Excel / ERP</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Bank API</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Email</span>
+                            </div>
+
+                            <p>
+                                النظام الآلي يسحب بيانات الحضور، يحسب صافي الراتب لكل موظف مع جميع الخصومات والإضافات، يولّد كشف الراتب بصيغة PDF، ويمكن ربطه مع نظام البنك لتحويل الرواتب تلقائياً. الموظف يتلقى إشعاراً فور صدور الراتب.
+                            </p>
+
+                            <!-- Warning Box -->
+                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 mt-6 flex items-start gap-3">
+                                <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-amber-800 mb-1">⚠️ تنبيه أمني مهم</h4>
+                                    <p class="text-sm text-amber-700 leading-relaxed mb-0">البيانات المالية تتطلب <strong>تشفير إضافي</strong> وصلاحيات وصول محدودة. تأكد من تفعيل HTTPS، استخدام API tokens مشفّرة، وتقييد الوصول لفريق المالية فقط. لا تخزّن أرقام الحسابات البنكية في أي جداول مفتوحة.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">النتيجة: معالجة رواتب 150 موظف في 10 دقائق بدلاً من يومين كاملين</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 5: التدريب والتطوير
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="section-5">
+                            <div class="section-card" data-num="5">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">📚</span>
+                                    التدريب والتطوير
+                                </h2>
+                                <p class="text-saudi text-sm font-bold mb-4">خطة تطوير مخصصة لكل موظف — آلياً</p>
+                            </div>
+
+                            <p>
+                                التدريب لا يجب أن يكون عشوائياً. النظام الآلي يحلل <strong>فجوات المهارات</strong> بناءً على تقييم الأداء، يقترح دورات مناسبة، يسجّل الموظف تلقائياً، ويتابع تقدمه حتى الحصول على الشهادة.
+                            </p>
+
+                            <!-- Workflow -->
+                            <div class="my-6">
+                                <div class="text-xs font-bold text-gray-500 mb-2 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    سلسلة الأتمتة:
+                                </div>
+                                <div class="workflow-box">
+                                    <span class="step">تقييم مهارات</span> <span class="arrow">←</span>
+                                    <span class="step">اقتراح دورات (AI)</span> <span class="arrow">←</span>
+                                    <span class="step">تسجيل تلقائي</span> <span class="arrow">←</span>
+                                    <span class="step">متابعة التقدم</span> <span class="arrow">←</span>
+                                    <span class="step">شهادة إتمام</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex flex-wrap gap-2 my-4">
+                                <span class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-bold">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">LMS (Udemy Business)</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Forms</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Sheets</span>
+                            </div>
+
+                            <p>
+                                تخيّل: موظف مبيعات حصل على تقييم منخفض في "التفاوض". النظام يكتشف ذلك تلقائياً، يبحث في كتالوج الدورات عن "مهارات التفاوض"، يسجّل الموظف، ويُرسل له إشعاراً بجدول التدريب. بعد إتمام الدورة، يُحدّث ملفه تلقائياً.
+                            </p>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">النتيجة: كل موظف يتلقى خطة تطوير مخصصة — توفير 70% من وقت التخطيط</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 6: الخروج والتقاعد
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="section-6">
+                            <div class="section-card" data-num="6">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">🚪</span>
+                                    الخروج والتقاعد (Offboarding)
+                                </h2>
+                                <p class="text-saudi text-sm font-bold mb-4">خروج منظم — لا بيانات تضيع، لا مستحقات تُنسى</p>
+                            </div>
+
+                            <p>
+                                خروج الموظف بدون نظام = <strong>كارثة أمنية ومالية</strong>. حسابات تبقى مفتوحة، مستحقات تُنسى، معدات لا تُسترجع. نظام Offboarding الآلي يضمن أن كل شيء يتم بالتسلسل الصحيح.
+                            </p>
+
+                            <!-- Workflow -->
+                            <div class="my-6">
+                                <div class="text-xs font-bold text-gray-500 mb-2 flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    سلسلة الأتمتة:
+                                </div>
+                                <div class="workflow-box">
+                                    <span class="step">إشعار استقالة</span> <span class="arrow">←</span>
+                                    <span class="step">إيقاف الحسابات</span> <span class="arrow">←</span>
+                                    <span class="step">استلام المعدات</span> <span class="arrow">←</span>
+                                    <span class="step">تصفية مستحقات</span> <span class="arrow">←</span>
+                                    <span class="step">Exit Interview</span>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex flex-wrap gap-2 my-4">
+                                <span class="text-xs bg-green-100 text-green-800 px-3 py-1.5 rounded-full font-bold">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Google Forms</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">IT System</span>
+                                <span class="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full font-semibold">Finance System</span>
+                            </div>
+
+                            <p>
+                                عند تقديم الاستقالة رسمياً، يبدأ العد التنازلي: إشعار لـ IT لإغلاق الحسابات في آخر يوم عمل، إشعار للمالية لحساب مكافأة نهاية الخدمة والإجازات المتبقية، نموذج Exit Interview يُرسل تلقائياً، وتقرير نهائي يُرفق في ملف الموظف.
+                            </p>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">النتيجة: تقليل وقت الخروج من 3 أيام إلى نصف يوم — توفير 83%</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             COMPARISON TABLE
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="comparison-table">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3 flex items-center gap-3">
+                                <span class="text-2xl">📈</span>
+                                جدول المقارنة الشامل: قبل وبعد الأتمتة
+                            </h2>
+
+                            <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr class="bg-saudi text-white">
+                                            <th class="px-4 py-3 text-right font-bold">المرحلة</th>
+                                            <th class="px-4 py-3 text-center font-bold">قبل الأتمتة</th>
+                                            <th class="px-4 py-3 text-center font-bold">بعد الأتمتة</th>
+                                            <th class="px-4 py-3 text-center font-bold">التوفير</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">📋 التوظيف</td>
+                                            <td class="px-4 py-3 text-center text-red-600 font-semibold">3 أسابيع</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">5 أيام</td>
+                                            <td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold text-xs">76%</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50/50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">🎯 التأهيل</td>
+                                            <td class="px-4 py-3 text-center text-red-600 font-semibold">1 أسبوع</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">1 يوم</td>
+                                            <td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold text-xs">86%</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">📊 الحضور</td>
+                                            <td class="px-4 py-3 text-center text-red-600 font-semibold">8 ساعات/أسبوع</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">0 (آلي)</td>
+                                            <td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold text-xs">100%</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50/50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">💰 الرواتب</td>
+                                            <td class="px-4 py-3 text-center text-red-600 font-semibold">2 يوم</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">10 دقائق</td>
+                                            <td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold text-xs">99%</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">📚 التدريب</td>
+                                            <td class="px-4 py-3 text-center text-red-600 font-semibold">يدوي بالكامل</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">آلي ذكي</td>
+                                            <td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold text-xs">70%</span></td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50/50">
+                                            <td class="px-4 py-3 font-semibold text-gray-800">🚪 الخروج</td>
+                                            <td class="px-4 py-3 text-center text-red-600 font-semibold">3 أيام</td>
+                                            <td class="px-4 py-3 text-center text-green-600 font-semibold">نصف يوم</td>
+                                            <td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold text-xs">83%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             IMPLEMENTATION PLAN (60 Days)
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="implementation">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3 flex items-center gap-3">
+                                <span class="text-2xl">🗓️</span>
+                                خطة التنفيذ في 60 يوماً
+                            </h2>
+
+                            <p class="mb-8">
+                                لا تحاول بناء كل شيء دفعة واحدة. هذه خطة مُجرّبة نطبّقها مع عملائنا خطوة بخطوة لضمان النجاح والاستمرارية.
+                            </p>
+
+                            <!-- Timeline -->
+                            <div class="space-y-0">
+                                <!-- Week 1-2 -->
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="bg-saudi text-white text-xs font-bold px-3 py-1 rounded-full">الأسبوع 1-2</span>
+                                            <span class="text-sm font-bold text-gray-700">التدقيق والتحليل</span>
+                                        </div>
+                                        <ul class="space-y-1.5 text-sm text-gray-600">
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>رسم خريطة العمليات الحالية لكل مرحلة</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>تحديد 3 مراحل أولوية للأتمتة</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>جرد الأدوات والأنظمة الحالية</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Week 3-4 -->
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="bg-saudi text-white text-xs font-bold px-3 py-1 rounded-full">الأسبوع 3-4</span>
+                                            <span class="text-sm font-bold text-gray-700">البناء الأساسي</span>
+                                        </div>
+                                        <ul class="space-y-1.5 text-sm text-gray-600">
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>بناء workflows التأهيل (Onboarding)</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>بناء نظام الحضور الآلي</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>ربط الأنظمة ببعضها عبر N8N</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Week 5-6 -->
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="bg-saudi text-white text-xs font-bold px-3 py-1 rounded-full">الأسبوع 5-6</span>
+                                            <span class="text-sm font-bold text-gray-700">الاختبار والتعديل</span>
+                                        </div>
+                                        <ul class="space-y-1.5 text-sm text-gray-600">
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>تجربة على 5 موظفين جدد</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>جمع ملاحظات فريق HR</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>تعديل الأخطاء وتحسين التدفقات</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Week 7-8 -->
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="bg-saudi text-white text-xs font-bold px-3 py-1 rounded-full">الأسبوع 7-8</span>
+                                            <span class="text-sm font-bold text-gray-700">التوسع والتشغيل</span>
+                                        </div>
+                                        <ul class="space-y-1.5 text-sm text-gray-600">
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>تشغيل كامل لجميع المراحل</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>تدريب فريق HR على النظام</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-saudi font-bold mt-0.5">•</span>
+                                                <span>إعداد لوحة تحكم للمتابعة</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Week 9+ -->
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: #28a745;"></div>
+                                    <div class="bg-green-50 rounded-xl p-5 border border-green-200">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">الأسبوع 9+</span>
+                                            <span class="text-sm font-bold text-green-800">التحسين المستمر ✨</span>
+                                        </div>
+                                        <ul class="space-y-1.5 text-sm text-gray-600">
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-green-600 font-bold mt-0.5">•</span>
+                                                <span>إضافة مراحل متقدمة (رواتب، تدريب)</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-green-600 font-bold mt-0.5">•</span>
+                                                <span>ربط AI لتحليل بيانات الموظفين</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <span class="text-green-600 font-bold mt-0.5">•</span>
+                                                <span>قياس ROI وتحسين مستمر</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             CASE STUDY
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="case-study">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3 flex items-center gap-3">
+                                <span class="text-2xl">🏆</span>
+                                دراسة حالة حقيقية
+                            </h2>
+
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 lg:p-8">
+                                <!-- Company Info -->
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div class="w-14 h-14 bg-white rounded-xl shadow-md flex items-center justify-center flex-shrink-0 border border-green-200">
+                                        <span class="text-2xl">🏢</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 text-lg">مؤسسة تجارية سعودية متوسطة</h3>
+                                        <p class="text-sm text-gray-600">150 موظف • قطاع التجزئة • الرياض</p>
+                                    </div>
+                                </div>
+
+                                <!-- Problem -->
+                                <div class="bg-red-50 border border-red-100 rounded-xl p-4 mb-4">
+                                    <h4 class="font-bold text-red-800 text-sm mb-2">❌ المشكلة:</h4>
+                                    <p class="text-sm text-red-700 leading-relaxed mb-0">موظف HR واحد يعجز عن متابعة 150 موظف. إدخال البيانات يدوي، أخطاء متكررة في الرواتب، تأخير في إصدار العقود، وشكاوى مستمرة من الموظفين بسبب التأخير في الردود.</p>
+                                </div>
+
+                                <!-- Solution -->
+                                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+                                    <h4 class="font-bold text-blue-800 text-sm mb-2">💡 الحل:</h4>
+                                    <p class="text-sm text-blue-700 leading-relaxed mb-0">نظام متكامل يربط <strong>Qiwa + ERP + البنك + واتساب</strong> عبر N8N. أتمتة التأهيل، الحضور، الرواتب، والتقارير الشهرية. الموظف الواحد أصبح يدير 150 موظفاً بسهولة.</p>
+                                </div>
+
+                                <!-- Results Grid -->
+                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
+                                    <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-green-100">
+                                        <div class="text-2xl mb-1">⬇️</div>
+                                        <span class="text-2xl font-black text-saudi block">60%</span>
+                                        <span class="text-xs text-gray-600 block mt-1">تقليل وقت فريق HR</span>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-green-100">
+                                        <div class="text-2xl mb-1">⬆️</div>
+                                        <span class="text-2xl font-black text-saudi block">40%</span>
+                                        <span class="text-xs text-gray-600 block mt-1">زيادة رضا الموظفين</span>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-green-100">
+                                        <div class="text-2xl mb-1">⬇️</div>
+                                        <span class="text-2xl font-black text-saudi block">90%</span>
+                                        <span class="text-xs text-gray-600 block mt-1">تقليل أخطاء الرواتب</span>
+                                    </div>
+                                    <div class="bg-white rounded-xl p-4 text-center shadow-sm border border-green-100">
+                                        <div class="text-2xl mb-1">⬇️</div>
+                                        <span class="text-2xl font-black text-saudi block">50%</span>
+                                        <span class="text-xs text-gray-600 block mt-1">تقليل تكلفة التوظيف</span>
+                                    </div>
+                                </div>
+
+                                <blockquote class="mt-6 border-r-4 border-saudi bg-white/60 rounded-lg p-4">
+                                    "كنّا نحتاج 3 موظفين HR لإدارة 150 شخصاً. الآن موظف واحد يقوم بالعمل كله — والجودة أفضل."
+                                    <br><span class="text-sm text-gray-500 not-italic">— مدير العمليات، المؤسسة</span>
+                                </blockquote>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             COMMON MISTAKES
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="mistakes">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3 flex items-center gap-3">
+                                <span class="text-2xl">🚫</span>
+                                3 أخطاء شائعة تُجنّبها
+                            </h2>
+
+                            <div class="space-y-4">
+                                <!-- Mistake 1 -->
+                                <div class="bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <span class="text-red-600 font-bold text-lg">1</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start gap-2 mb-2">
+                                                <span class="text-red-600 font-bold">❌</span>
+                                                <span class="font-bold text-red-800">أتمتة كل شيء دفعة واحدة</span>
+                                            </div>
+                                            <p class="text-sm text-red-700 mb-3 leading-relaxed">تحاول أتمتة التوظيف والرواتب والحضور والتدريب في نفس الوقت = فشل مضمون. الفريق لن يستوعب التغيير.</p>
+                                            <div class="flex items-start gap-2 bg-green-50 rounded-lg p-3 border border-green-100">
+                                                <span class="text-green-600 font-bold">✅</span>
+                                                <span class="text-sm text-green-800 font-semibold">الحل: ابدأ بالتأهيل والحضور فقط. بعد شهر، أضف الرواتب. ثم التوظيف.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Mistake 2 -->
+                                <div class="bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <span class="text-red-600 font-bold text-lg">2</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start gap-2 mb-2">
+                                                <span class="text-red-600 font-bold">❌</span>
+                                                <span class="font-bold text-red-800">إهمال موافقات Qiwa والجهات الرسمية</span>
+                                            </div>
+                                            <p class="text-sm text-red-700 mb-3 leading-relaxed">أتمتة التوظيف بدون ربط مع Qiwa أو GOSI يعني مخالفات رسمية وغرامات مالية. الجهات الحكومية لها متطلبات محددة.</p>
+                                            <div class="flex items-start gap-2 bg-green-50 rounded-lg p-3 border border-green-100">
+                                                <span class="text-green-600 font-bold">✅</span>
+                                                <span class="text-sm text-green-800 font-semibold">الحل: ربط API رسمي مع Qiwa من البداية. تأكد من التوافق مع نظام العمل السعودي.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Mistake 3 -->
+                                <div class="bg-red-50 border border-red-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <span class="text-red-600 font-bold text-lg">3</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-start gap-2 mb-2">
+                                                <span class="text-red-600 font-bold">❌</span>
+                                                <span class="font-bold text-red-800">عدم تدريب فريق HR على النظام الجديد</span>
+                                            </div>
+                                            <p class="text-sm text-red-700 mb-3 leading-relaxed">تبني نظام رائع لكن الفريق يرفضه أو لا يعرف كيف يستخدمه. أفضل نظام في العالم لا قيمة له بدون تبنّي المستخدمين.</p>
+                                            <div class="flex items-start gap-2 bg-green-50 rounded-lg p-3 border border-green-100">
+                                                <span class="text-green-600 font-bold">✅</span>
+                                                <span class="text-sm text-green-800 font-semibold">الحل: ورشة تدريبية عملية + دليل مصوّر + فترة دعم 30 يوم بعد التشغيل.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             TOOLS BY COMPANY SIZE
+                             ============================== -->
+                        <div class="mb-14 fade-up" id="tools-table">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3 flex items-center gap-3">
+                                <span class="text-2xl">🛠️</span>
+                                الأدوات المقترحة حسب حجم الشركة
+                            </h2>
+
+                            <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr class="bg-gray-800 text-white">
+                                            <th class="px-4 py-3 text-right font-bold">حجم الشركة</th>
+                                            <th class="px-4 py-3 text-right font-bold">الأدوات المقترحة</th>
+                                            <th class="px-4 py-3 text-center font-bold">التكلفة التقريبية</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-4 py-4">
+                                                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">5–20 موظف</span>
+                                            </td>
+                                            <td class="px-4 py-4 text-gray-700">
+                                                <div class="flex flex-wrap gap-1.5">
+                                                    <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold">N8N</span>
+                                                    <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">Google Workspace</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-4 text-center font-bold text-gray-800">2,000–3,000 ريال</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50/50">
+                                            <td class="px-4 py-4">
+                                                <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 rounded-full">20–100 موظف</span>
+                                            </td>
+                                            <td class="px-4 py-4 text-gray-700">
+                                                <div class="flex flex-wrap gap-1.5">
+                                                    <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold">N8N</span>
+                                                    <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">HR System</span>
+                                                    <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">BambooHR</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-4 text-center font-bold text-gray-800">5,000–8,000 ريال</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 transition-colors">
+                                            <td class="px-4 py-4">
+                                                <span class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded-full">100+ موظف</span>
+                                            </td>
+                                            <td class="px-4 py-4 text-gray-700">
+                                                <div class="flex flex-wrap gap-1.5">
+                                                    <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full font-bold">N8N</span>
+                                                    <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">ERP (SAP/Oracle)</span>
+                                                    <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">Qiwa API</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-4 text-center font-bold text-gray-800">15,000+ ريال</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             CONCLUSION + CTA
+                             ============================== -->
+                        <div class="mb-12 fade-up" id="conclusion">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">📌 الخلاصة</h2>
+
+                            <p>
+                                الموارد البشرية الآلية ليست رفاهية أو مستقبلاً بعيداً — هي <strong>ميزة تنافسية حقيقية اليوم</strong>. الشركات التي تتبنى الأتمتة الآن ستوفّر الوقت والمال، وتستقطب أفضل الكفاءات بتجربة موظف احترافية من اليوم الأول.
+                            </p>
+
+                            <blockquote>
+                                "لا تسأل: هل نحتاج أتمتة HR؟ السؤال الصحيح: كم نخسر كل يوم بدونها؟"
+                            </blockquote>
+
+                            <!-- Summary -->
+                            <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8 mt-6">
+                                <h4 class="font-bold text-gray-900 mb-4">ملخص المراحل الست:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-saudi text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">1</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">📋 التوظيف</span>
+                                            <span class="text-gray-500 text-sm block">— من 3 أسابيع إلى 5 أيام (76%)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-saudi text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">2</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🎯 التأهيل</span>
+                                            <span class="text-gray-500 text-sm block">— من أسبوع إلى يوم واحد (86%)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-saudi text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">3</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">📊 الحضور</span>
+                                            <span class="text-gray-500 text-sm block">— أتمتة 100% (0 ساعات يدوية)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-saudi text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">4</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">💰 الرواتب</span>
+                                            <span class="text-gray-500 text-sm block">— من يومين إلى 10 دقائق (99%)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-saudi text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">5</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">📚 التدريب</span>
+                                            <span class="text-gray-500 text-sm block">— خطط مخصصة آلياً (70%)</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-saudi text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">6</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🚪 الخروج</span>
+                                            <span class="text-gray-500 text-sm block">— من 3 أيام إلى نصف يوم (83%)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dual CTA -->
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200/50 rounded-2xl p-8 text-center">
+                                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">هل تريد تقييم نظام HR في شركتك؟</h3>
+                                <p class="text-gray-600 mb-6 max-w-lg mx-auto">
+                                    احجز استشارة مجانية (30 دقيقة) لتقييم عمليات الموارد البشرية لديك وتحديد أولويات الأتمتة. أو حمّل قائمة المهام الجاهزة وابدأ بنفسك.
+                                </p>
+                                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                                    <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-saudi text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-saudi-light transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                        <span>استشارة HR مجانية (30 دقيقة)</span>
+                                    </a>
+                                    <a href="#" class="inline-flex items-center justify-center gap-2 border-2 border-saudi text-saudi font-bold py-4 px-8 rounded-full hover:bg-saudi hover:text-white transition-all duration-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                        <span>حمّل Checklist: 20 مهمة HR للأتمتة</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SHARE BUTTONS
+                             ============================== -->
+                        <div class="border-t border-gray-200 pt-8 fade-up">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <h4 class="font-bold text-gray-700 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                                    شارك المقالة:
+                                </h4>
+                                <div class="flex items-center gap-3">
+                                    <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="LinkedIn">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                    </a>
+                                    <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="X">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                    <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-700 hover:bg-green-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="واتساب">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                    </a>
+                                    <button onclick="copyArticleLink()" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 hover:bg-saudi hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="نسخ الرابط" id="copy-btn">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAGS -->
+                        <div class="mt-8 pt-6 border-t border-gray-100 fade-up">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-sm font-bold text-gray-500">الوسوم:</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">موارد بشرية</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">HR Automation</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">Onboarding</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">رواتب</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">Qiwa</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-saudi hover:text-white transition-colors cursor-pointer">رؤية 2030</span>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+
+                <!-- ============================
+                     SIDEBAR
+                     ============================ -->
+                <aside class="lg:col-span-1 fade-up" style="transition-delay:200ms;">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+
+                        <!-- Table of Contents (Desktop) -->
+                        <div class="hidden lg:block bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                                محتويات المقالة
+                            </h3>
+                            <nav class="space-y-1.5" id="toc-nav">
+                                <a href="#section-1" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">1. التوظيف والتقديم</a>
+                                <a href="#section-2" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">2. التكامل والتأهيل</a>
+                                <a href="#section-3" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">3. الأداء والحضور</a>
+                                <a href="#section-4" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">4. الرواتب والمزايا</a>
+                                <a href="#section-5" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">5. التدريب والتطوير</a>
+                                <a href="#section-6" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">6. الخروج والتقاعد</a>
+                                <a href="#comparison-table" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">7. جدول المقارنة</a>
+                                <a href="#implementation" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">8. خطة 60 يوم</a>
+                                <a href="#case-study" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">9. دراسة حالة</a>
+                                <a href="#mistakes" class="toc-link block text-sm text-gray-600 py-1.5 pr-3 border-r-2 border-transparent">10. أخطاء شائعة</a>
+                            </nav>
+                        </div>
+
+                        <!-- Author Card -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 text-center">
+                            <div class="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg ring-2 ring-green-200">
+                                <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="eager" decoding="async">
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg">عبدالله نبيل</h3>
+                            <p class="text-sm text-saudi font-semibold mb-3">خبير أتمتة الأنظمة الإدارية</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-5">
+                                أساعد الشركات على أتمتة عمليات HR والأنظمة الإدارية لتحقيق كفاءة تشغيلية غير مسبوقة. 50+ مشروع ناجح.
+                            </p>
+                            <a href="../index.html#contact" class="block w-full py-3 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all duration-300 shadow-md hover:shadow-lg text-sm">
+                                استشارة HR مجانية
+                            </a>
+                            <div class="flex justify-center gap-3 mt-4">
+                                <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-gray-800 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </a>
+                                <a href="https://wa.me/967718672576" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Related Articles -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                مقالات ذات صلة
+                            </h3>
+                            <div class="space-y-4">
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">📣</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">أتمتة التسويق: كيف تضاعف نتائجك بنصف الجهد</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">6 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">⚖️</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">N8N vs Zapier vs Make: أيهم يناسب عملك؟</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">7 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-green-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🏆</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">كيف وفّرنا 35% من تكاليف المبيعات</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">5 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="../blog.html" class="block text-center mt-5 text-saudi font-bold text-sm hover:underline">
+                                عرض جميع المقالات ←
+                            </a>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="bg-saudi rounded-2xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+                            <div class="relative z-10">
+                                <div class="text-2xl mb-2">👥</div>
+                                <h3 class="font-bold mb-2">نصائح HR أسبوعية</h3>
+                                <p class="text-green-200 text-sm mb-4">اشترك واحصل على أفضل ممارسات أتمتة الموارد البشرية.</p>
+                                <form class="space-y-2" onsubmit="handleSidebarSubscribe(event)">
+                                    <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-green-200 focus:outline-none focus:border-white/50 text-sm" dir="ltr" required>
+                                    <button type="submit" class="w-full py-2.5 bg-white text-saudi font-bold rounded-lg hover:bg-gray-100 transition-all text-sm">اشترك مجاناً</button>
+                                </form>
+                                <div id="sidebar-subscribe-success" class="hidden text-center py-3">
+                                    <p class="text-green-100 font-bold text-sm">✅ تم الاشتراك بنجاح!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="py-16 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg>
+        </div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-3xl fade-up">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">جاهز لتحويل قسم HR إلى نظام ذكي يعمل 24/7؟ 👥</h2>
+            <p class="text-xl text-green-100 mb-8 leading-relaxed">
+                دعني أبني لك نظام أتمتة متكامل يربط التوظيف، التأهيل، الحضور، الرواتب، والتدريب — كل شيء يعمل بسلاسة بدون تدخل يدوي.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <span>احجز استشارة مجانية</span>
+                </a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="../index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="../about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="../services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="../projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="../blog.html" class="text-white font-bold text-sm">المدونة</a></li>
+                        <li><a href="../index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2025 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a><span>|</span><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+        <script>
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+                menuIconOpen.classList.toggle('hidden');
+                menuIconClose.classList.toggle('hidden');
+            });
+        }
+
+        document.querySelectorAll('.mobile-nav-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+
+        // =============================================
+        // NAVBAR SHADOW
+        // =============================================
+        var navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        }, { passive: true });
+
+
+        // =============================================
+        // FADE-UP ANIMATION
+        // =============================================
+        function initFadeUp() {
+            var elements = document.querySelectorAll('.fade-up');
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+                elements.forEach(function (el) {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback: show all immediately
+                elements.forEach(function (el) {
+                    el.classList.add('visible');
+                });
+            }
+        }
+
+        // Run on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initFadeUp);
+        } else {
+            initFadeUp();
+        }
+
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                var targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    var offset = 80;
+                    var pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+
+
+        // =============================================
+        // ANIMATED COUNTERS
+        // =============================================
+        function animateCounter(element, target, duration) {
+            var startTime = performance.now();
+
+            function update(currentTime) {
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(target * eased);
+                element.textContent = current;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // Counter for stat cards
+        function initCounters() {
+            var statCounters = document.querySelectorAll('.counter-val');
+            if ('IntersectionObserver' in window) {
+                statCounters.forEach(function (counter) {
+                    var observer = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                var target = parseInt(entry.target.getAttribute('data-target'));
+                                animateCounter(entry.target, target, 1500);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.5 });
+                    observer.observe(counter);
+                });
+            } else {
+                statCounters.forEach(function (counter) {
+                    counter.textContent = counter.getAttribute('data-target');
+                });
+            }
+
+            // Counter for table
+            var comparisonTable = document.getElementById('comparison-table');
+            if (comparisonTable && 'IntersectionObserver' in window) {
+                var tableObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var counters = comparisonTable.querySelectorAll('.table-counter');
+                            counters.forEach(function (counter, index) {
+                                var target = parseInt(counter.getAttribute('data-target'));
+                                setTimeout(function () {
+                                    animateCounter(counter, target, 1200);
+                                }, index * 150);
+                            });
+                            tableObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                tableObserver.observe(comparisonTable);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCounters);
+        } else {
+            initCounters();
+        }
+
+
+        // =============================================
+        // COPY ARTICLE LINK
+        // =============================================
+        function copyArticleLink() {
+            var url = window.location.href;
+            var btn = document.getElementById('copy-btn');
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function () {
+                    showCopySuccess(btn);
+                }).catch(function () {
+                    fallbackCopy(url, btn);
+                });
+            } else {
+                fallbackCopy(url, btn);
+            }
+        }
+
+        function fallbackCopy(url, btn) {
+            var t = document.createElement('textarea');
+            t.value = url;
+            t.style.position = 'fixed';
+            t.style.opacity = '0';
+            document.body.appendChild(t);
+            t.select();
+            try {
+                document.execCommand('copy');
+                showCopySuccess(btn);
+            } catch (e) {
+                // silent fail
+            }
+            document.body.removeChild(t);
+        }
+
+        function showCopySuccess(btn) {
+            btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            btn.classList.add('bg-saudi', 'text-white');
+            btn.classList.remove('bg-gray-100', 'text-gray-500');
+            setTimeout(function () {
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+                btn.classList.remove('bg-saudi', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-500');
+            }, 2000);
+        }
+    </script>
+
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

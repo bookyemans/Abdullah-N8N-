@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معي | عبدالله نبيل - خبير أتمتة N8N</title>
+    <meta name="description" content="تواصل مع عبدالله نبيل لمناقشة مشروع أتمتة أعمالك. استشارة مجانية، رد خلال 24 ساعة.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        /* Custom select styling */
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 12px center;
+            background-size: 18px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-left: 40px;
+        }
+
+        /* Form field focus glow */
+        .form-field:focus {
+            box-shadow: 0 0 0 3px rgba(21, 87, 36, 0.1);
+        }
+
+        /* Success animation */
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .success-icon {
+            animation: checkmark 0.5s ease-out forwards;
+        }
+
+        /* Map dot pulse */
+        @keyframes mapPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+        .map-dot {
+            animation: mapPulse 2s ease-in-out infinite;
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <!-- SHARED COMPONENT: CONTACT_HEADER START -->
+<header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="blog.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">المدونة<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="contact.html" class="text-saudi font-bold relative group">تواصل معي<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="#contact-form" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">أرسل رسالة</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">المدونة</a>
+                <a href="contact.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="#contact-form" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">أرسل رسالة</a>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- SHARED COMPONENT: CONTACT_HEADER END -->
+
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#f0fdf4"/></svg>
+        </div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-6 fade-up">
+                <a href="index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-saudi font-bold">تواصل معي</span>
+            </div>
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <h1 class="text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 leading-tight mb-6">
+                    لنبدأ <span class="text-gradient">مشروعك</span> القادم
+                </h1>
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    متاح للعمل على مشاريع محلية وعالمية. سواء كنت في الرياض أو في أي مكان في العالم، أستطيع مساعدتك في أتمتة عملك وتحقيق نتائج استثنائية.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="font-medium">متاح حالياً للمشاريع</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>الرد خلال 24 ساعة</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>عمل عن بُعد عالمياً</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         MAIN: CONTACT INFO + FORM
+         ============================================ -->
+    <section class="py-16 lg:py-20 bg-white" id="contact-form">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-5 gap-10 lg:gap-12">
+
+                <!-- RIGHT COLUMN: Contact Info (2 cols) -->
+                <div class="lg:col-span-2 space-y-5 fade-up">
+                    <div class="mb-6">
+                        <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">معلومات التواصل</span>
+                        <h2 class="text-2xl lg:text-3xl font-bold text-gray-900">اختر الطريقة الأنسب لك</h2>
+                    </div>
+
+                    <!-- Email Card -->
+                    <a href="mailto:abdullah0nabil@gmail.com" class="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-saudi/20 transition-all group">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-saudi group-hover:bg-saudi group-hover:text-white transition-all flex-shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="text-xs text-gray-500 mb-0.5">البريد الإلكتروني</div>
+                            <div class="font-bold text-gray-900 group-hover:text-saudi transition-colors text-sm truncate">abdullah0nabil@gmail.com</div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-saudi transition-colors rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <!-- WhatsApp Card (Highlighted) -->
+                    <a href="https://wa.me/967718672576" target="_blank" class="flex items-center gap-4 bg-gradient-to-l from-green-50 to-emerald-50 p-5 rounded-xl border-2 border-green-200 shadow-md hover:shadow-lg transition-all group relative overflow-hidden">
+                        <div class="absolute top-2 left-2">
+                            <span class="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">⚡ الأسرع</span>
+                        </div>
+                        <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-green-500/20 flex-shrink-0">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="text-xs text-green-700 mb-0.5 font-medium">واتساب (الأسرع)</div>
+                            <div class="font-bold text-gray-900 text-sm" dir="ltr">+967 718672576</div>
+                            <div class="text-xs text-green-600 mt-0.5">الاستجابة خلال ساعة</div>
+                        </div>
+                        <svg class="w-5 h-5 text-green-400 group-hover:text-green-600 transition-colors rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <!-- LinkedIn Card -->
+                    <a href="https://linkedin.com/in/abdullah-nabil-n8n/" target="_blank" class="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-200 transition-all group">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all flex-shrink-0">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="text-xs text-gray-500 mb-0.5">LinkedIn</div>
+                            <div class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors text-sm">Abdullah Nabil</div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-blue-500 transition-colors rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <!-- X (Twitter) Card -->
+                    <a href="https://x.com/_Abdullah_nabil" target="_blank" class="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-300 transition-all group">
+                        <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-700 group-hover:bg-gray-800 group-hover:text-white transition-all flex-shrink-0">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="text-xs text-gray-500 mb-0.5">X (Twitter)</div>
+                            <div class="font-bold text-gray-900 group-hover:text-gray-700 transition-colors text-sm">@_Abdullah_nabil</div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-gray-600 transition-colors rotate-180 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+
+                    <!-- Location Card -->
+                    <div class="flex items-center gap-4 bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-saudi flex-shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs text-gray-500 mb-0.5">الموقع</div>
+                            <div class="font-bold text-gray-900 text-sm">الرياض، المملكة العربية السعودية 🇸🇦</div>
+                            <div class="text-xs text-saudi mt-0.5 font-medium">متاح للعمل عن بُعد عالمياً 🌍</div>
+                        </div>
+                    </div>
+
+                    <!-- Response Time Notice -->
+                    <div class="bg-saudi/5 border border-saudi/10 rounded-xl p-5 mt-2">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-saudi/10 rounded-lg flex items-center justify-center text-saudi flex-shrink-0 mt-0.5">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-sm mb-1">أوقات الاستجابة</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">أرد على جميع الرسائل خلال <strong class="text-saudi">24 ساعة</strong> كحد أقصى. للاستعجال، استخدم واتساب للحصول على رد خلال ساعة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEFT COLUMN: Contact Form (3 cols) -->
+                <div class="lg:col-span-3 fade-up" style="transition-delay:150ms;">
+                    <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 lg:p-10" id="form-container">
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">أرسل تفاصيل مشروعك</h2>
+                            <p class="text-gray-500 text-sm">املأ النموذج وسأتواصل معك في أقرب وقت لمناقشة التفاصيل.</p>
+                        </div>
+
+                        <form id="contact-main-form" action="/api/contact" method="POST" class="space-y-5" novalidate>
+                            <!-- Hidden Fields for Web3Forms -->
+                            <!-- Row 1: Name + Email -->
+                            <div class="grid sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="f-name" class="block text-sm font-medium text-gray-700 mb-1.5">الاسم الكامل <span class="text-red-500">*</span></label>
+                                    <input type="text" id="f-name" name="name" required class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm" placeholder="مثال: محمد أحمد">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-name">يرجى إدخال الاسم الكامل</p>
+                                </div>
+                                <div>
+                                    <label for="f-email" class="block text-sm font-medium text-gray-700 mb-1.5">البريد الإلكتروني <span class="text-red-500">*</span></label>
+                                    <input type="email" id="f-email" name="email" required class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm" placeholder="example@email.com" dir="ltr">
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-email">يرجى إدخال بريد إلكتروني صحيح</p>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Phone + Company -->
+                            <div class="grid sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="f-phone" class="block text-sm font-medium text-gray-700 mb-1.5">رقم الجوال</label>
+                                    <input type="tel" id="f-phone" name="phone" class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm" placeholder="05xxxxxxxx" dir="ltr">
+                                </div>
+                                <div>
+                                    <label for="f-company" class="block text-sm font-medium text-gray-700 mb-1.5">الشركة / المؤسسة</label>
+                                    <input type="text" id="f-company" name="company" class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm" placeholder="اسم الشركة (اختياري)">
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Service + Budget -->
+                            <div class="grid sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="f-service" class="block text-sm font-medium text-gray-700 mb-1.5">نوع الخدمة <span class="text-red-500">*</span></label>
+                                    <select id="f-service" name="service" required class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm bg-white">
+                                        <option value="">اختر نوع الخدمة...</option>
+                                        <option value="تدقيق وتحسين Workflow">تدقيق وتحسين Workflow</option>
+                                        <option value="بناء Workflow جديد">بناء Workflow جديد</option>
+                                        <option value="نظام أتمتة متكامل">نظام أتمتة متكامل</option>
+                                        <option value="دمج ذكاء اصطناعي">دمج ذكاء اصطناعي</option>
+                                        <option value="استشارة عامة">استشارة عامة</option>
+                                    </select>
+                                    <p class="text-red-500 text-xs mt-1 hidden" id="err-service">يرجى اختيار نوع الخدمة</p>
+                                </div>
+                                <div>
+                                    <label for="f-budget" class="block text-sm font-medium text-gray-700 mb-1.5">الميزانية المتوقعة</label>
+                                    <select id="f-budget" name="budget" class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm bg-white">
+                                        <option value="">اختر الميزانية...</option>
+                                        <option value="أقل من 2,000 ريال">أقل من 2,000 ريال</option>
+                                        <option value="2,000 - 5,000 ريال">2,000 - 5,000 ريال</option>
+                                        <option value="5,000 - 10,000 ريال">5,000 - 10,000 ريال</option>
+                                        <option value="أكثر من 10,000 ريال">أكثر من 10,000 ريال</option>
+                                        <option value="غير محدد بعد">غير محدد بعد</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Message -->
+                            <div>
+                                <label for="f-message" class="block text-sm font-medium text-gray-700 mb-1.5">وصف المشروع <span class="text-red-500">*</span></label>
+                                <textarea id="f-message" name="message" required rows="5" class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm resize-none" placeholder="أخبرني عن المشاكل التي تواجهها وما تريد تحقيقه. كلما كان الوصف أوضح، كان العرض أدق."></textarea>
+                                <p class="text-red-500 text-xs mt-1 hidden" id="err-message">يرجى وصف مشروعك (10 أحرف على الأقل)</p>
+                            </div>
+
+                            <!-- Row 5: Source -->
+                            <div>
+                                <label for="f-source" class="block text-sm font-medium text-gray-700 mb-1.5">كيف سمعت بي؟</label>
+                                <select id="f-source" name="source" class="form-field w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-saudi focus:ring-0 outline-none transition-all text-sm bg-white">
+                                    <option value="">اختر...</option>
+                                    <option value="LinkedIn">LinkedIn</option>
+                                    <option value="X (Twitter)">X (Twitter)</option>
+                                    <option value="بحث Google">بحث Google</option>
+                                    <option value="توصية صديق / زميل">توصية صديق / زميل</option>
+                                    <option value="أخرى">أخرى</option>
+                                </select>
+                            </div>
+
+                            <!-- Honeypot (Anti-Spam): real visitors must leave this field empty. -->
+                            <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+                                <label for="website">اترك هذا الحقل فارغاً</label>
+                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            <!-- Submit -->
+                            <button type="submit" id="submit-btn" class="w-full bg-saudi text-white font-bold py-4 rounded-xl hover:bg-saudi-light transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                <span>إرسال الطلب</span>
+                            </button>
+
+                            <p class="text-xs text-gray-400 text-center">بالضغط على "إرسال"، توافق على حفظ بيانات طلبك لاستخدامها في التواصل معك ومتابعة مشروعك.</p>
+                        </form>
+                    </div>
+
+                    <!-- Success Message (Hidden) -->
+                    <div id="form-success" class="hidden bg-white rounded-2xl shadow-xl border border-green-200 p-8 sm:p-12 text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 success-icon">
+                            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">تم إرسال رسالتك بنجاح! 🎉</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">شكراً لتواصلك. سأراجع تفاصيل مشروعك وأرد عليك خلال <strong class="text-saudi">24 ساعة</strong> كحد أقصى.</p>
+                        <p class="text-sm text-green-700 mb-5" data-lead-notice aria-live="polite"></p>
+                        <div class="bg-gray-50 rounded-xl p-5 mb-6">
+                            <h4 class="font-bold text-gray-800 text-sm mb-2">في هذه الأثناء:</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-saudi flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>تصفح <a href="projects.html" class="text-saudi font-bold hover:underline">مشاريعي السابقة</a></span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-saudi flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>اقرأ <a href="blog.html" class="text-saudi font-bold hover:underline">مقالاتي التقنية</a></span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-saudi flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>تابعني على <a href="https://linkedin.com/in/abdullah-nabil-n8n/" target="_blank" class="text-blue-600 font-bold hover:underline">LinkedIn</a></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <button onclick="resetForm()" class="inline-flex items-center gap-2 text-saudi font-bold hover:underline">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            إرسال رسالة أخرى
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         BOOKING / CALENDAR
+         ============================================ -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center fade-up">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 lg:p-12">
+                    <div class="w-16 h-16 bg-saudi/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">تفضل استشارة مباشرة؟</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">احجز موعداً مباشراً لمكالمة مدتها 15 دقيقة. سنناقش تحدياتك ونحدد إذا كانت الأتمتة مناسبة لعملك—بدون أي التزام.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-saudi text-white font-bold rounded-xl shadow-lg hover:bg-saudi-light hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span>احجز موعداً مجانياً</span>
+                        </a>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-4">متاح: الأحد - الخميس | 9:00 ص - 6:00 م (بتوقيت الرياض)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+       <!-- ============================================
+         GLOBAL REACH
+         ============================================ -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">التغطية الجغرافية</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">أعمل مع عملاء من حول العالم</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-3">مقرّي في الرياض، لكن خدماتي بلا حدود. أتعاون مع شركات ورواد أعمال في عدة دول عبر العمل عن بُعد.</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto fade-up" style="transition-delay:100ms;">
+                <!-- Main Card -->
+                <div class="bg-gradient-to-br from-gray-50 via-white to-green-50/30 rounded-3xl border border-gray-100 shadow-lg overflow-hidden">
+
+                    <!-- Top: Visual Network Section -->
+                    <div class="relative px-8 pt-10 pb-8 lg:px-12 lg:pt-14 lg:pb-10">
+                        <!-- Decorative Background Elements -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-saudi/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+                        <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-50 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4"></div>
+
+                        <!-- Central Hub Design -->
+                        <div class="relative flex flex-col items-center">
+                            <!-- Center Node: Saudi Arabia -->
+                            <div class="relative z-10 mb-8">
+                                <div class="w-24 h-24 bg-white rounded-full shadow-xl border-4 border-saudi/20 flex items-center justify-center relative">
+                                    <span class="text-4xl">🇸🇦</span>
+                                    <!-- Pulse Ring -->
+                                    <div class="absolute inset-0 rounded-full border-2 border-saudi/20 animate-ping opacity-30"></div>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <span class="font-black text-gray-900 text-sm">الرياض</span>
+                                    <span class="block text-xs text-saudi font-bold">المقر الرئيسي</span>
+                                </div>
+                            </div>
+
+                            <!-- Connection Lines (CSS-drawn) -->
+                            <div class="hidden lg:block absolute top-[70px] left-1/2 -translate-x-1/2 w-full max-w-2xl">
+                                <!-- Line to Left -->
+                                <div class="absolute top-0 right-[calc(50%+48px)] w-[calc(50%-120px)] h-[1px] bg-gradient-to-r from-blue-300/50 to-saudi/30" style="top:12px;"></div>
+                                <div class="absolute top-0 left-[calc(50%+48px)] w-[calc(50%-120px)] h-[1px] bg-gradient-to-l from-purple-300/50 to-saudi/30" style="top:12px;"></div>
+                                <!-- Diagonal Lines -->
+                                <div class="absolute w-[1px] h-20 bg-gradient-to-b from-saudi/20 to-yellow-300/40 origin-top" style="top:12px; right:calc(50% + 30px); transform:rotate(35deg);"></div>
+                                <div class="absolute w-[1px] h-20 bg-gradient-to-b from-saudi/20 to-emerald-300/40 origin-top" style="top:12px; left:calc(50% + 30px); transform:rotate(-35deg);"></div>
+                            </div>
+
+                            <!-- Satellite Nodes -->
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 w-full mt-4 lg:mt-8">
+                                <!-- Node 1: UAE -->
+                                <div class="group flex flex-col items-center">
+                                    <div class="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-blue-100 flex items-center justify-center group-hover:border-blue-400 group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                                        <span class="text-2xl">🇦🇪</span>
+                                    </div>
+                                    <span class="font-bold text-gray-800 text-sm mt-2">الإمارات</span>
+                                    <span class="text-xs text-blue-600 font-medium bg-blue-50 px-2 py-0.5 rounded-full mt-1">عملاء نشطين</span>
+                                </div>
+
+                                <!-- Node 2: Egypt -->
+                                <div class="group flex flex-col items-center">
+                                    <div class="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-yellow-100 flex items-center justify-center group-hover:border-yellow-400 group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                                        <span class="text-2xl">🇪🇬</span>
+                                    </div>
+                                    <span class="font-bold text-gray-800 text-sm mt-2">مصر</span>
+                                    <span class="text-xs text-yellow-700 font-medium bg-yellow-50 px-2 py-0.5 rounded-full mt-1">مشاريع سابقة</span>
+                                </div>
+
+                                <!-- Node 3: Kuwait -->
+                                <div class="group flex flex-col items-center">
+                                    <div class="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-emerald-100 flex items-center justify-center group-hover:border-emerald-400 group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                                        <span class="text-2xl">🇰🇼</span>
+                                    </div>
+                                    <span class="font-bold text-gray-800 text-sm mt-2">الكويت</span>
+                                    <span class="text-xs text-emerald-700 font-medium bg-emerald-50 px-2 py-0.5 rounded-full mt-1">شراكات</span>
+                                </div>
+
+                                <!-- Node 4: Global -->
+                                <div class="group flex flex-col items-center">
+                                    <div class="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-purple-100 flex items-center justify-center group-hover:border-purple-400 group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
+                                        <span class="text-2xl">🌍</span>
+                                    </div>
+                                    <span class="font-bold text-gray-800 text-sm mt-2">عالمياً</span>
+                                    <span class="text-xs text-purple-700 font-medium bg-purple-50 px-2 py-0.5 rounded-full mt-1">عمل عن بُعد</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom: Stats Bar -->
+                    <div class="bg-gray-900 px-8 py-6 lg:px-12">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-black text-white">4+</div>
+                                <div class="text-xs text-gray-400 font-medium mt-1">دول مُغطّاة</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-black text-white">50+</div>
+                                <div class="text-xs text-gray-400 font-medium mt-1">مشروع مُنجز</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-black text-white">100%</div>
+                                <div class="text-xs text-gray-400 font-medium mt-1">عمل عن بُعد</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl lg:text-3xl font-black text-saudi-light flex items-center justify-center gap-1">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                    متاح
+                                </div>
+                                <div class="text-xs text-gray-400 font-medium mt-1">جاهز لمشروعك</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TIPS BEFORE CONTACT
+         ============================================ -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">قبل أن تتواصل</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">3 نصائح لمحادثة أكثر إنتاجية</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Tip 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center fade-up hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-5 text-saudi">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <div class="w-8 h-8 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm mx-auto mb-4">1</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">جهّز وصفاً واضحاً</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">اكتب المشكلة التي تواجهها والنتيجة التي تريد تحقيقها. كلما كان الوصف أوضح، كان العرض أدق وأسرع.</p>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center fade-up hover:shadow-md transition-shadow" style="transition-delay:100ms;">
+                    <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-5 text-blue-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                    </div>
+                    <div class="w-8 h-8 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm mx-auto mb-4">2</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">حدد أولوياتك</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">ما الأهم لك: السرعة في التنفيذ؟ التكلفة الأقل؟ الميزات الأكثر؟ هذا يساعدني في تصميم الحل المثالي.</p>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center fade-up hover:shadow-md transition-shadow" style="transition-delay:200ms;">
+                    <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-5 text-purple-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div class="w-8 h-8 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm mx-auto mb-4">3</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">فكّر في الميزانية</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">حتى لو تقريبية. معرفة ميزانيتك يساعدني في اقتراح الحل الأنسب بدلاً من إضاعة وقتك في عروض غير مناسبة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <!-- SHARED COMPONENT: CONTACT_FOOTER START -->
+<footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors text-sm">المدونة</a></li>
+                        <li><a href="contact.html" class="text-white font-bold text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © <span id="footer-year"></span> | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a><span>|</span><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- SHARED COMPONENT: CONTACT_FOOTER END -->
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // =============================================
+        // DYNAMIC YEAR
+        // =============================================
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+
+        // =============================================
+        // FORM VALIDATION & REAL SUBMISSION
+        // =============================================
+        const form = document.getElementById('contact-main-form');
+        const formContainer = document.getElementById('form-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const formSuccess = document.getElementById('form-success');
+// Error elements
+        const errors = {
+            name: document.getElementById('err-name'),
+            email: document.getElementById('err-email'),
+            service: document.getElementById('err-service'),
+            message: document.getElementById('err-message')
+        };
+
+        // Fields
+        const fields = {
+            name: document.getElementById('f-name'),
+            email: document.getElementById('f-email'),
+            service: document.getElementById('f-service'),
+            message: document.getElementById('f-message')
+        };
+
+        function showError(field, errorEl) {
+            field.classList.add('border-red-400');
+            field.classList.remove('border-gray-300');
+            errorEl.classList.remove('hidden');
+        }
+
+        function hideError(field, errorEl) {
+            field.classList.remove('border-red-400');
+            field.classList.add('border-gray-300');
+            errorEl.classList.add('hidden');
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Real-time validation on input
+        fields.name.addEventListener('input', function() {
+            if (this.value.trim().length >= 2) hideError(this, errors.name);
+        });
+        fields.email.addEventListener('input', function() {
+            if (validateEmail(this.value.trim())) hideError(this, errors.email);
+        });
+        fields.service.addEventListener('change', function() {
+            if (this.value) hideError(this, errors.service);
+        });
+        fields.message.addEventListener('input', function() {
+            if (this.value.trim().length >= 10) hideError(this, errors.message);
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validate name
+            if (fields.name.value.trim().length < 2) {
+                showError(fields.name, errors.name);
+                isValid = false;
+            } else {
+                hideError(fields.name, errors.name);
+            }
+
+            // Validate email
+            if (!validateEmail(fields.email.value.trim())) {
+                showError(fields.email, errors.email);
+                isValid = false;
+            } else {
+                hideError(fields.email, errors.email);
+            }
+
+            // Validate service
+            if (!fields.service.value) {
+                showError(fields.service, errors.service);
+                isValid = false;
+            } else {
+                hideError(fields.service, errors.service);
+            }
+
+            // Validate message
+            if (fields.message.value.trim().length < 10) {
+                showError(fields.message, errors.message);
+                isValid = false;
+            } else {
+                hideError(fields.message, errors.message);
+            }
+
+            if (!isValid) {
+                const firstError = form.querySelector('.border-red-400');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+                return;
+            }
+
+            // Show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>جاري الإرسال...</span>
+            `;
+
+            // Save the lead in Supabase through the same-origin Cloudflare Function.
+            // The browser never receives the Web3Forms or Supabase service secrets.
+            try {
+                const readStored = (storage, key) => {
+                    try {
+                        const value = storage.getItem(key);
+                        if (!value) return '';
+                        try { const parsed = JSON.parse(value); return parsed && typeof parsed === 'object' ? (parsed.id || '') : String(parsed); }
+                        catch { return value; }
+                    } catch { return ''; }
+                };
+                const submissionRef = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+                const payload = {
+                    submissionRef,
+                    name: form.elements.name.value,
+                    email: form.elements.email.value,
+                    phone: form.elements.phone?.value || '',
+                    company: form.elements.company?.value || '',
+                    service: form.elements.service.value,
+                    budget: form.elements.budget?.value || '',
+                    referralSource: form.elements.source?.value || '',
+                    message: form.elements.message.value,
+                    sourcePage: window.location.pathname,
+                    website: form.elements.website?.value || '',
+                    visitorKey: readStored(localStorage, '_tc_vid'),
+                    sessionKey: readStored(sessionStorage, '_tc_ses')
+                };
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok || !result.ok) {
+                    throw new Error(result.error || 'تعذر حفظ طلب التواصل');
+                }
+                const notice = formSuccess.querySelector('[data-lead-notice]');
+                if (notice) notice.textContent = result.notification === 'sent'
+                    ? 'تم استلام طلبك وإرسال إشعار البريد بنجاح.'
+                    : 'تم استلام طلبك وحفظه. قد يتأخر إشعار البريد، لكن طلبك محفوظ لدينا.';
+                formContainer.classList.add('hidden');
+                formSuccess.classList.remove('hidden');
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } catch (error) {
+                alert('تعذر حفظ طلبك حالياً. يرجى المحاولة مرة أخرى أو التواصل عبر واتساب.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    <span>إرسال الطلب</span>
+                `;
+            }
+        });
+
+        function resetForm() {
+            form.reset();
+            formContainer.classList.remove('hidden');
+            formSuccess.classList.add('hidden');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                <span>إرسال الطلب</span>
+            `;
+            // Clear all error states
+            Object.keys(fields).forEach(key => {
+                fields[key].classList.remove('border-red-400');
+                fields[key].classList.add('border-gray-300');
+            });
+            Object.values(errors).forEach(el => el.classList.add('hidden'));
+
+            formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+
+        // =============================================
+        // NAVBAR SHADOW
+        // =============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 10);
+        }, { passive: true });
+
+
+        // =============================================
+        // FADE-UP ANIMATION
+        // =============================================
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
+
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="global-forms.js"></script>
+
+<!-- ✅ الترتيب مهم - النواة أولاً -->
+<script src="shared-tracker-core.js"></script>
+<script src="sheets-tracker.js"></script>
+<script src="telegram-tracker.js"></script>
+
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+</body>
+</html>

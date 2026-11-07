@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من أنا | عبدالله نبيل - خبير أتمتة N8N</title>
+    <meta name="description" content="تعرف على عبدالله نبيل - مهندس شبكات وخبير أتمتة أعمال بخبرة 3+ سنوات في N8N والذكاء الاصطناعي.">
+
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* === Animations === */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+
+        /* Progress Bar Fill Animation */
+        .skill-bar-fill {
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-bar-fill.animated {
+            /* width set via JS */
+        }
+
+        /* Timeline Line */
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #155724, #1e7e34, #28a745);
+            border-radius: 2px;
+        }
+
+        /* Timeline Dot */
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #155724;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #155724;
+            z-index: 10;
+            position: relative;
+        }
+        .timeline-dot.active {
+            background: #28a745;
+            box-shadow: 0 0 0 3px #28a745, 0 0 12px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Counter Animation Pulse */
+        .counter-value {
+            transition: all 0.3s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        /* Dotted Background */
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER (Unified)
+         ============================================ -->
+    <!-- SHARED COMPONENT: ABOUT_HEADER START -->
+<header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="about.html" class="text-saudi font-bold relative group">من أنا<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="blog.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">المدونة<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">من أنا</a>
+                <a href="services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">المدونة</a>
+                <a href="index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a>
+                </div>
+            </div>
+        </div>
+    </header>
+<!-- SHARED COMPONENT: ABOUT_HEADER END -->
+
+
+    <!-- ============================================
+         HERO - ABOUT
+         ============================================ -->
+    <section class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#f0fdf4"/></svg>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Breadcrumb -->
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8 fade-up">
+                <a href="index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-saudi font-bold">من أنا</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Image Column -->
+                <div class="flex justify-center lg:order-2 fade-up" style="transition-delay:200ms;">
+                    <div class="relative group">
+                        <!-- Decorative Elements -->
+                        <div class="absolute -inset-4 border-2 border-saudi/20 rounded-2xl transform translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-all duration-500 z-0"></div>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-saudi/10 to-transparent rounded-2xl transform -rotate-3 group-hover:rotate-0 transition-all duration-500 z-0"></div>
+
+                        <!-- Main Image -->
+                        <div class="relative w-72 h-80 sm:w-80 sm:h-96 rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white z-10">
+                            <img src="image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700" loading="eager" decoding="async">
+                            <div class="absolute inset-0 bg-gradient-to-t from-saudi/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </div>
+
+                        <!-- Floating Badge: Experience -->
+                        <div class="absolute -bottom-5 -right-5 z-20 bg-white p-4 rounded-xl shadow-xl border-l-4 border-saudi" style="animation: float 4s ease-in-out infinite;">
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-gray-900">3+</div>
+                                <div class="text-xs font-bold text-gray-500">سنوات خبرة</div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge: Location -->
+                        <div class="absolute -top-4 -left-4 z-20 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md" style="animation: float 3.5s ease-in-out infinite reverse;">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">🇸🇦</span>
+                                <span class="text-xs font-bold text-gray-600">الرياض</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Column -->
+                <div class="text-center lg:text-right lg:order-1 fade-up">
+                    <h1 class="text-4xl sm:text-5xl xl:text-6xl font-black text-gray-900 leading-tight mb-4">
+                        عبدالله <span class="text-gradient">نبيل</span>
+                    </h1>
+                    <p class="text-xl lg:text-2xl text-gray-500 font-bold mb-6">مهندس أتمتة & مطور N8N</p>
+
+                    <!-- Certifications -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
+                        <div class="flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-2 rounded-full">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                            <span class="text-sm font-bold text-blue-700">CCNA</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-purple-50 border border-purple-100 px-4 py-2 rounded-full">
+                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                            <span class="text-sm font-bold text-purple-700">MCSA</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-green-50 border border-green-100 px-4 py-2 rounded-full">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            <span class="text-sm font-bold text-green-700">بكالوريوس هندسة شبكات</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-lg text-white bg-saudi hover:bg-saudi-light transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            تحميل السيرة الذاتية
+                        </a>
+                        <a href="index.html#contact" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-lg text-gray-700 bg-white border-2 border-gray-200 hover:border-saudi hover:text-saudi transition-all duration-300 gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                            تواصل معي
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         MY STORY
+         ============================================ -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">قصتي</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">من هندسة الشبكات إلى أتمتة الأعمال</h2>
+            </div>
+
+            <div class="space-y-6 fade-up" style="transition-delay:100ms;">
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    بدأت رحلتي في عالم التقنية بدراسة هندسة الشبكات، حيث تعلمت كيف تعمل الأنظمة المعقدة وكيف تتواصل الأجهزة مع بعضها. حصلت على شهادات CCNA وMCSA التي منحتني فهماً عميقاً للبنية التحتية الرقمية. لكن سرعان ما أدركت أن الشركات لا تحتاج فقط لشبكات تعمل—بل تحتاج لأنظمة ذكية تُوفّر عليها الوقت والمال.
+                </p>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    في عام 2022، اكتشفت <span class="font-bold text-saudi">N8N</span> وتغيّرت نظرتي للأتمتة تماماً. رأيت إمكانية ربط عشرات التطبيقات ببعضها وجعلها تعمل كنظام واحد متناغم. بدأت ببناء مشاريع صغيرة، وسرعان ما تطورت لأبني أنظمة معقدة تدمج الذكاء الاصطناعي مع سير العمل اليومي. اليوم، بعد <span class="font-bold text-saudi">50+ مشروعاً ناجحاً</span>، أفخر بأنني أساعد الشركات في المملكة العربية السعودية على التحول الرقمي الحقيقي وفق رؤية 2030.
+                </p>
+            </div>
+
+            <!-- Quote -->
+            <div class="mt-10 p-6 bg-saudi/5 rounded-2xl border-r-4 border-saudi fade-up" style="transition-delay:200ms;">
+                <p class="text-gray-700 italic font-medium text-lg leading-relaxed">
+                    "أؤمن أن كل مهمة يدوية متكررة هي فرصة ضائعة للنمو. مهمتي هي تحويل هذه الفرص إلى أنظمة ذكية تعمل بدقة على مدار الساعة، حتى يتفرّغ أصحاب الأعمال لما يجيدونه حقاً."
+                </p>
+                <div class="mt-4 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-saudi rounded-full flex items-center justify-center text-white font-bold">ع</div>
+                    <div>
+                        <div class="font-bold text-gray-900">عبدالله نبيل</div>
+                        <div class="text-xs text-gray-500">مؤسس ومطور أتمتة</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         TIMELINE - THE JOURNEY
+         ============================================ -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">الرحلة</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">محطات مهمة في مسيرتي</h2>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative" id="timeline">
+                <!-- Vertical Line -->
+                <div class="timeline-line right-6 sm:right-1/2 sm:transform sm:translate-x-1/2"></div>
+
+                <!-- 2019 -->
+                <div class="relative flex items-start mb-12 fade-up">
+                    <div class="hidden sm:block sm:w-1/2 sm:pl-12 sm:text-left order-2">
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <span class="text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">2019</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">بكالوريوس هندسة شبكات</h3>
+                            <p class="text-gray-600 text-sm">التخرج من الجامعة بتخصص هندسة الشبكات والاتصالات. أساس تقني قوي في البنية التحتية والأنظمة.</p>
+                            <div class="mt-3 flex items-center gap-2 text-xs text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path></svg>
+                                <span>بداية الرحلة الأكاديمية</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-4 sm:right-1/2 sm:transform sm:translate-x-1/2 -translate-x-1/2 mt-1.5">
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="mr-14 sm:hidden">
+                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100">
+                            <span class="text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-full">2019</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">بكالوريوس هندسة شبكات</h3>
+                            <p class="text-gray-600 text-sm">التخرج بتخصص هندسة الشبكات والاتصالات. أساس تقني قوي.</p>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:w-1/2 sm:pr-12 order-1"></div>
+                </div>
+
+                <!-- 2020 -->
+                <div class="relative flex items-start mb-12 fade-up" style="transition-delay:100ms;">
+                    <div class="hidden sm:block sm:w-1/2 sm:pr-12 sm:text-right order-1">
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">2020</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">شهادة CCNA - Cisco</h3>
+                            <p class="text-gray-600 text-sm">الحصول على شهادة Cisco الدولية في الشبكات. تعميق الخبرة في تصميم وإدارة الشبكات المعقدة.</p>
+                            <div class="mt-3 flex items-center justify-end gap-2 text-xs text-gray-400">
+                                <span>شهادة دولية معتمدة</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-4 sm:right-1/2 sm:transform sm:translate-x-1/2 -translate-x-1/2 mt-1.5">
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="mr-14 sm:hidden">
+                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100">
+                            <span class="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">2020</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">شهادة CCNA - Cisco</h3>
+                            <p class="text-gray-600 text-sm">شهادة دولية في الشبكات وتعميق الخبرة التقنية.</p>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:w-1/2 sm:pl-12 order-2"></div>
+                </div>
+
+                <!-- 2021 -->
+                <div class="relative flex items-start mb-12 fade-up" style="transition-delay:200ms;">
+                    <div class="hidden sm:block sm:w-1/2 sm:pl-12 sm:text-left order-2">
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <span class="text-sm font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">2021</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">شهادة MCSA - Microsoft</h3>
+                            <p class="text-gray-600 text-sm">إتقان أنظمة Microsoft Server وActive Directory. بناء خبرة شاملة في إدارة الأنظمة والسيرفرات.</p>
+                        </div>
+                    </div>
+                    <div class="absolute right-4 sm:right-1/2 sm:transform sm:translate-x-1/2 -translate-x-1/2 mt-1.5">
+                        <div class="timeline-dot"></div>
+                    </div>
+                    <div class="mr-14 sm:hidden">
+                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100">
+                            <span class="text-sm font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">2021</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">شهادة MCSA - Microsoft</h3>
+                            <p class="text-gray-600 text-sm">إتقان أنظمة Microsoft Server وإدارة الأنظمة.</p>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:w-1/2 sm:pr-12 order-1"></div>
+                </div>
+
+                <!-- 2022 -->
+                <div class="relative flex items-start mb-12 fade-up" style="transition-delay:300ms;">
+                    <div class="hidden sm:block sm:w-1/2 sm:pr-12 sm:text-right order-1">
+                        <div class="bg-white p-6 rounded-xl shadow-md border-2 border-saudi/20 hover:shadow-lg transition-shadow">
+                            <span class="text-sm font-bold text-saudi bg-green-50 px-3 py-1 rounded-full">2022 🚀</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">اكتشاف N8N وأول مشروع أتمتة</h3>
+                            <p class="text-gray-600 text-sm">نقطة التحول الكبرى! اكتشاف عالم أتمتة سير العمل وبناء أول مشروع ربط بين CRM والبريد الإلكتروني.</p>
+                            <div class="mt-3 flex items-center justify-end gap-2 text-xs text-saudi font-bold">
+                                <span>نقطة التحول ⚡</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-4 sm:right-1/2 sm:transform sm:translate-x-1/2 -translate-x-1/2 mt-1.5">
+                        <div class="timeline-dot active"></div>
+                    </div>
+                    <div class="mr-14 sm:hidden">
+                        <div class="bg-white p-5 rounded-xl shadow-md border-2 border-saudi/20">
+                            <span class="text-sm font-bold text-saudi bg-green-50 px-3 py-1 rounded-full">2022 🚀</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">اكتشاف N8N وأول مشروع</h3>
+                            <p class="text-gray-600 text-sm">نقطة التحول الكبرى! بداية رحلة الأتمتة.</p>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:w-1/2 sm:pl-12 order-2"></div>
+                </div>
+
+                <!-- 2023 -->
+                <div class="relative flex items-start mb-12 fade-up" style="transition-delay:400ms;">
+                    <div class="hidden sm:block sm:w-1/2 sm:pl-12 sm:text-left order-2">
+                        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                            <span class="text-sm font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full">2023</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">10 مشاريع ناجحة + أول عميل دائم</h3>
+                            <p class="text-gray-600 text-sm">بناء سمعة قوية من خلال مشاريع متنوعة في التجارة الإلكترونية والعقارات. الحصول على أول عقد صيانة سنوي.</p>
+                        </div>
+                    </div>
+                    <div class="absolute right-4 sm:right-1/2 sm:transform sm:translate-x-1/2 -translate-x-1/2 mt-1.5">
+                        <div class="timeline-dot active"></div>
+                    </div>
+                    <div class="mr-14 sm:hidden">
+                        <div class="bg-white p-5 rounded-xl shadow-md border border-gray-100">
+                            <span class="text-sm font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full">2023</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">10 مشاريع + أول عميل دائم</h3>
+                            <p class="text-gray-600 text-sm">بناء سمعة قوية وأول عقد صيانة سنوي.</p>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:w-1/2 sm:pr-12 order-1"></div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="relative flex items-start fade-up" style="transition-delay:500ms;">
+                    <div class="hidden sm:block sm:w-1/2 sm:pr-12 sm:text-right order-1">
+                        <div class="bg-gradient-to-br from-saudi/5 to-green-50 p-6 rounded-xl shadow-md border-2 border-saudi/30 hover:shadow-lg transition-shadow">
+                            <span class="text-sm font-bold text-white bg-saudi px-3 py-1 rounded-full">2024 ✨</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">50+ مشروع وتخصص في الذكاء الاصطناعي</h3>
+                            <p class="text-gray-600 text-sm">تجاوز 50 مشروعاً ناجحاً، شراكات استراتيجية، والتخصص في دمج الذكاء الاصطناعي (GPT-4, Claude) مع أنظمة الأتمتة.</p>
+                            <div class="mt-3 flex items-center justify-end gap-2 text-xs text-saudi font-bold">
+                                <span>الحاضر والمستقبل 🌟</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute right-4 sm:right-1/2 sm:transform sm:translate-x-1/2 -translate-x-1/2 mt-1.5">
+                        <div class="timeline-dot active"></div>
+                    </div>
+                    <div class="mr-14 sm:hidden">
+                        <div class="bg-gradient-to-br from-saudi/5 to-green-50 p-5 rounded-xl shadow-md border-2 border-saudi/30">
+                            <span class="text-sm font-bold text-white bg-saudi px-3 py-1 rounded-full">2024 ✨</span>
+                            <h3 class="text-lg font-bold text-gray-900 mt-3 mb-2">50+ مشروع + AI</h3>
+                            <p class="text-gray-600 text-sm">شراكات وتخصص في الذكاء الاصطناعي.</p>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block sm:w-1/2 sm:pl-12 order-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         SKILLS - PROGRESS BARS
+         ============================================ -->
+    <section class="py-20 bg-white" id="skills-section">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">المهارات التقنية</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">أدوات وتقنيات أتقنها</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 fade-up" style="transition-delay:100ms;" id="skills-container">
+                <!-- Skill 1: N8N -->
+                <div class="skill-item">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-800">N8N Automation</span>
+                        </div>
+                        <span class="text-sm font-bold text-saudi skill-percent" data-target="95">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="skill-bar-fill h-full bg-gradient-to-l from-saudi to-saudi-light rounded-full" data-width="95"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 2: APIs -->
+                <div class="skill-item">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-800">APIs & Integrations</span>
+                        </div>
+                        <span class="text-sm font-bold text-blue-600 skill-percent" data-target="90">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="skill-bar-fill h-full bg-gradient-to-l from-blue-500 to-blue-400 rounded-full" data-width="90"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 3: JavaScript -->
+                <div class="skill-item">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-800">JavaScript / Node.js</span>
+                        </div>
+                        <span class="text-sm font-bold text-yellow-600 skill-percent" data-target="85">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="skill-bar-fill h-full bg-gradient-to-l from-yellow-500 to-yellow-400 rounded-full" data-width="85"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 4: AI & LLMs -->
+                <div class="skill-item">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-800">AI & LLMs (GPT/Claude)</span>
+                        </div>
+                        <span class="text-sm font-bold text-purple-600 skill-percent" data-target="85">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="skill-bar-fill h-full bg-gradient-to-l from-purple-500 to-purple-400 rounded-full" data-width="85"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 5: Linux -->
+                <div class="skill-item">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-800">Linux Administration</span>
+                        </div>
+                        <span class="text-sm font-bold text-gray-600 skill-percent" data-target="80">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="skill-bar-fill h-full bg-gradient-to-l from-gray-600 to-gray-500 rounded-full" data-width="80"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 6: Docker -->
+                <div class="skill-item">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                            <span class="font-bold text-gray-800">Docker & DevOps</span>
+                        </div>
+                        <span class="text-sm font-bold text-cyan-600 skill-percent" data-target="75">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="skill-bar-fill h-full bg-gradient-to-l from-cyan-500 to-cyan-400 rounded-full" data-width="75"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         WHY CHOOSE ME - 4 CARDS
+         ============================================ -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">لماذا أنا</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">ما يميزني عن الآخرين</h2>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:border-saudi/30 transition-all duration-300 group hover:-translate-y-1 fade-up">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-saudi group-hover:text-white transition-all text-saudi">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">خلفية تقنية عميقة</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">أساس قوي في هندسة الشبكات والأنظمة (CCNA + MCSA) يمنحني فهماً عميقاً للبنية التحتية ويجعل حلولي أكثر استقراراً.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:border-saudi/30 transition-all duration-300 group hover:-translate-y-1 fade-up" style="transition-delay:100ms;">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-600 group-hover:text-white transition-all text-blue-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">خبرة 3+ سنوات في N8N</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">من أوائل المتخصصين في N8N بالمنطقة. بنيت أنظمة معقدة لشركات بمختلف الأحجام والقطاعات.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:border-saudi/30 transition-all duration-300 group hover:-translate-y-1 fade-up" style="transition-delay:200ms;">
+                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-purple-600 group-hover:text-white transition-all text-purple-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">تقنية + فهم أعمال</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">لست مجرد مطور—أنا شريك يفهم أهدافك التجارية ويصمم حلولاً تحقق عائد استثمار حقيقي.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 hover:border-saudi/30 transition-all duration-300 group hover:-translate-y-1 fade-up" style="transition-delay:300ms;">
+                    <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center mb-5 group-hover:bg-yellow-500 group-hover:text-white transition-all text-yellow-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">دعم مستمر بعد التسليم</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">لا أختفي بعد التسليم. أقدم دعماً فنياً مستمراً وتحديثات دورية لضمان عمل أنظمتك بكفاءة دائمة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         TWO PHOTOS GALLERY
+         ============================================ -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">وجوه متعددة</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900">محترف في كل مكان</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Photo 1: Formal -->
+                <div class="relative group fade-up overflow-hidden rounded-2xl">
+                    <div class="aspect-[4/5] overflow-hidden rounded-2xl shadow-xl">
+                        <img src="image.webp" alt="عبدالله نبيل - البدلة الرسمية" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
+                    </div>
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-2xl">
+                        <h3 class="text-white font-bold text-lg">في بيئة العمل</h3>
+                        <p class="text-white/80 text-sm">جاهز لاجتماعات العملاء والاستشارات</p>
+                    </div>
+                </div>
+
+                <!-- Photo 2: Saudi Attire -->
+                <div class="relative group fade-up overflow-hidden rounded-2xl" style="transition-delay:150ms;">
+                    <div class="aspect-[4/5] overflow-hidden rounded-2xl shadow-xl">
+                        <img src="image2.webp" alt="عبدالله نبيل - الثوب السعودي" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700" loading="eager" decoding="async">
+                    </div>
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-2xl">
+                        <h3 class="text-white font-bold text-lg">أصالة سعودية</h3>
+                        <p class="text-white/80 text-sm">فخور بهويتي وثقافتي 🇸🇦</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         IMPACT NUMBERS
+         ============================================ -->
+    <section class="py-20 bg-saudi text-white relative overflow-hidden" id="numbers-section">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg>
+        </div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-green-200 font-bold tracking-wider text-sm uppercase mb-2 block">أرقام مؤثرة</span>
+                <h2 class="text-3xl lg:text-4xl font-bold">نتائج حقيقية يمكنك الاعتماد عليها</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Number 1 -->
+                <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all fade-up">
+                    <div class="text-5xl lg:text-6xl font-black mb-3 counter-value" data-target="50">0</div>
+                    <div class="text-lg font-bold text-green-200 mb-1">+</div>
+                    <div class="text-green-100 font-medium">مشروع منفذ بنجاح</div>
+                    <div class="mt-4 w-16 h-1 bg-green-400 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- Number 2 -->
+                <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all fade-up" style="transition-delay:150ms;">
+                    <div class="text-5xl lg:text-6xl font-black mb-3 counter-value" data-target="10000">0</div>
+                    <div class="text-lg font-bold text-green-200 mb-1">+</div>
+                    <div class="text-green-100 font-medium">ساعة توفير للعملاء</div>
+                    <div class="mt-4 w-16 h-1 bg-green-400 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- Number 3 -->
+                <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/15 transition-all fade-up" style="transition-delay:300ms;">
+                    <div class="flex items-baseline justify-center gap-1">
+                        <div class="text-5xl lg:text-6xl font-black mb-3 counter-value" data-target="99">0</div>
+                        <span class="text-2xl font-bold">.9%</span>
+                    </div>
+                    <div class="text-green-100 font-medium mt-1">دقة في الأنظمة المُسلّمة</div>
+                    <div class="mt-4 w-16 h-1 bg-green-400 mx-auto rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FINAL CTA
+         ============================================ -->
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+            <div class="fade-up">
+                <div class="w-20 h-20 bg-saudi/10 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <svg class="w-10 h-10 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">هل أنت جاهز للتحول الرقمي؟</h2>
+                <p class="text-lg text-gray-600 mb-10 leading-relaxed">
+                    كل مشروع يبدأ بمحادثة. أخبرني عن التحديات التي تواجهها في عملك، ودعني أُريك كيف يمكن للأتمتة والذكاء الاصطناعي أن تُحدث فرقاً حقيقياً.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="index.html#contact" class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-saudi text-white font-bold rounded-lg shadow-lg hover:bg-saudi-light hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        ناقش مشروعك مجاناً
+                    </a>
+                    <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 px-10 py-4 border-2 border-gray-200 text-gray-700 font-bold rounded-lg hover:border-green-500 hover:text-green-600 transition-all duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                        تواصل عبر واتساب
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER (Unified)
+         ============================================ -->
+    <!-- SHARED COMPONENT: ABOUT_FOOTER START -->
+<footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">
+                        عبدالله <span class="text-saudi">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="about.html" class="text-white font-bold text-sm">من أنا</a></li>
+                        <li><a href="index.html#services" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="index.html#pricing" class="text-gray-400 hover:text-white transition-colors text-sm">الأسعار</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                           <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a>
+                        <span>|</span>
+                        <a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<!-- SHARED COMPONENT: ABOUT_FOOTER END -->
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP BUTTON
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank"
+       class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group"
+       title="تواصل عبر واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+
+        // =============================================
+        // NAVBAR SHADOW ON SCROLL
+        // =============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 10);
+        }, { passive: true });
+
+
+        // =============================================
+        // FADE-UP SCROLL ANIMATION
+        // =============================================
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
+
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+
+
+        // =============================================
+        // SKILL BARS ANIMATION
+        // =============================================
+        const skillsSection = document.getElementById('skills-container');
+        let skillsAnimated = false;
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !skillsAnimated) {
+                    skillsAnimated = true;
+
+                    // Animate progress bars
+                    document.querySelectorAll('.skill-bar-fill').forEach((bar, index) => {
+                        const targetWidth = bar.dataset.width;
+                        setTimeout(() => {
+                            bar.style.width = targetWidth + '%';
+                            bar.classList.add('animated');
+                        }, index * 150);
+                    });
+
+                    // Animate percentage numbers
+                    document.querySelectorAll('.skill-percent').forEach((el, index) => {
+                        const target = parseInt(el.dataset.target);
+                        setTimeout(() => {
+                            animateNumber(el, 0, target, 1200, '%');
+                        }, index * 150);
+                    });
+
+                    skillObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        if (skillsSection) {
+            skillObserver.observe(skillsSection);
+        }
+
+
+        // =============================================
+        // COUNTER ANIMATION (Impact Numbers)
+        // =============================================
+        const numbersSection = document.getElementById('numbers-section');
+        let numbersAnimated = false;
+
+        function animateNumber(element, start, end, duration, suffix) {
+            suffix = suffix || '';
+            const range = end - start;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease out cubic
+                const easedProgress = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + range * easedProgress);
+
+                if (end >= 1000) {
+                    element.textContent = new Intl.NumberFormat('en-US').format(current) + suffix;
+                } else {
+                    element.textContent = current + suffix;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    if (end >= 1000) {
+                        element.textContent = new Intl.NumberFormat('en-US').format(end) + suffix;
+                    } else {
+                        element.textContent = end + suffix;
+                    }
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        const numbersObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !numbersAnimated) {
+                    numbersAnimated = true;
+
+                    document.querySelectorAll('.counter-value').forEach((el, index) => {
+                        const target = parseInt(el.dataset.target);
+                        setTimeout(() => {
+                            animateNumber(el, 0, target, 2000, '');
+                        }, index * 300);
+                    });
+
+                    numbersObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        if (numbersSection) {
+            numbersObserver.observe(numbersSection);
+        }
+    </script>
+
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="global-forms.js"></script>
+
+<!-- ✅ الترتيب مهم - النواة أولاً -->
+<script src="shared-tracker-core.js"></script>
+<script src="sheets-tracker.js"></script>
+<script src="telegram-tracker.js"></script>
+
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+</body>
+</html>

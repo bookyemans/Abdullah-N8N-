@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير Retrospective ذكي من Jira تلقائياً | عبدالله نبيل</title>
+    <meta name="description" content="نظام أتمتة يُحلل مهام Jira المكتملة بالذكاء الاصطناعي ويُنشئ تقرير Lessons Learned احترافي في Google Docs تلقائياً — حمّل المشروع مجاناً.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        jira: { DEFAULT: '#0052CC', light: '#2684FF', dark: '#003D99' },
+                        gdocs: { DEFAULT: '#4285F4', light: '#669DF6', dark: '#1A73E8' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-right { opacity: 0; transform: translateX(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-right.visible { opacity: 1; transform: translateX(0); }
+        .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-image: linear-gradient(to left, #155724, #1e7e34, #28a745); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+        .bg-dots { background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px); background-size: 24px 24px; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(21, 87, 36, 0.4); } 50% { box-shadow: 0 0 0 12px rgba(21, 87, 36, 0); } }
+        .step-number { position: relative; }
+        .step-number::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: rgba(21, 87, 36, 0.1); animation: pulseGlow 3s ease-in-out infinite; }
+        .tool-card { transition: all 0.3s ease; }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        .before-after-card { transition: all 0.3s ease; border: 2px solid transparent; }
+        .before-after-card:hover { border-color: rgba(21, 87, 36, 0.2); }
+        .lightbox { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); justify-content: center; align-items: center; cursor: zoom-out; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 95%; max-height: 90vh; border-radius: 12px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .sticky-cta { transform: translateY(100%); transition: transform 0.4s ease; }
+        .sticky-cta.visible { transform: translateY(0); }
+        .img-zoom { transition: transform 0.5s ease; cursor: zoom-in; }
+        .img-zoom:hover { transform: scale(1.02); }
+        .setup-step { transition: all 0.3s ease; }
+        .setup-step:hover { transform: translateX(-4px); }
+        .code-block { background: #1e293b; border-radius: 12px; overflow: hidden; position: relative; }
+        .code-block pre { padding: 20px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+        .code-block code { color: #e2e8f0; font-family: 'Courier New', monospace; }
+        .code-header { background: #0f172a; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; }
+        .copy-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #94a3b8; padding: 4px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+        .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+        .copy-btn.copied { background: #155724; color: white; border-color: #155724; }
+        .promo-card { transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .promo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, #155724, #28a745); transform: scaleX(0); transition: transform 0.3s ease; }
+        .promo-card:hover::before { transform: scaleX(1); }
+        .promo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .animated-gradient { background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        #whatsapp-float { position: fixed; bottom: 24px; left: 24px; z-index: 50; transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease; }
+        #whatsapp-float.lifted { bottom: 80px; }
+        @media (max-width: 640px) { #whatsapp-float.lifted { bottom: 90px; } }
+        @keyframes floatBtn { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+        #whatsapp-float:not(.lifted) { animation: floatBtn 3s ease-in-out infinite; }
+        #whatsapp-float.lifted { animation: none; }
+
+        /* Jira Status Badge Animation */
+        @keyframes statusDone {
+            0% { background-color: #DEEBFF; color: #0052CC; }
+            50% { background-color: #E3FCEF; color: #006644; }
+            100% { background-color: #E3FCEF; color: #006644; }
+        }
+        .status-animate { animation: statusDone 2s ease-in-out forwards; animation-delay: 1s; }
+
+        /* Document writing effect */
+        @keyframes typewrite {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        .typewrite-line { overflow: hidden; white-space: nowrap; animation: typewrite 1.5s steps(30) forwards; opacity: 0; }
+        .typewrite-line.active { opacity: 1; }
+
+        /* Flow connector pulse */
+        @keyframes connectorPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .connector-pulse { animation: connectorPulse 2s ease-in-out infinite; }
+
+        /* Report section reveal */
+        @keyframes revealSection {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Interactive workflow diagram */
+        .workflow-node { transition: all 0.3s ease; cursor: pointer; }
+        .workflow-node:hover { transform: scale(1.05); }
+        .workflow-node.active { ring: 2px solid #155724; }
+        .workflow-arrow { transition: all 0.5s ease; }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors duration-200 relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#about" class="text-gray-600 hover:text-saudi font-medium transition-colors duration-200 relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#services" class="text-gray-600 hover:text-saudi font-medium transition-colors duration-200 relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#portfolio" class="text-saudi font-medium transition-colors duration-200 relative group">مشاريعي<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#blog" class="text-gray-600 hover:text-saudi font-medium transition-colors duration-200 relative group">المدونة<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors duration-200 relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="#download" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">⬇️ حمّل المشروع مجاناً</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none transition-colors" aria-label="فتح القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50 transition-all">الرئيسية</a>
+                <a href="../index.html#about" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50 transition-all">من أنا</a>
+                <a href="../index.html#services" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50 transition-all">خدماتي</a>
+                <a href="../index.html#portfolio" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50 transition-all">مشاريعي</a>
+                <a href="../index.html#blog" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50 transition-all">المدونة</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50 transition-all">تواصل معي</a>
+                <div class="pt-4 px-4"><a href="#download" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold transition-all">⬇️ حمّل المشروع مجاناً</a></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="pt-24 pb-4 bg-gray-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center gap-2 text-sm text-gray-500">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../projects.html" class="hover:text-saudi transition-colors">إدارة المشاريع</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-saudi font-semibold">تقرير Retrospective ذكي من Jira</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="text-center lg:text-right fade-up">
+                    <div class="inline-flex items-center gap-2 bg-jira/10 text-jira px-4 py-2 rounded-full text-sm font-bold mb-6">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>يعمل تلقائياً عند اكتمال Epic في Jira</span>
+                    </div>
+
+                    <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                        Epic تنتهي في Jira؟
+                        <span class="text-gradient">تقرير Lessons Learned</span>
+                        يُكتب تلقائياً بالـ AI
+                    </h1>
+
+                    <p class="text-lg lg:text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        نظام ذكي يراقب Jira — عندما تنتهي Epic، يسحب كل المهام والتعليقات، يُحللها بالذكاء الاصطناعي، ويُنشئ <span class="font-bold text-saudi">تقرير Retrospective احترافي</span> في Google Docs تلقائياً.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-black text-saudi mb-1">Auto</div>
+                            <div class="text-xs text-gray-500 font-semibold">يعمل عند اكتمال Epic</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-black text-saudi mb-1">AI</div>
+                            <div class="text-xs text-gray-500 font-semibold">تحليل ذكي بـ GPT-4o</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-black text-saudi mb-1">Docs</div>
+                            <div class="text-xs text-gray-500 font-semibold">تقرير في Google Docs</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#download" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-lg text-white bg-saudi hover:bg-saudi-light transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            حمّل المشروع مجاناً
+                        </a>
+                        <a href="#how-it-works" class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-200 text-base font-bold rounded-lg text-gray-700 bg-white hover:border-saudi hover:text-saudi transition-all duration-300">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            كيف يعمل؟
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Image -->
+                <div class="relative fade-up" style="transition-delay: 200ms;">
+                    <div class="relative group">
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-jira/10 rounded-2xl z-0 group-hover:rotate-12 transition-transform duration-500"></div>
+                        <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-gdocs/10 rounded-full z-0 group-hover:-translate-x-2 transition-transform duration-500"></div>
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white z-10 bg-white">
+                            <img src="6.jpg" alt="نظام تقرير Retrospective ذكي من Jira - N8N Workflow" class="w-full h-auto img-zoom" onclick="openLightbox(this.src)" loading="eager" decoding="async">
+                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-md">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                    <span class="text-xs font-bold text-gray-700">N8N Workflow</span>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                                اضغط للتكبير
+                            </div>
+                        </div>
+                        <div class="absolute -right-6 top-8 z-20 bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-gray-50" style="animation: float 3s ease-in-out infinite;">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-jira/10 p-1.5 rounded-full"><svg class="w-4 h-4 text-jira" fill="currentColor" viewBox="0 0 24 24"><path d="M11.571 11.513H0a5.218 5.218 0 005.232 5.215h2.13v2.057A5.215 5.215 0 0012.577 24V12.518a1.005 1.005 0 00-1.006-1.005z"/><path d="M5.024 5.303H16.59a5.218 5.218 0 00-5.232-5.215H9.228V-1.97A5.215 5.215 0 004.013-7.185V3.297a1.005 1.005 0 001.01 1.005z" transform="translate(0 7.185)"/></svg></div>
+                                <div>
+                                    <div class="text-[10px] text-gray-500 font-bold">يُراقب</div>
+                                    <div class="text-xs font-black text-gray-800">Jira Epics</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -left-8 bottom-12 z-20 bg-white p-3 rounded-xl shadow-lg border border-gray-50" style="animation: float 4s ease-in-out infinite reverse;">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-purple-100 p-1.5 rounded-full"><svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div>
+                                <div>
+                                    <div class="text-[10px] text-gray-500 font-bold">مدعوم بـ</div>
+                                    <div class="text-xs font-black text-gray-800">GPT-4o-mini</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS BANNER -->
+    <section class="py-4 bg-gradient-to-r from-saudi/5 via-green-50 to-saudi/5 border-y border-saudi/10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="../projects.html" class="flex flex-col sm:flex-row items-center justify-between gap-3 group">
+                <div class="flex items-center gap-3">
+                    <div class="bg-saudi/10 p-2 rounded-lg"><svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                    <span class="text-sm font-bold text-gray-900">هذا المشروع جزء من <span class="text-saudi">10 قوالب مجانية لإدارة المشاريع</span></span>
+                </div>
+                <div class="flex items-center gap-2 text-saudi font-bold text-sm group-hover:underline">اكتشف جميع القوالب <svg class="w-4 h-4 rotate-180 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         INTERACTIVE WORKFLOW DEMO
+         ============================================ -->
+    <section class="py-16 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">تجربة تفاعلية</span>
+                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">شاهد رحلة البيانات من Jira إلى التقرير</h2>
+                <p class="text-gray-500 text-sm">اضغط على أي مرحلة لمعرفة التفاصيل</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto fade-up" style="transition-delay: 100ms;">
+                <!-- Interactive Flow -->
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-0">
+                    <!-- Node 1: Jira Trigger -->
+                    <div class="workflow-node bg-white rounded-2xl p-5 border-2 border-jira/20 shadow-sm hover:shadow-lg hover:border-jira/50 text-center min-w-[160px] group" onclick="showNodeDetail(1)">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-jira/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7 text-jira" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                        </div>
+                        <div class="text-xs font-black text-gray-900">Epic → Done</div>
+                        <div class="text-[10px] text-gray-400 mt-1">Jira Trigger</div>
+                        <div class="mt-2 status-animate px-2 py-0.5 rounded text-[9px] font-bold bg-blue-50 text-jira inline-block">✓ Done</div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden lg:flex items-center connector-pulse"><svg class="w-8 h-8 text-gray-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+                    <div class="lg:hidden connector-pulse"><svg class="w-6 h-6 text-gray-300 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
+
+                    <!-- Node 2: Fetch Data -->
+                    <div class="workflow-node bg-white rounded-2xl p-5 border-2 border-blue-200 shadow-sm hover:shadow-lg hover:border-blue-400 text-center min-w-[160px] group" onclick="showNodeDetail(2)">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-blue-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        </div>
+                        <div class="text-xs font-black text-gray-900">سحب المهام</div>
+                        <div class="text-[10px] text-gray-400 mt-1">Issues + Comments</div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden lg:flex items-center connector-pulse" style="animation-delay: 0.5s;"><svg class="w-8 h-8 text-gray-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+                    <div class="lg:hidden connector-pulse" style="animation-delay: 0.5s;"><svg class="w-6 h-6 text-gray-300 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
+
+                    <!-- Node 3: AI Agent -->
+                    <div class="workflow-node bg-white rounded-2xl p-5 border-2 border-purple-200 shadow-sm hover:shadow-lg hover:border-purple-400 text-center min-w-[160px] group" onclick="showNodeDetail(3)">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-purple-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <div class="text-xs font-black text-gray-900">تحليل AI</div>
+                        <div class="text-[10px] text-gray-400 mt-1">GPT-4o-mini Agent</div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="hidden lg:flex items-center connector-pulse" style="animation-delay: 1s;"><svg class="w-8 h-8 text-gray-300 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+                    <div class="lg:hidden connector-pulse" style="animation-delay: 1s;"><svg class="w-6 h-6 text-gray-300 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
+
+                    <!-- Node 4: Google Docs -->
+                    <div class="workflow-node bg-white rounded-2xl p-5 border-2 border-green-200 shadow-sm hover:shadow-lg hover:border-green-400 text-center min-w-[160px] group" onclick="showNodeDetail(4)">
+                        <div class="w-14 h-14 mx-auto mb-3 bg-green-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7 text-gdocs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <div class="text-xs font-black text-gray-900">تقرير جاهز!</div>
+                        <div class="text-[10px] text-gray-400 mt-1">Google Docs</div>
+                    </div>
+                </div>
+
+                <!-- Node Detail Panel -->
+                <div id="node-detail" class="mt-8 bg-gray-50 rounded-2xl p-6 border border-gray-200 transition-all duration-500 hidden">
+                    <div id="node-detail-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE vs AFTER -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">هل فريقك يكتب تقارير <span class="text-red-600">Retrospective يدوياً؟</span></h2>
+                <p class="text-gray-600 max-w-3xl mx-auto text-lg">معظم الفرق تتخطى تقارير الدروس المستفادة لأنها <span class="font-bold text-red-600">مملة وتستغرق وقتاً طويلاً</span>. النتيجة؟ نفس الأخطاء تتكرر.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="before-after-card bg-red-50/50 p-8 rounded-2xl border border-red-100 fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></div>
+                        <div><h3 class="text-xl font-bold text-red-800">قبل الأتمتة</h3><p class="text-red-600 text-sm">عملية يدوية مهملة</p></div>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">لا أحد يكتب التقرير</span><span class="text-gray-500 text-sm">الفريق مشغول بالمشروع التالي — تقارير Retro تُنسى</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">نفس الأخطاء تتكرر</span><span class="text-gray-500 text-sm">بدون توثيق، المشاكل القديمة تعود في كل Sprint</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">تقارير سطحية وغير مفيدة</span><span class="text-gray-500 text-sm">لو كُتبت، تكون عامة بدون تفاصيل أو توصيات حقيقية</span></div></li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-red-100/50 rounded-xl border border-red-200 text-center">
+                        <div class="text-sm text-red-600 font-bold mb-1">الوقت الضائع لكل Epic</div>
+                        <div class="text-3xl font-black text-red-800">4+ ساعات</div>
+                        <div class="text-xs text-red-500 mt-1">جمع بيانات + تحليل + كتابة + تنسيق</div>
+                    </div>
+                </div>
+                <div class="before-after-card bg-green-50/50 p-8 rounded-2xl border border-green-100 fade-up" style="transition-delay: 150ms;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <div><h3 class="text-xl font-bold text-saudi-dark">بعد الأتمتة</h3><p class="text-green-600 text-sm">تقرير يُكتب نفسه تلقائياً</p></div>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">تقرير تلقائي لكل Epic مكتملة</span><span class="text-gray-500 text-sm">بمجرد تحويل Epic لـ Done — التقرير يُنشأ خلال دقيقة</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">تحليل عميق من التعليقات الحقيقية</span><span class="text-gray-500 text-sm">AI يقرأ كل تعليق ونقاش حدث أثناء التنفيذ</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">توصيات عملية قابلة للتنفيذ</span><span class="text-gray-500 text-sm">ليست مجرد ملاحظات — بل خطوات واضحة للتحسين</span></div></li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-green-100/50 rounded-xl border border-green-200 text-center">
+                        <div class="text-sm text-saudi font-bold mb-1">التوفير لكل Epic</div>
+                        <div class="text-3xl font-black text-saudi">4+ ساعات</div>
+                        <div class="text-xs text-green-600 mt-1">+ تقارير لم تكن تُكتب أصلاً ✨</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">كيف يعمل النظام</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">من Epic Done إلى تقرير Lessons Learned</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">5 خطوات تلقائية تحدث فوراً عند اكتمال أي Epic.</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="relative flex items-start gap-6 mb-12 fade-up">
+                    <div class="flex-shrink-0 relative z-10"><div class="step-number w-12 h-12 bg-saudi text-white rounded-full flex items-center justify-center text-lg font-black shadow-lg">1</div><div class="absolute top-12 right-1/2 transform translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-saudi to-gray-200 hidden md:block"></div></div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex-1 hover:shadow-md transition-shadow group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-jira/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"><svg class="w-6 h-6 text-jira" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg></div>
+                            <div><h3 class="text-lg font-bold text-gray-900 mb-1">Jira Trigger — Epic تتحول لـ "Done"</h3><p class="text-gray-600 text-sm leading-relaxed">Webhook يراقب Jira باستمرار. عندما يتغير حالة Epic إلى "Done"، يتم تفعيل الأتمتة تلقائياً — مع فلتر ذكي يتجاهل التغييرات الأخرى.</p><div class="mt-3 flex items-center gap-2"><span class="bg-jira/10 text-jira px-2 py-0.5 rounded text-xs font-bold">Jira Trigger</span><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs font-bold">If → Done</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex items-start gap-6 mb-12 fade-up" style="transition-delay: 100ms;">
+                    <div class="flex-shrink-0 relative z-10"><div class="step-number w-12 h-12 bg-saudi text-white rounded-full flex items-center justify-center text-lg font-black shadow-lg">2</div><div class="absolute top-12 right-1/2 transform translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-saudi to-gray-200 hidden md:block"></div></div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex-1 hover:shadow-md transition-shadow group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"><svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                            <div><h3 class="text-lg font-bold text-gray-900 mb-1">سحب جميع المهام والتعليقات</h3><p class="text-gray-600 text-sm leading-relaxed">يتصل بـ Jira API ويسحب كل Issue تحت الـ Epic، ثم يسحب جميع التعليقات لكل مهمة — الوصف، العنوان، الحالة، اسم الـ Epic، وكل نقاش حدث.</p><div class="mt-3 flex items-center gap-2"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs font-bold">Get Issues</span><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs font-bold">Get Comments</span><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs font-bold">Edit Fields</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex items-start gap-6 mb-12 fade-up" style="transition-delay: 200ms;">
+                    <div class="flex-shrink-0 relative z-10"><div class="step-number w-12 h-12 bg-saudi text-white rounded-full flex items-center justify-center text-lg font-black shadow-lg">3</div><div class="absolute top-12 right-1/2 transform translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-saudi to-gray-200 hidden md:block"></div></div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex-1 hover:shadow-md transition-shadow group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"><svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg></div>
+                            <div><h3 class="text-lg font-bold text-gray-900 mb-1">تجميع وتلخيص البيانات</h3><p class="text-gray-600 text-sm leading-relaxed">Summarize Node يدمج كل التعليقات لكل مهمة في نص واحد مُنظم، مع ربطها باسم Epic والعنوان والوصف — جاهزة للتحليل الذكي.</p><div class="mt-3 flex items-center gap-2"><span class="bg-orange-50 text-orange-700 px-2 py-0.5 rounded text-xs font-bold">Summarize</span><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs font-bold">Concatenate</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex items-start gap-6 mb-12 fade-up" style="transition-delay: 300ms;">
+                    <div class="flex-shrink-0 relative z-10"><div class="step-number w-12 h-12 bg-saudi text-white rounded-full flex items-center justify-center text-lg font-black shadow-lg">4</div><div class="absolute top-12 right-1/2 transform translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-saudi to-gray-200 hidden md:block"></div></div>
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex-1 hover:shadow-md transition-shadow group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"><svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div>
+                            <div><h3 class="text-lg font-bold text-gray-900 mb-1">AI Agent يكتب تقرير Lessons Learned</h3><p class="text-gray-600 text-sm leading-relaxed">GPT-4o-mini يُحلل كل البيانات ويكتب تقريراً منظماً يشمل: <strong>النتائج الرئيسية، الملاحظات، التوصيات العملية، المقاييس، والتصنيفات</strong> — بتنسيق Markdown احترافي.</p><div class="mt-3 flex items-center gap-2"><span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-xs font-bold">AI Agent</span><span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-xs font-bold">GPT-4o-mini</span><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs font-bold">Buffer Memory</span></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative flex items-start gap-6 fade-up" style="transition-delay: 400ms;">
+                    <div class="flex-shrink-0 relative z-10"><div class="step-number w-12 h-12 bg-gradient-to-br from-saudi to-green-600 text-white rounded-full flex items-center justify-center text-lg font-black shadow-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div></div>
+                    <div class="bg-gradient-to-br from-saudi/5 to-green-50 rounded-xl p-6 border border-saudi/20 flex-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gdocs/10 rounded-xl flex items-center justify-center flex-shrink-0"><svg class="w-6 h-6 text-gdocs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                            <div><h3 class="text-lg font-bold text-saudi mb-1">التقرير يُنشر في Google Docs! 📄</h3><p class="text-gray-600 text-sm leading-relaxed">التقرير النهائي يُكتب مباشرة في Google Docs — منسّق، جاهز للمشاركة مع الفريق أو أصحاب المصلحة، <strong class="text-saudi">بدون أي تدخل بشري</strong>.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT THE REPORT INCLUDES -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">محتوى التقرير</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">ماذا يتضمن تقرير Lessons Learned؟</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">AI يُنشئ تقريراً احترافياً بـ 6 أقسام رئيسية:</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center"><span class="text-2xl">🔍</span></div>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">النتائج الرئيسية</h4>
+                    <p class="text-xs text-gray-500">تحديات تقنية، اكتشافات عملية، ديناميكيات الفريق</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 60ms;">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-amber-100 to-yellow-100 rounded-xl flex items-center justify-center"><span class="text-2xl">💬</span></div>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">الملاحظات والتعليقات</h4>
+                    <p class="text-xs text-gray-500">أمثلة حقيقية من تعليقات الفريق</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 120ms;">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-center justify-center"><span class="text-2xl">✅</span></div>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">التوصيات العملية</h4>
+                    <p class="text-xs text-gray-500">خطوات قابلة للتنفيذ لتحسين العمليات</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 180ms;">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center"><span class="text-2xl">📊</span></div>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">المقاييس والأثر</h4>
+                    <p class="text-xs text-gray-500">وقت، جودة، تكلفة، رضا المستخدم</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 240ms;">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-red-100 to-pink-100 rounded-xl flex items-center justify-center"><span class="text-2xl">🏷️</span></div>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">تصنيفات ذكية</h4>
+                    <p class="text-xs text-gray-500">Tags تلقائية حسب التقنية ومجال التحسين</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-xl flex items-center justify-center"><span class="text-2xl">📋</span></div>
+                    <h4 class="font-bold text-gray-900 text-sm mb-1">بيانات المشروع</h4>
+                    <p class="text-xs text-gray-500">Epic، التاريخ، المهام، الوصف</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">المنظومة التقنية</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">4 أدوات تعمل في تناغم</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up">
+                    <div class="w-14 h-14 mx-auto mb-3 bg-gradient-to-br from-orange-100 to-red-100 rounded-xl flex items-center justify-center"><svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div>
+                    <h4 class="font-bold text-gray-900 text-sm">N8N</h4><p class="text-[10px] text-gray-500">محرك الأتمتة</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 80ms;">
+                    <div class="w-14 h-14 mx-auto mb-3 bg-gradient-to-br from-jira/20 to-blue-100 rounded-xl flex items-center justify-center"><svg class="w-8 h-8 text-jira" fill="currentColor" viewBox="0 0 24 24"><path d="M11.571 11.513H0a5.218 5.218 0 005.232 5.215h2.13v2.057A5.215 5.215 0 0012.577 24V12.518a1.005 1.005 0 00-1.006-1.005z"/></svg></div>
+                    <h4 class="font-bold text-gray-900 text-sm">Jira</h4><p class="text-[10px] text-gray-500">مصدر المهام والتعليقات</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 160ms;">
+                    <div class="w-14 h-14 mx-auto mb-3 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center"><svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div>
+                    <h4 class="font-bold text-gray-900 text-sm">GPT-4o-mini</h4><p class="text-[10px] text-gray-500">العقل الذكي</p>
+                </div>
+                <div class="tool-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay: 240ms;">
+                    <div class="w-14 h-14 mx-auto mb-3 bg-gradient-to-br from-gdocs/20 to-blue-100 rounded-xl flex items-center justify-center"><svg class="w-8 h-8 text-gdocs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                    <h4 class="font-bold text-gray-900 text-sm">Google Docs</h4><p class="text-[10px] text-gray-500">وجهة التقرير</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="py-20 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"><svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-up"><h2 class="text-3xl lg:text-4xl font-bold mb-4">نتائج كل Epic مكتملة</h2></div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all"><div class="text-5xl font-black mb-2">4+</div><div class="text-green-200 font-semibold text-sm mb-1">ساعات توفير</div><p class="text-green-300/70 text-xs">لكل Epic مكتملة</p></div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all" style="transition-delay: 100ms;"><div class="text-5xl font-black mb-2">6</div><div class="text-green-200 font-semibold text-sm mb-1">أقسام في التقرير</div><p class="text-green-300/70 text-xs">تحليل شامل ومنظم</p></div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all" style="transition-delay: 200ms;"><div class="text-5xl font-black mb-2">~1<span class="text-2xl">د</span></div><div class="text-green-200 font-semibold text-sm mb-1">زمن إنشاء التقرير</div><p class="text-green-300/70 text-xs">من Done إلى Docs</p></div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all" style="transition-delay: 300ms;"><div class="text-5xl font-black mb-2">100%</div><div class="text-green-200 font-semibold text-sm mb-1">Epics موثّقة</div><p class="text-green-300/70 text-xs">لا epic تمر بدون retrospective</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section id="download" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up"><span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">حمّل وشغّل</span><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">احصل على المشروع مجاناً</h2></div>
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-gradient-to-br from-saudi/5 via-green-50 to-white rounded-3xl border-2 border-saudi/20 overflow-hidden shadow-xl mb-12 fade-up">
+                    <div class="grid lg:grid-cols-5">
+                        <div class="lg:col-span-3 p-8 lg:p-10">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-14 h-14 bg-saudi rounded-xl flex items-center justify-center shadow-lg shadow-saudi/20"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></div>
+                                <div><h3 class="text-xl font-black text-gray-900">تحميل ملف المشروع</h3><p class="text-sm text-gray-500">ملف JSON جاهز للاستيراد في N8N</p></div>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 border border-gray-200 mb-6">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3"><div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div><div><div class="font-bold text-gray-900 text-sm">jira-retrospective.json</div><div class="text-xs text-gray-500">N8N Workflow Template</div></div></div>
+                                    <div class="text-left"><div class="text-xs text-gray-500">الحجم</div><div class="text-sm font-bold text-gray-700">~10 KB</div></div>
+                                </div>
+                            </div>
+                            <a href="#" download class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-saudi text-white font-bold rounded-xl hover:bg-saudi-light transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg" aria-disabled="true" tabindex="-1" title="الرابط غير متاح في النسخة الحالية"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg><span>تحميل المشروع مجاناً</span></a>
+                            <p class="text-xs text-gray-500 mt-3 flex items-center gap-1"><svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>مجاني 100%</p>
+                        </div>
+                        <div class="lg:col-span-2 bg-gray-900 text-white p-8 lg:p-10 flex flex-col justify-center relative overflow-hidden">
+                            <div class="relative z-10">
+                                <div class="text-sm text-gray-400 mb-2">المتطلبات</div>
+                                <h4 class="text-lg font-bold mb-3">ستحتاج:</h4>
+                                <ul class="space-y-3 text-sm text-gray-300">
+                                    <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><strong>N8N</strong></li>
+                                    <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><strong>Jira Cloud</strong> — API Credentials</li>
+                                    <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><strong>OpenAI API</strong></li>
+                                    <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><strong>Google Docs</strong> — OAuth2</li>
+                                </ul>
+                                <a href="https://n8n.io" target="_blank" class="inline-flex items-center justify-center w-full gap-2 px-6 py-3 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-lg text-sm mt-6"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>إنشاء حساب N8N مجاني</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Setup -->
+                <div class="fade-up">
+                    <div class="text-center mb-10"><h3 class="text-2xl font-bold text-gray-900 mb-3">إعداد سريع</h3></div>
+                    <div class="space-y-4 max-w-3xl mx-auto">
+                        <div class="setup-step bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-9 h-9 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-0.5">1</div><div><h4 class="font-bold text-gray-900">استورد الملف في N8N</h4><p class="text-gray-600 text-sm">Import from File → اختر jira-retrospective.json</p></div></div></div>
+                        <div class="setup-step bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-9 h-9 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-0.5">2</div><div><h4 class="font-bold text-gray-900">اربط Jira Cloud API</h4><p class="text-gray-600 text-sm">Credentials → Jira Software Cloud → أدخل البريد + API Token من <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" class="text-jira font-bold hover:underline">Atlassian</a></p></div></div></div>
+                        <div class="setup-step bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-9 h-9 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-0.5">3</div><div><h4 class="font-bold text-gray-900">اربط OpenAI + Google Docs</h4><p class="text-gray-600 text-sm">OpenAI API Key + Google Docs OAuth2. في Google Docs Node، حدد رابط المستند الهدف.</p></div></div></div>
+                        <div class="setup-step bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-9 h-9 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-0.5">4</div><div><h4 class="font-bold text-gray-900">فعّل الـ Workflow!</h4><p class="text-gray-600 text-sm">فعّل "Active" — أي Epic تتحول لـ Done ستُولّد تقرير تلقائياً!</p></div></div></div>
+                        <div class="bg-gradient-to-br from-saudi/5 to-green-50 rounded-xl p-6 border-2 border-saudi/20 text-center">
+                            <div class="w-14 h-14 bg-saudi/10 rounded-full flex items-center justify-center mx-auto mb-3"><svg class="w-7 h-7 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                            <h4 class="text-lg font-bold text-saudi mb-1">🎉 جاهز! كل Epic مكتملة = تقرير ذكي تلقائي</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 bg-blue-50 rounded-xl p-6 border border-blue-100 flex flex-col sm:flex-row items-center gap-4 fade-up">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
+                    <div class="text-center sm:text-right flex-1"><h4 class="font-bold text-blue-900 mb-1">تحتاج مساعدة؟</h4><p class="text-blue-700 text-sm">أخصص النظام لمشاريعك — إضافة Confluence، إرسال التقرير بالإيميل، أو ربطه بـ Slack/Teams.</p></div>
+                    <a href="../index.html#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all text-sm flex-shrink-0 shadow-md">اطلب المساعدة</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up"><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">أسئلة شائعة</h2></div>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="border border-gray-200 rounded-xl overflow-hidden bg-white fade-up"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">هل يعمل مع Jira Server أم Cloud فقط؟</span><svg class="w-5 h-5 text-saudi transform transition-transform duration-300 flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">حالياً مصمم لـ <strong>Jira Cloud</strong>. يمكن تعديله لـ Jira Server/Data Center مع تغيير طريقة المصادقة.</p></div></div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden bg-white fade-up" style="transition-delay: 80ms;"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">هل يمكن تخصيص شكل التقرير؟</span><svg class="w-5 h-5 text-saudi transform transition-transform duration-300 flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">بالتأكيد! الـ System Prompt في AI Agent Node قابل للتعديل بالكامل — غيّر الأقسام، النبرة، اللغة، أو أضف أقساماً جديدة.</p></div></div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden bg-white fade-up" style="transition-delay: 160ms;"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">هل يمكن إرسال التقرير لـ Confluence بدل Docs؟</span><svg class="w-5 h-5 text-saudi transform transition-transform duration-300 flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">نعم! يمكن استبدال Google Docs Node بـ <strong>Confluence, Notion, SharePoint</strong> أو حتى إرساله بالإيميل. تواصل معي للتخصيص.</p></div></div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden bg-white fade-up" style="transition-delay: 240ms;"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">ما تكلفة OpenAI لكل تقرير؟</span><svg class="w-5 h-5 text-saudi transform transition-transform duration-300 flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">باستخدام GPT-4o-mini، كل تقرير يكلف تقريباً <strong>$0.01 - $0.05</strong> حسب حجم البيانات. تكلفة شبه معدومة!</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="py-20 bg-gradient-to-br from-saudi via-saudi-light to-saudi animated-gradient relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-dots"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center fade-up">
+                <h2 class="text-3xl lg:text-4xl font-black text-white mb-6 leading-tight">كل Epic مكتملة تستحق<br class="hidden sm:block"><span class="text-green-200">تقرير Lessons Learned ذكي.</span></h2>
+                <p class="text-green-100 text-lg mb-10">حمّل المشروع مجاناً — أو تواصل معي لتخصيصه لفريقك.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#download" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-100 transition-all transform hover:scale-105 text-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>حمّل المشروع مجاناً</a>
+                    <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 bg-green-600 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-green-700 transition-all transform hover:scale-105 text-lg border border-green-500" title="WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>ساعدني في الإعداد</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div><a href="../index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a><p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي.</p></div>
+                <div><h4 class="font-bold text-white mb-4">روابط سريعة</h4><ul class="space-y-2"><li><a href="../index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li><li><a href="../index.html#portfolio" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li><li><a href="../projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">إدارة المشاريع</a></li><li><a href="../index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li></ul></div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8"><p class="text-sm text-gray-500 text-center">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر في السعودية 🇸🇦</p></div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a id="whatsapp-float" href="https://wa.me/967718672576" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110" title="تواصل عبر واتساب"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg><span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span></a>
+
+    <!-- STICKY CTA -->
+    <div id="sticky-cta-bar" class="sticky-cta fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-2xl py-3 px-4">
+        <div class="container mx-auto flex items-center justify-between gap-4">
+            <div class="hidden sm:block"><div class="text-sm font-bold text-gray-900">Jira Retrospective بالذكاء الاصطناعي</div><div class="text-xs text-gray-500">مجاني — تقرير Lessons Learned تلقائي لكل Epic</div></div>
+            <div class="flex items-center gap-3 w-full sm:w-auto"><a href="#download" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all text-sm shadow-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>حمّل المشروع مجاناً</a></div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <button class="absolute top-6 left-6 text-white/80 hover:text-white transition-colors z-10" onclick="closeLightbox()"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        <img id="lightbox-img" src="" alt="صورة مكبرة">
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        mobileMenuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); menuIconOpen.classList.toggle('hidden'); menuIconClose.classList.toggle('hidden'); });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); menuIconOpen.classList.remove('hidden'); menuIconClose.classList.add('hidden'); }); });
+
+        // Scroll Animations
+        const scrollObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); scrollObserver.unobserve(entry.target); } }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up, .fade-right').forEach(el => scrollObserver.observe(el));
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const targetId = this.getAttribute('href'); if (targetId === '#') return; const targetElement = document.querySelector(targetId); if (targetElement) { window.scrollTo({ top: targetElement.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); } }); });
+
+        // Navbar Shadow
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('shadow-md', window.scrollY > 10); }, { passive: true });
+
+        // Sticky CTA + WhatsApp
+        const stickyCta = document.getElementById('sticky-cta-bar');
+        const whatsappFloat = document.getElementById('whatsapp-float');
+        let stickyCtaShown = false;
+        window.addEventListener('scroll', () => { const threshold = window.innerHeight * 0.8; const footer = document.querySelector('footer'); const footerTop = footer ? footer.getBoundingClientRect().top : Infinity; if (window.scrollY > threshold && footerTop > window.innerHeight) { if (!stickyCtaShown) { stickyCta.classList.add('visible'); whatsappFloat.classList.add('lifted'); stickyCtaShown = true; } } else { if (stickyCtaShown) { stickyCta.classList.remove('visible'); whatsappFloat.classList.remove('lifted'); stickyCtaShown = false; } } }, { passive: true });
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(src) { lightboxImg.src = src; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox(); });
+
+        // FAQ
+        function toggleFaq(button) { const content = button.nextElementSibling; const icon = button.querySelector('.faq-icon'); const isOpen = !content.classList.contains('hidden'); document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden')); document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180')); if (!isOpen) { content.classList.remove('hidden'); icon.classList.add('rotate-180'); } }
+
+        // Interactive Workflow Node Details
+        const nodeDetails = {
+            1: {
+                title: '🔔 Jira Trigger + If Condition',
+                desc: 'يراقب أي تغيير في Jira. عندما يتغير حالة Issue إلى "Done"، يتحقق من أنه Epic ويُفعّل باقي الخطوات. التغييرات الأخرى تُتجاهل تماماً.',
+                tags: ['Jira Webhook', 'If Node', 'Status = Done']
+            },
+            2: {
+                title: '📥 سحب المهام والتعليقات',
+                desc: 'يتصل بـ Jira API ويسحب كل Issues تحت الـ Epic المكتمل، ثم يسحب جميع Comments لكل مهمة. يُنظم البيانات في حقول واضحة: Epic Name, Title, Description, Comments.',
+                tags: ['Get All Issues', 'Get All Comments', 'Edit Fields', 'Summarize']
+            },
+            3: {
+                title: '🧠 AI Agent يكتب التقرير',
+                desc: 'GPT-4o-mini يحلل كل البيانات المُجمعة ويكتب تقرير Lessons Learned احترافي يشمل: النتائج الرئيسية، الملاحظات، التوصيات، المقاييس، والتصنيفات — كل هذا بـ Markdown متوافق مع Google Docs.',
+                tags: ['AI Agent', 'GPT-4o-mini', 'Buffer Memory', 'Markdown']
+            },
+            4: {
+                title: '📄 النشر في Google Docs',
+                desc: 'التقرير النهائي يُكتب مباشرة في مستند Google Docs محدد — جاهز للمراجعة والمشاركة مع الفريق وأصحاب المصلحة. يمكن تغيير الوجهة لـ Confluence أو Notion.',
+                tags: ['Google Docs API', 'Insert Text', 'OAuth2']
+            }
+        };
+
+        function showNodeDetail(nodeId) {
+            const detail = nodeDetails[nodeId];
+            const panel = document.getElementById('node-detail');
+            const content = document.getElementById('node-detail-content');
+
+            content.innerHTML = `
+                <div class="flex items-start gap-4">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">${detail.title}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-3">${detail.desc}</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            ${detail.tags.map(tag => `<span class="bg-saudi/10 text-saudi px-2.5 py-1 rounded-lg text-xs font-bold">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            panel.classList.remove('hidden');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Highlight active node
+            document.querySelectorAll('.workflow-node').forEach((node, i) => {
+                node.classList.toggle('border-saudi', i + 1 === nodeId);
+                node.classList.toggle('shadow-lg', i + 1 === nodeId);
+                node.classList.toggle('border-2', true);
+            });
+        }
+
+        // Copy Code
+        function copyCode(button, codeId) { const code = document.getElementById(codeId); const text = code.textContent; navigator.clipboard.writeText(text).then(() => { button.textContent = '✓ تم النسخ'; button.classList.add('copied'); setTimeout(() => { button.textContent = 'نسخ'; button.classList.remove('copied'); }, 2000); }); }
+    </script>
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

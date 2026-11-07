@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المشاريع | عبدالله نبيل - خبير أتمتة N8N والذكاء الاصطناعي</title>
+    <meta name="description" content="استعرض مشاريع أتمتة احترافية باستخدام N8N والذكاء الاصطناعي.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(21,87,36,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(21,87,36,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .stagger-1 { transition-delay: 0ms !important; }
+        .stagger-2 { transition-delay: 80ms !important; }
+        .stagger-3 { transition-delay: 160ms !important; }
+        .stagger-4 { transition-delay: 240ms !important; }
+        .stagger-5 { transition-delay: 320ms !important; }
+        .stagger-6 { transition-delay: 400ms !important; }
+        .stagger-7 { transition-delay: 480ms !important; }
+        .stagger-8 { transition-delay: 560ms !important; }
+        .stagger-9 { transition-delay: 640ms !important; }
+        .stagger-10 { transition-delay: 720ms !important; }
+        .stagger-11 { transition-delay: 800ms !important; }
+
+        /* ===== بطاقة المشروع ===== */
+        .project-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-accent, #155724), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+        .project-card:hover::before { opacity: 1; }
+        .project-card:hover {
+            border-color: #155724;
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(21, 87, 36, 0.12);
+        }
+
+        /* ===== صورة المشروع ===== */
+        .project-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+            background: #f8fafc;
+        }
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 12px;
+            background: #f8fafc;
+        }
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        .project-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ===== شارة القسم فوق الصورة ===== */
+        .image-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 3;
+        }
+
+        /* ===== Pipeline فوق الصورة ===== */
+        .image-pipeline {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: nowrap;
+            overflow: hidden;
+        }
+        .pipe-node {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+            backdrop-filter: blur(8px);
+        }
+        .pipe-arrow {
+            flex-shrink: 0;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== الأزرار الثلاثة ===== */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 10px 4px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+            line-height: 1.3;
+            border: 1px solid transparent;
+        }
+        .action-btn:hover { transform: translateY(-3px); }
+
+        .btn-preview {
+            background: #f0fdf4;
+            color: #155724;
+            border-color: #dcfce7;
+        }
+        .btn-preview:hover {
+            background: #dcfce7;
+            border-color: #bbf7d0;
+            box-shadow: 0 8px 20px -4px rgba(21, 87, 36, 0.15);
+        }
+
+        .btn-details {
+            background: #155724;
+            color: white;
+        }
+        .btn-details:hover {
+            background: #1e7e34;
+            box-shadow: 0 8px 20px -4px rgba(21, 87, 36, 0.3);
+        }
+
+        .btn-download {
+            background: #f8fafc;
+            color: #475569;
+            border-color: #e2e8f0;
+        }
+        .btn-download:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+            color: #155724;
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ===== KPI ===== */
+        .kpi-strip { display: flex; gap: 8px; }
+        .kpi-item {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            transition: all 0.3s ease;
+        }
+        .kpi-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px -2px rgba(21, 87, 36, 0.1); }
+
+        /* ===== فلتر ===== */
+        .filter-tab {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .filter-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #155724;
+            transition: width 0.3s ease;
+        }
+        .filter-tab:hover::after,
+        .filter-tab.active::after { width: 100%; }
+
+      
+
+        /* ===== Search ===== */
+        .search-suggestions {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .search-suggestions.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        /* ===== View toggle ===== */
+        .view-toggle-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .view-toggle-btn.active {
+            background: #155724;
+            color: white;
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- الهيدر -->
+    <!-- SHARED COMPONENT: PROJECTS_HEADER START -->
+<header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="index.html#services" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="projects.html" class="text-saudi font-bold relative group">مشاريعي<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="index.html#blog" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">المدونة<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="index.html#contact" class="hidden lg:inline-flex items-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi" aria-label="فتح القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="index.html#about" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="index.html#services" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">مشاريعي</a>
+                <a href="index.html#blog" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">المدونة</a>
+                <a href="index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4"><a href="index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a></div>
+            </div>
+        </div>
+    </header>
+<!-- SHARED COMPONENT: PROJECTS_HEADER END -->
+
+
+    <!-- HERO -->
+    <section class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-20 bg-dots"></div>
+        <div class="absolute inset-0 z-0 grid-bg"></div>
+        <div class="absolute inset-0 z-0 opacity-30"><svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 20 0 50 0 100 100 Z" fill="#f0fdf4"/></svg></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-saudi/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-96 h-96 bg-green-100/30 rounded-full blur-3xl"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <nav class="flex justify-center items-center gap-2 text-sm text-gray-500 mb-6">
+                    <a href="index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                    <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span class="text-saudi font-bold">مشاريع الأتمتة</span>
+                </nav>
+
+                <div class="flex flex-wrap justify-center gap-3 mb-6">
+                    <span class="inline-flex items-center gap-1.5 bg-green-100 text-green-800 text-sm font-bold px-4 py-1.5 rounded-full" style="animation: pulse-soft 2s ease-in-out infinite;">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        مشاريع حقيقية مُنفّذة
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 bg-blue-100 text-blue-800 text-sm font-bold px-4 py-1.5 rounded-full">⚡ مدعوم بوكلاء AI</span>
+                    <span class="inline-flex items-center gap-1.5 bg-purple-100 text-purple-800 text-sm font-bold px-4 py-1.5 rounded-full">🛡️ قابل للتخصيص</span>
+                </div>
+
+                <h1 class="text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 leading-tight mb-6">
+                    مشاريع الأتمتة <span class="text-gradient">والذكاء الاصطناعي</span>
+                    <br class="hidden sm:block"/>
+                    <span class="text-2xl lg:text-3xl font-bold text-gray-500 mt-2 block">حلول واقعية تم بناؤها وتسليمها بنجاح</span>
+                </h1>
+
+                <p class="text-lg lg:text-xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto">
+                    من <span class="font-bold text-saudi">وكلاء الذكاء الاصطناعي</span> إلى <span class="font-bold text-saudi">أتمتة الاجتماعات</span> و<span class="font-bold text-saudi">إدارة المهام الذكية</span> — كل مشروع هنا يمثل حلاً حقيقياً تم تصميمه لتوفير الوقت وتقليل التكاليف.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-6 lg:gap-10">
+                    <div class="text-center"><div class="text-3xl font-black text-saudi counter" data-target="12">0</div><div class="text-sm text-gray-500 font-medium">مشروع مكتمل</div></div>
+                    <div class="w-px h-12 bg-gray-200 hidden sm:block"></div>
+                    <div class="text-center"><div class="text-3xl font-black text-saudi counter" data-target="4">0</div><div class="text-sm text-gray-500 font-medium">تصنيفات متخصصة</div></div>
+                    <div class="w-px h-12 bg-gray-200 hidden sm:block"></div>
+                    <div class="text-center"><div class="text-3xl font-black text-saudi counter" data-target="20">0</div><div class="text-sm text-gray-500 font-medium">أداة وتكامل</div></div>
+                    <div class="w-px h-12 bg-gray-200 hidden sm:block"></div>
+                    <div class="text-center"><div class="text-3xl font-black text-saudi">AI</div><div class="text-sm text-gray-500 font-medium">وكلاء ذكاء اصطناعي</div></div>
+                </div>
+
+                <div class="mt-12">
+                    <a href="#projects-dashboard" class="inline-flex items-center gap-2 text-saudi font-bold hover:underline">
+                        <span>استعرض المشاريع</span>
+                        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- لوحة تحكم المشاريع -->
+    <section id="projects-dashboard" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+
+            <!-- رأس القسم -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10 fade-up">
+                <div>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">استعرض المشاريع</h2>
+                    <p class="text-gray-500 flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1 bg-saudi/10 text-saudi px-3 py-1 rounded-full text-sm font-bold"><span id="visible-count">12</span></span>
+                        <span>مشروع أتمتة وذكاء اصطناعي</span>
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center bg-gray-100 rounded-xl p-1 gap-1">
+                        <button onclick="switchView('grid')" id="view-grid-btn" class="view-toggle-btn active" title="عرض شبكي">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        </button>
+                        <button onclick="switchView('list')" id="view-list-btn" class="view-toggle-btn text-gray-400 bg-transparent" title="عرض قائمة">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الفلترة والبحث -->
+            <div class="bg-gray-50 rounded-2xl p-6 mb-10 fade-up border border-gray-100" style="transition-delay: 100ms;">
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="flex flex-wrap gap-2 flex-1">
+                        <button class="filter-tab active px-4 py-2 rounded-lg text-sm font-bold bg-saudi text-white" data-filter="all" onclick="filterProjects('all', this)">🔥 الكل</button>
+                        <button class="filter-tab px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100" data-filter="وكلاء الذكاء الاصطناعي" onclick="filterProjects('وكلاء الذكاء الاصطناعي', this)">🤖 وكلاء AI</button>
+                        <button class="filter-tab px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100" data-filter="أتمتة الاجتماعات" onclick="filterProjects('أتمتة الاجتماعات', this)">🎤 أتمتة الاجتماعات</button>
+                        <button class="filter-tab px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100" data-filter="إدارة المهام" onclick="filterProjects('إدارة المهام', this)">📋 إدارة المهام</button>
+                        <button class="filter-tab px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100" data-filter="إشعارات وتصعيد" onclick="filterProjects('إشعارات وتصعيد', this)">🔔 إشعارات وتصعيد</button>
+                    </div>
+                    <div class="relative lg:w-auto">
+                        <input type="text" id="search-input" placeholder="ابحث عن مشروع..." class="w-full sm:w-64 px-4 py-2.5 pr-10 rounded-lg border border-gray-200 focus:ring-2 focus:ring-saudi/20 focus:border-saudi outline-none text-sm" oninput="searchProjects(this.value)">
+                        <svg class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <div id="search-suggestions" class="search-suggestions absolute top-full right-0 left-0 mt-2 bg-white rounded-lg shadow-xl border border-gray-100 z-30 overflow-hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- شبكة المشاريع -->
+            <div id="projects-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div id="projects-loading" class="col-span-full text-center py-12 text-gray-500">جارٍ تحميل المشاريع...</div>
+            </div>
+
+            <!-- لا نتائج -->
+            <div id="no-results" class="hidden text-center py-20">
+                <div class="text-6xl mb-4">🔍</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">لم يتم العثور على مشاريع</h3>
+                <p class="text-gray-500 mb-6">جرّب تغيير معايير البحث أو الفلترة</p>
+                <button onclick="filterProjects('all', document.querySelector('[data-filter=all]'))" class="px-6 py-2.5 bg-saudi text-white rounded-lg font-bold hover:bg-saudi-light">عرض الكل</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="py-20 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"><svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg></div>
+        <div class="container mx-auto px-4 text-center relative z-10 fade-up">
+            <div class="text-5xl mb-6">🚀</div>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">هل لديك فكرة لمشروع أتمتة؟</h2>
+            <p class="text-xl text-green-100 mb-8 max-w-3xl mx-auto">كل عمل له تحدياته الفريدة. أخبرني بتحدياتك وسأصمم لك حلاً مخصصاً.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html#contact" class="inline-flex items-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all transform hover:scale-105"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg><span>استشارة مجانية (15 دقيقة)</span></a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center gap-2 bg-green-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-green-600 transition-all transform hover:scale-105"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg><span>تواصل عبر واتساب</span></a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- الفوتر -->
+    <!-- SHARED COMPONENT: PROJECTS_FOOTER START -->
+<footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div><a href="index.html" class="text-2xl font-bold text-white inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a><p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي.</p></div>
+                <div><h4 class="font-bold text-white mb-4">روابط سريعة</h4><ul class="space-y-2"><li><a href="index.html" class="text-gray-400 hover:text-white text-sm">الرئيسية</a></li><li><a href="index.html#services" class="text-gray-400 hover:text-white text-sm">الخدمات</a></li><li><a href="projects.html" class="text-white font-bold text-sm">المشاريع</a></li><li><a href="index.html#contact" class="text-gray-400 hover:text-white text-sm">تواصل معي</a></li></ul></div>
+
+                
+
+                                                             <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8"><p class="text-sm text-gray-500 text-center">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر 🇸🇦</p></div>
+        </div>
+    </footer>
+<!-- SHARED COMPONENT: PROJECTS_FOOTER END -->
+
+    <!-- واتساب -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110" style="animation: float 3s ease-in-out infinite;"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg><span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span></a>
+
+   
+    <!-- Modal -->
+    <div id="project-detail-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+        <div class="fixed inset-0 bg-gray-900/75 backdrop-blur-sm transition-opacity duration-300 opacity-0" id="detail-backdrop"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative transform overflow-hidden rounded-2xl bg-white text-right shadow-xl transition-all duration-300 sm:w-full sm:max-w-2xl opacity-0 scale-95" id="detail-panel">
+                <div class="absolute top-4 left-4 z-10"><button class="rounded-full bg-gray-100 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-200" onclick="closeProjectDetail()"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+                <div class="p-6 sm:p-8" id="detail-content"></div>
+                <div class="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row-reverse gap-3">
+                    <a href="" id="detail-project-link" class="inline-flex justify-center rounded-lg bg-saudi px-5 py-2.5 text-sm font-semibold text-white hover:bg-saudi-light">عرض التفاصيل الكاملة</a>
+                    <a href="" id="detail-download-link" download class="inline-flex justify-center rounded-lg bg-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-300 items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>تحميل المشروع</a>
+                    <button onclick="closeProjectDetail()" class="inline-flex justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let projectDetails = {};
+
+    function animateCounters() {
+        document.querySelectorAll('.counter').forEach(c => {
+            const t = parseInt(c.dataset.target), d = 1500, s = performance.now();
+            (function u(n) { const p = Math.min((n-s)/d, 1); c.textContent = Math.floor(t*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(u); else c.textContent=t; })(s);
+        });
+    }
+
+    function switchView(v) {
+        const g=document.getElementById('projects-grid'), gb=document.getElementById('view-grid-btn'), lb=document.getElementById('view-list-btn');
+        if(v==='grid'){g.className='grid md:grid-cols-2 xl:grid-cols-3 gap-6';gb.classList.add('active');gb.classList.remove('text-gray-400','bg-transparent');lb.classList.remove('active');lb.classList.add('text-gray-400','bg-transparent');}
+        else{g.className='grid grid-cols-1 lg:grid-cols-2 gap-4';lb.classList.add('active');lb.classList.remove('text-gray-400','bg-transparent');gb.classList.remove('active');gb.classList.add('text-gray-400','bg-transparent');}
+    }
+
+    function filterProjects(f, b) {
+        document.querySelectorAll('.filter-tab').forEach(t=>{t.classList.remove('active','bg-saudi','text-white');t.classList.add('text-gray-600');});
+        if(b){b.classList.add('active','bg-saudi','text-white');b.classList.remove('text-gray-600');}
+        let c=0; document.querySelectorAll('.project-card').forEach((card,i)=>{
+            if(f==='all'||card.dataset.category===f){card.style.display='';card.style.opacity='0';card.style.transform='translateY(20px)';setTimeout(()=>{card.style.opacity='1';card.style.transform='translateY(0)';},i*60);c++;}else card.style.display='none';
+        });
+        document.getElementById('visible-count').textContent=c;
+        document.getElementById('no-results').classList.toggle('hidden',c>0);
+    }
+
+    function searchProjects(q) {
+        const sug=document.getElementById('search-suggestions'); let c=0, suggestions=[];
+        q=q.trim().toLowerCase();
+        document.querySelectorAll('.project-card').forEach(card=>{
+            const t=(card.dataset.title||'').toLowerCase(), tags=(card.dataset.tags||'').toLowerCase(), cat=(card.dataset.category||'').toLowerCase();
+            if(!q||t.includes(q)||tags.includes(q)||cat.includes(q)){card.style.display='';c++;if(q&&suggestions.length<5)suggestions.push({title:card.dataset.title});}else card.style.display='none';
+        });
+        document.getElementById('visible-count').textContent=c;
+        document.getElementById('no-results').classList.toggle('hidden',c>0);
+        if(q&&suggestions.length>0){sug.innerHTML=suggestions.map(s=>`<button onclick="document.getElementById('search-input').value='${s.title}';searchProjects('${s.title}');document.getElementById('search-suggestions').classList.remove('show');" class="block w-full text-right px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 hover:text-saudi border-b border-gray-50 last:border-0">${s.title}</button>`).join('');sug.classList.add('show');}else sug.classList.remove('show');
+    }
+    document.addEventListener('click',e=>{if(!e.target.closest('#search-input')&&!e.target.closest('#search-suggestions'))document.getElementById('search-suggestions').classList.remove('show');});
+
+    function openProjectDetail(id) {
+        const p=projectDetails[id]; if(!p)return;
+        document.getElementById('detail-content').innerHTML=`<div class="space-y-6">
+            <div class="h-52 rounded-xl overflow-hidden bg-gray-100"><img src="${p.img}" alt="${p.title}" class="w-full h-full object-contain p-3 bg-gray-50" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('bg-gradient-to-br','from-green-50','to-blue-50');this.style.display='none';" decoding="async" loading="lazy"></div>
+            <div class="border-b border-gray-100 pb-4"><h3 class="text-2xl font-bold text-gray-900 mb-2">${p.title}</h3><span class="inline-block bg-${p.catColor}-100 text-${p.catColor}-800 text-xs font-bold px-3 py-1 rounded-full">${p.category}</span></div>
+            <div><h4 class="text-lg font-bold text-gray-900 mb-2">نظرة عامة</h4><p class="text-gray-600 leading-relaxed">${p.desc}</p></div>
+            <div class="bg-green-50 p-5 rounded-xl border border-green-100"><h4 class="text-lg font-bold text-saudi mb-3 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>النتائج</h4><div class="grid grid-cols-2 gap-3">${p.metrics.map(m=>`<div class="bg-white rounded-lg p-3 border border-green-100 flex items-center gap-2"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-sm font-medium text-gray-700">${m}</span></div>`).join('')}</div></div>
+            <div><h4 class="text-lg font-bold text-gray-900 mb-3">التقنيات</h4><div class="flex flex-wrap gap-2">${p.tech.map(t=>`<span class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-lg text-sm font-medium border border-gray-200">${t}</span>`).join('')}</div></div>
+        </div>`;
+        document.getElementById('detail-project-link').href=p.link;
+        document.getElementById('detail-download-link').href=p.download;
+        const m=document.getElementById('project-detail-modal'); m.classList.remove('hidden');
+        requestAnimationFrame(()=>{document.getElementById('detail-backdrop').classList.replace('opacity-0','opacity-100');const pn=document.getElementById('detail-panel');pn.classList.remove('opacity-0','scale-95');pn.classList.add('opacity-100','scale-100');});
+        document.body.style.overflow='hidden';
+    }
+
+    function closeProjectDetail() {
+        document.getElementById('detail-backdrop').classList.replace('opacity-100','opacity-0');
+        const p=document.getElementById('detail-panel');p.classList.remove('opacity-100','scale-100');p.classList.add('opacity-0','scale-95');
+        setTimeout(()=>{document.getElementById('project-detail-modal').classList.add('hidden');document.body.style.overflow='';},300);
+    }
+    document.getElementById('project-detail-modal').addEventListener('click',e=>{if(e.target===e.currentTarget||e.target.classList.contains('backdrop-blur-sm'))closeProjectDetail();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProjectDetail();});
+
+   
+
+    document.getElementById('mobile-menu-btn').addEventListener('click',()=>{document.getElementById('mobile-menu').classList.toggle('hidden');document.getElementById('menu-icon-open').classList.toggle('hidden');document.getElementById('menu-icon-close').classList.toggle('hidden');});
+    document.querySelectorAll('.mobile-nav-link').forEach(l=>l.addEventListener('click',()=>{document.getElementById('mobile-menu').classList.add('hidden');document.getElementById('menu-icon-open').classList.remove('hidden');document.getElementById('menu-icon-close').classList.add('hidden');}));
+
+    const so=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');so.unobserve(e.target);}});},{threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el=>so.observe(el));
+
+    window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('shadow-md',window.scrollY>10),{passive:true});
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'});});});
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        document.getElementById('visible-count').textContent=document.querySelectorAll('.project-card').length;
+        const co=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();co.disconnect();}});},{threshold:0.5});
+        const fc=document.querySelector('.counter');if(fc)co.observe(fc);
+    });
+    </script>
+
+
+
+<!-- مصدر بيانات بطاقات المشاريع: data/projects.json -->
+<script>
+(() => {
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const colorClass = category => ({'وكلاء الذكاء الاصطناعي':'purple','أتمتة الاجتماعات':'blue','إدارة المهام':'emerald','إشعارات وتصعيد':'orange'}[category] || 'green');
+  const pipelineHTML = items => (items || []).map((item, index) => `${index ? '<span class="pipe-arrow" aria-hidden="true">→</span>' : ''}<span class="pipe-node ${index === 1 ? 'bg-saudi text-white' : 'bg-white/90 text-gray-700'}">${escapeHTML(item)}</span>`).join('');
+  function renderProjects(projects) {
+    const grid = document.getElementById('projects-grid');
+    const published = projects.filter(p => p.status === 'published');
+    projectDetails = Object.fromEntries(published.map(p => [p.id, {
+      title:p.title, category:p.category, catColor:colorClass(p.category), desc:p.description,
+      metrics:(p.metrics || []).map(m => `${m.label}: ${m.value}`), tech:p.tags || [],
+      link:p.detailPage || '#', download:p.workflowDownloadAvailable && p.workflowFile ? p.workflowFile : '#', img:p.image || ''
+    }]));
+    grid.innerHTML = published.map((p, i) => {
+      const metrics = (p.metrics || []).slice(0,2).map(m => `<div class="kpi-item"><div class="text-[9px] text-gray-400 uppercase">${escapeHTML(m.label)}</div><div class="text-[11px] font-bold text-saudi">${escapeHTML(m.value)}</div></div>`).join('');
+      const canDownload = Boolean(p.workflowDownloadAvailable && p.workflowFile);
+      const download = canDownload
+        ? `<a href="${escapeHTML(p.workflowFile)}" download class="action-btn btn-download"><span aria-hidden="true">↓</span><span>تحميل</span></a>`
+        : `<span class="action-btn btn-download opacity-50" aria-disabled="true" title="ملف التدفق غير متاح"><span aria-hidden="true">↓</span><span>غير متاح</span></span>`;
+      return `<article class="project-card fade-up stagger-${(i%11)+1}" style="--card-accent:${escapeHTML(p.accentColor || '#244c3b')}" data-category="${escapeHTML(p.category)}" data-id="${escapeHTML(p.id)}" data-title="${escapeHTML(p.title)}" data-tags="${escapeHTML((p.tags||[]).join(','))}">
+        <div class="project-image-wrapper"><img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.imageAlt || p.title)}" class="project-image" loading="eager" onerror="this.style.display='none';this.parentElement.classList.add('bg-gradient-to-br','from-gray-50','to-gray-100')" decoding="async"><div class="project-image-overlay"></div><div class="image-badge"><span class="bg-${colorClass(p.category)}-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg">${escapeHTML(p.category)}</span></div><div class="image-pipeline">${pipelineHTML(p.pipeline)}</div></div>
+        <div class="p-5"><h3 class="text-base font-bold text-gray-900 mb-2 leading-snug">${escapeHTML(p.title)}</h3><p class="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2">${escapeHTML(p.description)}</p><div class="kpi-strip mb-4">${metrics}</div><div class="action-buttons"><button onclick="openProjectDetail('${escapeHTML(p.id)}')" class="action-btn btn-preview"><span aria-hidden="true">◉</span><span>نظرة سريعة</span></button><a href="${escapeHTML(p.detailPage || '#')}" class="action-btn btn-details"><span aria-hidden="true">▤</span><span>التفاصيل</span></a>${download}</div></div></article>`;
+    }).join('');
+    document.getElementById('visible-count').textContent = published.length;
+    document.getElementById('projects-loading')?.remove();
+    const observer = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}), {threshold:.1}) : null;
+    if(observer) grid.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.filter-tab').forEach(btn => btn.addEventListener('click', () => searchProjects(document.getElementById('search-input')?.value || '')));
+  }
+  fetch('data/projects.json', {headers:{'Accept':'application/json'}})
+    .then(response => { if(!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
+    .then(data => { if(!Array.isArray(data.projects)) throw new Error('Invalid project catalog'); renderProjects(data.projects); })
+    .catch(error => { console.error('تعذر تحميل كتالوج المشاريع:', error); const loading=document.getElementById('projects-loading'); if(loading) loading.textContent='تعذر تحميل المشاريع. يرجى تحديث الصفحة لاحقاً.'; });
+})();
+</script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="global-forms.js"></script>
+
+<!-- ✅ الترتيب مهم - النواة أولاً -->
+<script src="shared-tracker-core.js"></script>
+<script src="sheets-tracker.js"></script>
+<script src="telegram-tracker.js"></script>
+
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+</body>
+</html>

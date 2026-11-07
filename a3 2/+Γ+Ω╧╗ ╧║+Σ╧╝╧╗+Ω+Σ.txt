@@ -1,0 +1,902 @@
+// ══════════════════════════════════════════════════════════════
+// 📊 Smart Business Tracker v3.0
+// ══════════════════════════════════════════════════════════════
+// ✅ 3 أوراق فقط: الزيارات + الإيميلات + لوحة التحكم
+// ✅ 15 عمود للزيارات + 10 أعمدة للإيميلات
+// ✅ لوحة تحكم بصيغ تلقائية حقيقية
+// ✅ كود نظيف وسريع بدون تعقيد
+// ══════════════════════════════════════════════════════════════
+
+
+// ─────────────────────────────────────────
+// 🏗️ إنشاء قاعدة البيانات (يُشغّل مرة واحدة)
+// ─────────────────────────────────────────
+
+function setupDatabase() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  // ── تعريف الأوراق الثلاث ──
+  var sheets = [
+    {
+      name: '📊 الزيارات',
+      color: '#1565C0',
+      headers: [
+        'التاريخ',
+        'اليوزر',
+        'جديد/عائد',
+        'رقم الزيارة',
+        'الصفحة',
+        'مسار التصفح',
+        'عدد الصفحات',
+        'مدة البقاء (ثانية)',
+        'نسبة القراءة %',
+        'المصدر',
+        'نوع المصدر',
+        'الحملة',
+        'الدولة',
+        'الجهاز',
+        'المتصفح'
+      ],
+      widths: [
+        160,   // التاريخ
+        140,   // اليوزر
+        100,   // جديد/عائد
+        90,    // رقم الزيارة
+        140,   // الصفحة
+        350,   // مسار التصفح
+        90,    // عدد الصفحات
+        120,   // مدة البقاء
+        100,   // نسبة القراءة
+        140,   // المصدر
+        120,   // نوع المصدر
+        130,   // الحملة
+        120,   // الدولة
+        100,   // الجهاز
+        120    // المتصفح
+      ]
+    },
+    {
+      name: '📧 الإيميلات',
+      color: '#E91E63',
+      headers: [
+        'التاريخ',
+        'المستلم',
+        'الحملة',
+        'الموضوع',
+        'رقم الفتح',
+        'مستوى التفاعل',
+        'الدولة',
+        'الجهاز',
+        'تطبيق البريد',
+        'IP'
+      ],
+      widths: [
+        160,   // التاريخ
+        160,   // المستلم
+        140,   // الحملة
+        200,   // الموضوع
+        90,    // رقم الفتح
+        140,   // مستوى التفاعل
+        120,   // الدولة
+        100,   // الجهاز
+        140,   // تطبيق البريد
+        130    // IP
+      ]
+    },
+    {
+      name: '📈 لوحة التحكم',
+      color: '#FF5722',
+      headers: [],
+      widths: []
+    }
+  ];
+
+  // ── إنشاء كل ورقة ──
+  for (var i = 0; i < sheets.length; i++) {
+    createSheet(ss, sheets[i], i);
+  }
+
+  // ── إعداد لوحة التحكم ──
+  setupDashboard(ss);
+
+  // ── حذف الأوراق الافتراضية ──
+  deleteDefaultSheets(ss);
+
+  SpreadsheetApp.getUi().alert(
+    '✅ تم إنشاء قاعدة البيانات بنجاح!\n\n' +
+    '📊 الزيارات - لتسجيل كل زيارة\n' +
+    '📧 الإيميلات - لتتبع فتح الإيميلات\n' +
+    '📈 لوحة التحكم - إحصائيات تلقائية'
+  );
+}
+
+
+// ─────────────────────────────────────────
+// 🎨 إنشاء ورقة مع التنسيق
+// ─────────────────────────────────────────
+
+function createSheet(ss, cfg, index) {
+  var sheet = ss.getSheetByName(cfg.name);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(cfg.name, index);
+  } else {
+    sheet.clear();
+    sheet.clearFormats();
+  }
+
+  // لوحة التحكم تُعالج منفصلة
+  if (cfg.headers.length === 0) return;
+
+  // ── لون التبويب ──
+  sheet.setTabColor(cfg.color);
+
+  // ── العناوين ──
+  var headerRange = sheet.getRange(1, 1, 1, cfg.headers.length);
+  headerRange.setValues([cfg.headers]);
+
+  // ── تنسيق العناوين ──
+  headerRange
+    .setBackground(cfg.color)
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(11)
+    .setHorizontalAlignment('center')
+    .setVerticalAlignment('middle')
+    .setWrap(true);
+
+  sheet.setRowHeight(1, 40);
+
+  // ── عرض الأعمدة ──
+  for (var i = 0; i < cfg.widths.length; i++) {
+    sheet.setColumnWidth(i + 1, cfg.widths[i]);
+  }
+
+  // ── تجميد الصف الأول ──
+  sheet.setFrozenRows(1);
+
+  // ── تنسيق منطقة البيانات ──
+  var dataRange = sheet.getRange(2, 1, 998, cfg.headers.length);
+  dataRange
+    .setFontSize(10)
+    .setVerticalAlignment('middle')
+    .setHorizontalAlignment('center')
+    .setWrap(true);
+
+  // ── ألوان صفوف متناوبة (أول 200 صف) ──
+  for (var row = 2; row <= 200; row++) {
+    var rowRange = sheet.getRange(row, 1, 1, cfg.headers.length);
+    rowRange.setBackground(row % 2 === 0 ? '#F0F4F8' : '#FFFFFF');
+  }
+
+  // ── فلتر ──
+  sheet.getRange(1, 1, 1, cfg.headers.length).createFilter();
+
+  // ── حماية العناوين ──
+  var protection = sheet.getRange(1, 1, 1, cfg.headers.length).protect();
+  protection.setDescription('حماية العناوين');
+  protection.setWarningOnly(true);
+}
+
+
+// ─────────────────────────────────────────
+// 📈 إعداد لوحة التحكم
+// ─────────────────────────────────────────
+
+function setupDashboard(ss) {
+  var dash = ss.getSheetByName('📈 لوحة التحكم');
+  if (!dash) return;
+
+  dash.setTabColor('#FF5722');
+
+  // ── عرض الأعمدة ──
+  dash.setColumnWidth(1, 30);
+  for (var c = 2; c <= 7; c++) {
+    dash.setColumnWidth(c, 180);
+  }
+
+  var visits = "'📊 الزيارات'";
+  var emails = "'📧 الإيميلات'";
+
+  // ════════════════════════════════════
+  // العنوان الرئيسي
+  // ════════════════════════════════════
+  dash.getRange('B2:G2').merge()
+    .setValue('📈 لوحة التحكم الرئيسية')
+    .setBackground('#1A237E')
+    .setFontColor('#FFFFFF')
+    .setFontSize(18)
+    .setFontWeight('bold')
+    .setHorizontalAlignment('center');
+  dash.setRowHeight(2, 50);
+
+  dash.getRange('B3:G3').merge()
+    .setFormula('="آخر تحديث: "&TEXT(NOW(),"YYYY/MM/DD HH:MM")')
+    .setBackground('#283593')
+    .setFontColor('#90CAF9')
+    .setFontSize(10)
+    .setHorizontalAlignment('center');
+
+  // ════════════════════════════════════
+  // 📊 إحصائيات الزيارات
+  // ════════════════════════════════════
+  var row = 5;
+  sectionTitle(dash, row, '👥 إحصائيات الزيارات', '#E3F2FD');
+
+  row = 6;
+  var vHeaders = ['إجمالي الزيارات', 'زيارات اليوم', 'زيارات الأسبوع', 'زيارات الشهر', 'زوار جدد', 'زوار عائدين'];
+  dash.getRange(row, 2, 1, 6).setValues([vHeaders])
+    .setBackground('#1565C0')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  row = 7;
+  // إجمالي الزيارات
+  dash.getRange('B7').setFormula(
+    '=COUNTA(' + visits + '!A2:A)'
+  );
+  // زيارات اليوم
+  dash.getRange('C7').setFormula(
+    '=COUNTIF(' + visits + '!A2:A,">="&TODAY())'
+  );
+  // زيارات الأسبوع
+  dash.getRange('D7').setFormula(
+    '=COUNTIF(' + visits + '!A2:A,">="&TODAY()-7)'
+  );
+  // زيارات الشهر
+  dash.getRange('E7').setFormula(
+    '=COUNTIF(' + visits + '!A2:A,">="&TODAY()-30)'
+  );
+  // زوار جدد
+  dash.getRange('F7').setFormula(
+    '=COUNTIF(' + visits + '!C2:C,"جديد")'
+  );
+  // زوار عائدين
+  dash.getRange('G7').setFormula(
+    '=COUNTIF(' + visits + '!C2:C,"عائد")'
+  );
+
+  dash.getRange(7, 2, 1, 6)
+    .setBackground('#E3F2FD')
+    .setFontSize(16)
+    .setFontWeight('bold')
+    .setHorizontalAlignment('center');
+  dash.setRowHeight(7, 45);
+
+  // ════════════════════════════════════
+  // 📊 متوسطات الأداء
+  // ════════════════════════════════════
+  row = 9;
+  sectionTitle(dash, row, '📊 متوسطات الأداء', '#E8F5E9');
+
+  row = 10;
+  dash.getRange(row, 2, 1, 6).setValues([[
+    'متوسط المدة (ثانية)', 'متوسط الصفحات', 'متوسط القراءة %',
+    'أكثر صفحة زيارة', 'أكثر مصدر', 'أكثر دولة'
+  ]])
+    .setBackground('#2E7D32')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  row = 11;
+  // متوسط المدة
+  dash.getRange('B11').setFormula(
+    '=IFERROR(ROUND(AVERAGE(' + visits + '!H2:H),0),0)'
+  );
+  // متوسط الصفحات
+  dash.getRange('C11').setFormula(
+    '=IFERROR(ROUND(AVERAGE(' + visits + '!G2:G),1),0)'
+  );
+  // متوسط القراءة
+  dash.getRange('D11').setFormula(
+    '=IFERROR(ROUND(AVERAGE(' + visits + '!I2:I),0),0)&"%"'
+  );
+  // أكثر صفحة
+  dash.getRange('E11').setFormula(
+    '=IFERROR(INDEX(' + visits + '!E2:E,MATCH(MAX(COUNTIF(' + visits + '!E2:E,' + visits + '!E2:E)),COUNTIF(' + visits + '!E2:E,' + visits + '!E2:E),0)),"-")'
+  );
+  // أكثر مصدر
+  dash.getRange('F11').setFormula(
+    '=IFERROR(INDEX(' + visits + '!J2:J,MATCH(MAX(COUNTIF(' + visits + '!J2:J,' + visits + '!J2:J)),COUNTIF(' + visits + '!J2:J,' + visits + '!J2:J),0)),"-")'
+  );
+  // أكثر دولة
+  dash.getRange('G11').setFormula(
+    '=IFERROR(INDEX(' + visits + '!M2:M,MATCH(MAX(COUNTIF(' + visits + '!M2:M,' + visits + '!M2:M)),COUNTIF(' + visits + '!M2:M,' + visits + '!M2:M),0)),"-")'
+  );
+
+  dash.getRange(11, 2, 1, 6)
+    .setBackground('#E8F5E9')
+    .setFontSize(14)
+    .setFontWeight('bold')
+    .setHorizontalAlignment('center');
+  dash.setRowHeight(11, 45);
+
+  // ════════════════════════════════════
+  // 📄 أداء الصفحات
+  // ════════════════════════════════════
+  row = 13;
+  sectionTitle(dash, row, '📄 أداء كل صفحة', '#FFF3E0');
+
+  row = 14;
+  dash.getRange(row, 2, 1, 6).setValues([[
+    'الصفحة', 'عدد الزيارات', 'متوسط المدة', 'متوسط القراءة', 'نسبة من الإجمالي', '—'
+  ]])
+    .setBackground('#E65100')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  var pageNames = ['الرئيسية', 'من أنا', 'الخدمات', 'المشاريع', 'المدونة', 'تواصل'];
+
+  for (var p = 0; p < pageNames.length; p++) {
+    row = 15 + p;
+    var pageName = pageNames[p];
+
+    dash.getRange('B' + row).setValue(pageName);
+
+    // عدد الزيارات لهذه الصفحة
+    dash.getRange('C' + row).setFormula(
+      '=COUNTIF(' + visits + '!E2:E,"*' + pageName + '*")'
+    );
+
+    // متوسط المدة لهذه الصفحة
+    dash.getRange('D' + row).setFormula(
+      '=IFERROR(ROUND(AVERAGEIF(' + visits + '!E2:E,"*' + pageName + '*",' + visits + '!H2:H),0),"-")'
+    );
+
+    // متوسط القراءة لهذه الصفحة
+    dash.getRange('E' + row).setFormula(
+      '=IFERROR(ROUND(AVERAGEIF(' + visits + '!E2:E,"*' + pageName + '*",' + visits + '!I2:I),0)&"%","-")'
+    );
+
+    // نسبة من الإجمالي
+    dash.getRange('F' + row).setFormula(
+      '=IFERROR(ROUND(C' + row + '/COUNTA(' + visits + '!A2:A)*100,1)&"%","-")'
+    );
+
+    dash.getRange('G' + row).setValue('—');
+
+    dash.getRange(row, 2, 1, 6)
+      .setBackground(p % 2 === 0 ? '#FFF8E1' : '#FFFFFF')
+      .setHorizontalAlignment('center')
+      .setFontSize(11);
+  }
+
+  // ════════════════════════════════════
+  // 📧 أداء الإيميل
+  // ════════════════════════════════════
+  row = 22;
+  sectionTitle(dash, row, '📧 أداء الإيميل', '#FCE4EC');
+
+  row = 23;
+  dash.getRange(row, 2, 1, 6).setValues([[
+    'إجمالي الفتحات', 'أول فتح', 'فتح متكرر', 'أكثر حملة', 'أكثر مستلم', 'أنشط جهاز'
+  ]])
+    .setBackground('#C62828')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  row = 24;
+  dash.getRange('B24').setFormula('=COUNTA(' + emails + '!A2:A)');
+  dash.getRange('C24').setFormula('=COUNTIF(' + emails + '!E2:E,1)');
+  dash.getRange('D24').setFormula('=COUNTIF(' + emails + '!E2:E,">"&1)');
+  dash.getRange('E24').setFormula(
+    '=IFERROR(INDEX(' + emails + '!C2:C,MATCH(MAX(COUNTIF(' + emails + '!C2:C,' + emails + '!C2:C)),COUNTIF(' + emails + '!C2:C,' + emails + '!C2:C),0)),"-")'
+  );
+  dash.getRange('F24').setFormula(
+    '=IFERROR(INDEX(' + emails + '!B2:B,MATCH(MAX(COUNTIF(' + emails + '!B2:B,' + emails + '!B2:B)),COUNTIF(' + emails + '!B2:B,' + emails + '!B2:B),0)),"-")'
+  );
+  dash.getRange('G24').setFormula(
+    '=IFERROR(INDEX(' + emails + '!H2:H,MATCH(MAX(COUNTIF(' + emails + '!H2:H,' + emails + '!H2:H)),COUNTIF(' + emails + '!H2:H,' + emails + '!H2:H),0)),"-")'
+  );
+
+  dash.getRange(24, 2, 1, 6)
+    .setBackground('#FCE4EC')
+    .setFontSize(14)
+    .setFontWeight('bold')
+    .setHorizontalAlignment('center');
+  dash.setRowHeight(24, 45);
+
+  // ════════════════════════════════════
+  // 🏆 أنشط المستخدمين
+  // ════════════════════════════════════
+  row = 26;
+  sectionTitle(dash, row, '🏆 أنشط 10 مستخدمين', '#F3E5F5');
+
+  row = 27;
+  dash.getRange(row, 2, 1, 6).setValues([[
+    'اليوزر', 'عدد الزيارات', 'فتحات إيميل', 'آخر زيارة', 'أكثر صفحة', 'التقييم'
+  ]])
+    .setBackground('#6A1B9A')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  // صفوف فارغة لأنشط المستخدمين (تُملأ بدالة updateDashboard)
+  for (var u = 0; u < 10; u++) {
+    row = 28 + u;
+    dash.getRange(row, 2, 1, 6)
+      .setBackground(u % 2 === 0 ? '#F3E5F5' : '#FFFFFF')
+      .setHorizontalAlignment('center')
+      .setFontSize(10);
+  }
+
+  // ════════════════════════════════════
+  // 🌍 التوزيع الجغرافي
+  // ════════════════════════════════════
+  row = 39;
+  sectionTitle(dash, row, '🌍 أكثر 10 دول زيارة', '#E0F7FA');
+
+  row = 40;
+  dash.getRange(row, 2, 1, 6).setValues([[
+    'الدولة', 'عدد الزيارات', 'النسبة %', '—', '—', '—'
+  ]])
+    .setBackground('#00695C')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  // صفوف فارغة (تُملأ بدالة updateDashboard)
+  for (var g = 0; g < 10; g++) {
+    row = 41 + g;
+    dash.getRange(row, 2, 1, 6)
+      .setBackground(g % 2 === 0 ? '#E0F7FA' : '#FFFFFF')
+      .setHorizontalAlignment('center')
+      .setFontSize(10);
+  }
+
+  // ════════════════════════════════════
+  // 🔎 أداء المصادر
+  // ════════════════════════════════════
+  row = 52;
+  sectionTitle(dash, row, '🔎 أداء مصادر الزيارات', '#EFEBE9');
+
+  row = 53;
+  dash.getRange(row, 2, 1, 6).setValues([[
+    'المصدر', 'عدد الزيارات', 'النسبة %', '—', '—', '—'
+  ]])
+    .setBackground('#4E342E')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(9)
+    .setHorizontalAlignment('center');
+
+  var sourceTypes = ['مباشر 🏠', 'بحث 🔍', 'اجتماعي 📱', 'إعلان 💰', 'إيميل 📧', 'إحالة 🌐'];
+  for (var s = 0; s < sourceTypes.length; s++) {
+    row = 54 + s;
+    dash.getRange('B' + row).setValue(sourceTypes[s]);
+    dash.getRange('C' + row).setFormula(
+      '=COUNTIF(' + visits + '!K2:K,"' + sourceTypes[s] + '")'
+    );
+    dash.getRange('D' + row).setFormula(
+      '=IFERROR(ROUND(C' + row + '/COUNTA(' + visits + '!A2:A)*100,1)&"%","-")'
+    );
+    dash.getRange(row, 2, 1, 6)
+      .setBackground(s % 2 === 0 ? '#EFEBE9' : '#FFFFFF')
+      .setHorizontalAlignment('center')
+      .setFontSize(11);
+  }
+
+  dash.setFrozenColumns(1);
+}
+
+
+// ─────────────────────────────────────────
+// 🔧 أدوات مساعدة للوحة التحكم
+// ─────────────────────────────────────────
+
+function sectionTitle(sheet, row, title, bgColor) {
+  sheet.getRange('B' + row + ':G' + row).merge()
+    .setValue(title)
+    .setBackground(bgColor)
+    .setFontSize(13)
+    .setFontWeight('bold')
+    .setHorizontalAlignment('center');
+  sheet.setRowHeight(row, 35);
+}
+
+function deleteDefaultSheets(ss) {
+  var names = ['Sheet1', 'ورقة1'];
+  for (var i = 0; i < names.length; i++) {
+    try {
+      var s = ss.getSheetByName(names[i]);
+      if (s && ss.getSheets().length > 1) ss.deleteSheet(s);
+    } catch (e) { }
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// 📥 استقبال البيانات من الموقع
+// ═══════════════════════════════════════════════════════════
+
+function doPost(e) {
+  try {
+    var lock = LockService.getScriptLock();
+    lock.tryLock(10000);
+
+    var data = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var type = data.type || 'visit';
+
+    if (type === 'email_open') {
+      handleEmail(ss, data);
+    } else {
+      handleVisit(ss, data);
+    }
+
+    lock.releaseLock();
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'ok',
+      type: type
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: err.message
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: 'ok',
+    message: 'Smart Business Tracker API v3.0',
+    sheets: 3
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+
+// ─────────────────────────────────────────
+// 📄 معالجة الزيارات
+// ─────────────────────────────────────────
+
+function handleVisit(ss, data) {
+  var sheet = ss.getSheetByName('📊 الزيارات');
+  if (!sheet) return;
+
+  var type = data.type || 'visit';
+
+  // ── إذا كان تحديث خروج: حدّث السطر الموجود ──
+  if (type === 'visit_exit') {
+    updateExitData(sheet, data);
+    return;
+  }
+
+  // ── زيارة جديدة: أضف سطر ──
+  var row = [
+    formatDate(data.timestamp),                          // التاريخ
+    data.user || 'مجهول',                                // اليوزر
+    data.isNew ? 'جديد' : 'عائد',                       // جديد/عائد
+    data.visitCount || 1,                                // رقم الزيارة
+    data.pageName || getPageName(data.page),              // الصفحة
+    data.browsePath || '-',                              // مسار التصفح
+    data.pageCount || 1,                                 // عدد الصفحات
+    0,                                                   // مدة البقاء (تُحدّث عند الخروج)
+    0,                                                   // نسبة القراءة (تُحدّث عند الخروج)
+    data.source || 'مباشر',                              // المصدر
+    data.sourceType || 'مباشر 🏠',                       // نوع المصدر
+    data.campaign || '-',                                // الحملة
+    data.country || '-',                                 // الدولة
+    data.deviceType || '-',                              // الجهاز
+    data.browser || '-'                                  // المتصفح
+  ];
+
+  sheet.appendRow(row);
+
+  // ── حفظ رقم السطر للتحديث لاحقاً ──
+  // نستخدم sessionId + page كمعرف فريد
+}
+
+
+// ─────────────────────────────────────────
+// 🔄 تحديث بيانات الخروج
+// ─────────────────────────────────────────
+
+function updateExitData(sheet, data) {
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return;
+
+  var user = data.user || 'مجهول';
+  var page = data.pageName || getPageName(data.page);
+
+  // ── البحث من الأسفل (أسرع) عن آخر سطر لهذا اليوزر في هذه الصفحة ──
+  var searchRange = sheet.getRange(2, 1, lastRow - 1, 5).getValues();
+
+  for (var i = searchRange.length - 1; i >= 0; i--) {
+    var rowUser = String(searchRange[i][1]);  // عمود B = اليوزر
+    var rowPage = String(searchRange[i][4]);  // عمود E = الصفحة
+
+    if (rowUser === user && rowPage === page) {
+      var actualRow = i + 2;  // +2 لأن البيانات تبدأ من صف 2
+
+      // تحديث مدة البقاء (عمود H = 8)
+      sheet.getRange(actualRow, 8).setValue(data.timeOnPage || 0);
+
+      // تحديث نسبة القراءة (عمود I = 9)
+      sheet.getRange(actualRow, 9).setValue(data.scrollMax || 0);
+
+      // تحديث مسار التصفح (عمود F = 6)
+      if (data.browsePath) {
+        sheet.getRange(actualRow, 6).setValue(data.browsePath);
+      }
+
+      // تحديث عدد الصفحات (عمود G = 7)
+      if (data.pageCount) {
+        sheet.getRange(actualRow, 7).setValue(data.pageCount);
+      }
+
+      return;
+    }
+  }
+
+  // ── إذا لم يجد السطر: أضف سطر جديد بالبيانات الكاملة ──
+  var row = [
+    formatDate(data.timestamp),
+    user,
+    data.isNew ? 'جديد' : 'عائد',
+    data.visitCount || 1,
+    page,
+    data.browsePath || '-',
+    data.pageCount || 1,
+    data.timeOnPage || 0,
+    data.scrollMax || 0,
+    data.source || 'مباشر',
+    data.sourceType || 'مباشر 🏠',
+    data.campaign || '-',
+    data.country || '-',
+    data.deviceType || '-',
+    data.browser || '-'
+  ];
+
+  sheet.appendRow(row);
+}
+
+
+// ─────────────────────────────────────────
+// 📧 معالجة الإيميلات
+// ─────────────────────────────────────────
+
+function handleEmail(ss, data) {
+  var sheet = ss.getSheetByName('📧 الإيميلات');
+  if (!sheet) return;
+
+  var openNum = parseInt(data.openNumber || 1);
+  var engLevel = getEngagementLevel(openNum);
+
+  var row = [
+    formatDate(data.timestamp),            // التاريخ
+    data.recipient || '-',                 // المستلم
+    data.campaign || '-',                  // الحملة
+    data.subject || '-',                   // الموضوع
+    openNum,                               // رقم الفتح
+    engLevel,                              // مستوى التفاعل
+    data.country || '-',                   // الدولة
+    data.deviceType || '-',                // الجهاز
+    data.emailClient || data.browser || '-', // تطبيق البريد
+    data.ip || '-'                         // IP
+  ];
+
+  sheet.appendRow(row);
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// 🔧 أدوات مساعدة
+// ═══════════════════════════════════════════════════════════
+
+function formatDate(d) {
+  try {
+    var date = new Date(d);
+    if (isNaN(date.getTime())) date = new Date();
+    return Utilities.formatDate(date, Session.getScriptTimeZone(), 'yyyy/MM/dd HH:mm:ss');
+  } catch (e) {
+    return Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy/MM/dd HH:mm:ss');
+  }
+}
+
+function getPageName(path) {
+  if (!path) return 'الرئيسية';
+  var p = path.toLowerCase();
+
+  if (p.indexOf('/blogs/') !== -1 || p.indexOf('/blog/') !== -1) {
+    var articleName = p.split('/').pop().replace('.html', '');
+    if (articleName && articleName !== 'blog') return 'مقال: ' + articleName;
+  }
+  if (p.indexOf('/manager/') !== -1) {
+    var projectName = p.split('/').pop().replace('.html', '');
+    return 'مشروع: ' + projectName;
+  }
+
+  if (p.indexOf('about') !== -1) return 'من أنا';
+  if (p.indexOf('service') !== -1) return 'الخدمات';
+  if (p.indexOf('project') !== -1) return 'المشاريع';
+  if (p.indexOf('blog') !== -1) return 'المدونة';
+  if (p.indexOf('contact') !== -1) return 'تواصل';
+
+  return 'الرئيسية';
+}
+
+function getEngagementLevel(openNum) {
+  if (openNum >= 10) return '💎 عميل مخلص';
+  if (openNum >= 5) return '🔥🔥🔥 مهتم جداً';
+  if (openNum >= 3) return '🔥🔥 مهتم';
+  if (openNum >= 2) return '🔥 فضولي';
+  return '🆕 أول فتح';
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// 📊 تحديث لوحة التحكم (الأقسام الديناميكية)
+// ═══════════════════════════════════════════════════════════
+
+function updateDashboard() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var dash = ss.getSheetByName('📈 لوحة التحكم');
+  if (!dash) return;
+
+  updateTopUsers(ss, dash);
+  updateTopCountries(ss, dash);
+}
+
+
+function updateTopUsers(ss, dash) {
+  var visitSheet = ss.getSheetByName('📊 الزيارات');
+  if (!visitSheet || visitSheet.getLastRow() < 2) return;
+
+  var data = visitSheet.getRange(2, 1, visitSheet.getLastRow() - 1, 5).getValues();
+  var users = {};
+
+  // عدّ الزيارات لكل يوزر
+  for (var i = 0; i < data.length; i++) {
+    var u = String(data[i][1]); // عمود B
+    if (u && u !== 'مجهول' && u !== '-') {
+      if (!users[u]) users[u] = { visits: 0, lastDate: '' };
+      users[u].visits++;
+      users[u].lastDate = data[i][0] || '';
+    }
+  }
+
+  // ترتيب
+  var sorted = Object.keys(users).sort(function (a, b) {
+    return users[b].visits - users[a].visits;
+  });
+
+  // عدّ إيميلات
+  var emailSheet = ss.getSheetByName('📧 الإيميلات');
+  var emailCounts = {};
+  if (emailSheet && emailSheet.getLastRow() > 1) {
+    var eData = emailSheet.getRange(2, 2, emailSheet.getLastRow() - 1, 1).getValues();
+    for (var j = 0; j < eData.length; j++) {
+      var eu = String(eData[j][0]);
+      if (eu && eu !== '-') emailCounts[eu] = (emailCounts[eu] || 0) + 1;
+    }
+  }
+
+  // كتابة أنشط 10
+  for (var k = 0; k < 10; k++) {
+    var row = 28 + k;
+
+    if (k < sorted.length) {
+      var name = sorted[k];
+      var v = users[name];
+      var emails = emailCounts[name] || 0;
+      var total = v.visits + emails;
+      var rating = total >= 15 ? '🔥🔥🔥' : total >= 8 ? '🔥🔥' : total >= 3 ? '🔥' : '⚡';
+
+      dash.getRange(row, 2).setValue(name);
+      dash.getRange(row, 3).setValue(v.visits);
+      dash.getRange(row, 4).setValue(emails);
+      dash.getRange(row, 5).setValue(v.lastDate);
+      dash.getRange(row, 6).setValue('-');
+      dash.getRange(row, 7).setValue(rating);
+    } else {
+      // تنظيف الصفوف الفارغة
+      dash.getRange(row, 2, 1, 6).clearContent();
+    }
+  }
+}
+
+
+function updateTopCountries(ss, dash) {
+  var visitSheet = ss.getSheetByName('📊 الزيارات');
+  if (!visitSheet || visitSheet.getLastRow() < 2) return;
+
+  var data = visitSheet.getRange(2, 13, visitSheet.getLastRow() - 1, 1).getValues(); // عمود M = الدولة
+  var total = data.length;
+  var countries = {};
+
+  for (var i = 0; i < data.length; i++) {
+    var c = String(data[i][0]);
+    if (c && c !== '-' && c !== 'غير معروف') {
+      countries[c] = (countries[c] || 0) + 1;
+    }
+  }
+
+  var sorted = Object.keys(countries).sort(function (a, b) {
+    return countries[b] - countries[a];
+  });
+
+  for (var k = 0; k < 10; k++) {
+    var row = 41 + k;
+
+    if (k < sorted.length) {
+      var name = sorted[k];
+      var count = countries[name];
+      var pct = total > 0 ? Math.round((count / total) * 100 * 10) / 10 : 0;
+
+      dash.getRange(row, 2).setValue(name);
+      dash.getRange(row, 3).setValue(count);
+      dash.getRange(row, 4).setValue(pct + '%');
+    } else {
+      dash.getRange(row, 2, 1, 6).clearContent();
+    }
+  }
+}
+
+
+// ─────────────────────────────────────────
+// ⏰ تحديث تلقائي
+// ─────────────────────────────────────────
+
+function createTimeTrigger() {
+  // حذف التريجرات القديمة
+  var triggers = ScriptApp.getProjectTriggers();
+  for (var i = 0; i < triggers.length; i++) {
+    if (triggers[i].getHandlerFunction() === 'updateDashboard') {
+      ScriptApp.deleteTrigger(triggers[i]);
+    }
+  }
+
+  // تريجر كل ساعة
+  ScriptApp.newTrigger('updateDashboard')
+    .timeBased()
+    .everyHours(1)
+    .create();
+
+  SpreadsheetApp.getUi().alert('✅ تم تفعيل التحديث التلقائي كل ساعة');
+}
+
+
+// ─────────────────────────────────────────
+// 📋 القائمة المخصصة
+// ─────────────────────────────────────────
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('📊 إدارة التتبع')
+    .addItem('🏗 إنشاء قاعدة البيانات', 'setupDatabase')
+    .addSeparator()
+    .addItem('🔄 تحديث لوحة التحكم', 'updateDashboard')
+    .addItem('⏰ تفعيل التحديث التلقائي', 'createTimeTrigger')
+    .addSeparator()
+    .addItem('ℹ️ معلومات النظام', 'showInfo')
+    .addToUi();
+}
+
+function showInfo() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var info = '📊 Smart Business Tracker v3.0\n\n';
+  info += '📄 الأوراق:\n';
+
+  var sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    var rows = Math.max(0, sheets[i].getLastRow() - 1);
+    info += '  • ' + sheets[i].getName() + ' (' + rows + ' سجل)\n';
+  }
+
+  info += '\n📊 3 أوراق | 15 عمود زيارات | 10 أعمدة إيميل';
+
+  SpreadsheetApp.getUi().alert(info);
+}

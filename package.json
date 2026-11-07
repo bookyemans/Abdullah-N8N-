@@ -1,0 +1,26 @@
+{
+  "name": "site-a5",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static portfolio site deployed with Cloudflare Pages",
+  "scripts": {
+    "check": "node scripts/check-project.mjs && node scripts/validate-project-catalog.mjs && node scripts/test-project-renderer.mjs && node scripts/validate-blog-catalog.mjs && node scripts/check-shared-components.mjs && node scripts/check-performance.mjs && npm run check:supabase-migrations",
+    "test": "node scripts/test-security-hardening.mjs && node --experimental-default-type=module scripts/test-telegram-function.mjs && node --experimental-default-type=module scripts/test-tracking-functions.mjs && node --experimental-default-type=module scripts/test-supabase-api.mjs && node scripts/test-supabase-schema.mjs && node --experimental-default-type=module scripts/test-supabase-analytics.mjs && node --experimental-default-type=module scripts/test-supabase-leads.mjs && node --experimental-default-type=module scripts/test-supabase-conversions.mjs && node --experimental-default-type=module scripts/test-supabase-key-headers.mjs",
+    "check:projects": "node scripts/validate-project-catalog.mjs",
+    "test:projects-ui": "node scripts/test-project-renderer.mjs",
+    "check:blog": "node scripts/validate-blog-catalog.mjs",
+    "build:components": "node scripts/build-shared-components.mjs",
+    "check:components": "node scripts/check-shared-components.mjs",
+    "check:performance": "node scripts/check-performance.mjs",
+    "test:tracking": "node --experimental-default-type=module scripts/test-tracking-functions.mjs",
+    "test:supabase-schema": "node scripts/test-supabase-schema.mjs",
+    "test:supabase-api": "node --experimental-default-type=module scripts/test-supabase-api.mjs",
+    "test:supabase-analytics": "node --experimental-default-type=module scripts/test-supabase-analytics.mjs && node --experimental-default-type=module scripts/test-supabase-leads.mjs && node --experimental-default-type=module scripts/test-supabase-conversions.mjs",
+    "test:supabase-conversions": "node --experimental-default-type=module scripts/test-supabase-conversions.mjs",
+    "check:supabase-migrations": "node scripts/validate-supabase-migrations.mjs",
+    "check:supabase-live": "node scripts/check-live-supabase.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

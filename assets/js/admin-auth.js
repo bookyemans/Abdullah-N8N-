@@ -1,0 +1,10 @@
+const SESSION_KEY = 'a5_admin_auth_session';
+let cachedConfig;
+export async function getConfig(){if(cachedConfig)return cachedConfig;const r=await fetch('/api/public-config');const d=await r.json();if(!r.ok||!d.ok)throw new Error('تعذر تحميل إعدادات المصادقة. تحقق من إعداد Supabase في Cloudflare.');cachedConfig=d;return d;}
+export function getSession(){try{return JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null')}catch{return null}}
+export function saveSession(session){sessionStorage.setItem(SESSION_KEY,JSON.stringify(session))}
+export function clearSession(){sessionStorage.removeItem(SESSION_KEY)}
+export async function signIn(email,password){const c=await getConfig();const r=await fetch(`${c.supabaseUrl}/auth/v1/token?grant_type=password`,{method:'POST',headers:{apikey:c.anonKey,'content-type':'application/json'},body:JSON.stringify({email,password})});const d=await r.json();if(!r.ok)throw new Error(d.msg||d.message||d.error_description||'بيانات الدخول غير صحيحة');saveSession(d);return d;}
+export async function signOut(){const s=getSession();if(s?.access_token){try{const c=await getConfig();await fetch(`${c.supabaseUrl}/auth/v1/logout`,{method:'POST',headers:{apikey:c.anonKey,authorization:`Bearer ${s.access_token}`}})}catch{}}clearSession();location.href='/admin/login.html';}
+export async function api(path,options={}){const s=getSession();if(!s?.access_token)throw new Error('انتهت جلسة الدخول');const headers=new Headers(options.headers||{});headers.set('Authorization',`Bearer ${s.access_token}`);if(options.body&&!headers.has('content-type'))headers.set('content-type','application/json');const r=await fetch(path,{...options,headers});const d=await r.json().catch(()=>({}));if(r.status===401){clearSession();location.href='/admin/login.html';throw new Error('انتهت جلسة الدخول')}if(!r.ok)throw new Error(d.error||'تعذر تنفيذ الطلب');return d;}
+export async function requireAdmin(){const s=getSession();if(!s?.access_token){location.replace('/admin/login.html');throw new Error('login_required')}try{return await api('/api/admin/me')}catch(e){if(!getSession())throw e;throw e}}

@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أتمتة التسويق: كيف تضاعف نتائجك بنصف الجهد | عبدالله نبيل</title>
+    <meta name="description" content="من جدولة المنشورات إلى تحليل الأداء تلقائياً. دليلك الشامل لأتمتة التسويق الرقمي في 2025 مع خطة تنفيذ 30 يوماً.">
+    <meta name="keywords" content="أتمتة التسويق, تسويق رقمي, N8N, ذكاء اصطناعي, ChatGPT, أتمتة الحملات, تسويق آلي, 2025">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+        .text-gradient-orange {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #ea580c, #f97316, #fb923c);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        .article-prose h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        .article-prose p {
+            color: #4b5563;
+            line-height: 1.9;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .article-prose blockquote {
+            border-right: 4px solid #ea580c;
+            padding: 1rem 1.5rem;
+            background: #fff7ed;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #374151;
+        }
+
+        .area-card {
+            position: relative;
+            padding-right: 4.5rem;
+        }
+        .area-card::before {
+            content: attr(data-num);
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, #ea580c, #fb923c);
+            color: white;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25);
+        }
+
+        .workflow-box {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            position: relative;
+            overflow: hidden;
+        }
+        .workflow-box::before {
+            content: 'WORKFLOW';
+            position: absolute;
+            top: 0.5rem;
+            left: 0.75rem;
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #fab387;
+            letter-spacing: 0.1em;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-right: 3rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 0.85rem;
+            top: 2.5rem;
+            bottom: -1.5rem;
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .budget-tab.active {
+            background-color: #ea580c;
+            color: white;
+            border-color: #ea580c;
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../blog.html" class="text-saudi font-bold relative group">المدونة<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="../about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="../services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="../projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="../blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">المدونة</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="../index.html#contact " class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ============================================
+         ARTICLE HERO
+         ============================================ -->
+    <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden bg-gradient-to-b from-orange-50/60 via-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#fff7ed"/></svg>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Breadcrumb -->
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8 fade-up">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../blog.html" class="hover:text-saudi transition-colors">المدونة</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-orange-700 font-bold">التسويق</span>
+            </div>
+
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <!-- Category Badge -->
+                <div class="mb-6">
+                    <span class="bg-orange-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">📣 تسويق</span>
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                    أتمتة التسويق: كيف تضاعف <span class="text-gradient-orange">نتائجك</span> بنصف الجهد
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    من جدولة المنشورات إلى تحليل الأداء تلقائياً. دليلك الشامل لأتمتة التسويق الرقمي في 2025.
+                </p>
+
+                <!-- Meta Info -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                            <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <span class="font-semibold text-gray-700">عبدالله نبيل</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span>1 ديسمبر 2024</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>10 دقائق قراءة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         ARTICLE CONTENT + SIDEBAR
+         ============================================ -->
+    <section class="py-12 lg:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
+
+                <!-- ============================
+                     MAIN ARTICLE CONTENT
+                     ============================ -->
+                <div class="lg:col-span-2">
+                    <article class="article-prose max-w-3xl fade-up">
+
+                        <!-- Featured Image -->
+                        <div class="rounded-2xl overflow-hidden mb-10 bg-gradient-to-br from-orange-100 via-amber-50 to-orange-100 h-64 lg:h-80 flex items-center justify-center shadow-lg border border-orange-200/50 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-orange-200/30 to-transparent"></div>
+                            <div class="text-center relative z-10">
+                                <span class="text-7xl block mb-3">📣</span>
+                                <span class="text-sm font-bold text-orange-700 bg-white/80 px-4 py-2 rounded-full shadow-sm">أتمتة التسويق × N8N = نتائج مضاعفة</span>
+                            </div>
+                        </div>
+
+                        <!-- INTRODUCTION -->
+                        <div class="bg-orange-50 border border-orange-100 rounded-xl p-6 mb-10">
+                            <p class="text-gray-700 leading-relaxed text-lg mb-0">
+                                التسويق اليدوي يقتل الإبداع. في 2025، الأتمتة ليست رفاهية—هي <strong class="text-orange-700">ضرورة للبقاء</strong>. إليك خارطة طريق كاملة لأتمتة تسويقك بنصف الوقت و<strong class="text-orange-700">ضعفي النتائج</strong>.
+                            </p>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 1: Why Now?
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-orange-100 pb-3">🔥 لماذا الأتمتة الآن؟</h2>
+
+                            <p>
+                                السوق يتغير بسرعة جنونية. المسوقون الذين لا يزالون يعملون يدوياً يخسرون فرصاً ثمينة كل يوم. الأرقام تتحدث بوضوح:
+                            </p>
+
+                            <!-- Stats Cards -->
+                            <div class="grid sm:grid-cols-3 gap-4 my-8">
+                                <div class="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100 rounded-xl p-5 text-center hover:shadow-md transition-shadow">
+                                    <div class="text-3xl font-black text-orange-600 mb-2">73%</div>
+                                    <p class="text-sm text-gray-700 font-semibold mb-1">من المسوقين يستخدمون الأتمتة</p>
+                                    <span class="text-xs text-gray-400">المصدر: HubSpot 2024</span>
+                                </div>
+                                <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-xl p-5 text-center hover:shadow-md transition-shadow">
+                                    <div class="text-3xl font-black text-green-600 mb-2">14.5%</div>
+                                    <p class="text-sm text-gray-700 font-semibold mb-1">زيادة في العائد على الاستثمار</p>
+                                    <span class="text-xs text-gray-400">المصدر: Salesforce</span>
+                                </div>
+                                <div class="bg-gradient-to-br from-blue-50 to-sky-50 border border-blue-100 rounded-xl p-5 text-center hover:shadow-md transition-shadow">
+                                    <div class="text-3xl font-black text-blue-600 mb-2">12h</div>
+                                    <p class="text-sm text-gray-700 font-semibold mb-1">توفير أسبوعياً للمسوق المتوسط</p>
+                                    <span class="text-xs text-gray-400">من المهام اليدوية المتكررة</span>
+                                </div>
+                            </div>
+
+                            <blockquote>
+                                "المسوق الذي يعمل يدوياً في 2025 يشبه من يستخدم الحمام الزاجل بدلاً من البريد الإلكتروني. النتيجة حتمية: التخلف عن الركب."
+                            </blockquote>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 2: 5 Areas
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-8 border-b-2 border-orange-100 pb-3">🚀 5 مجالات للأتمتة الفورية</h2>
+
+                            <!-- AREA 1: Content Scheduling -->
+                            <div class="mb-12">
+                                <div class="area-card" data-num="1">
+                                    <h3 class="text-xl font-extrabold text-gray-900 mb-1 flex items-center gap-3">
+                                        <span class="text-xl">📅</span>
+                                        جدولة المحتوى التلقائية
+                                    </h3>
+                                    <p class="text-orange-600 text-sm font-bold mb-4">انشر يومياً دون لمس لوحة المفاتيح</p>
+                                </div>
+
+                                <p>
+                                    بدلاً من قضاء ساعات في جدولة المنشورات يدوياً على كل منصة، يمكنك بناء <strong>نظام نشر آلي بالكامل</strong> يجمع الأفكار، يصيغ المحتوى بالذكاء الاصطناعي، ويجدوله تلقائياً على جميع المنصات.
+                                </p>
+
+                                <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-lg p-3 mb-4">
+                                    <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <span class="text-sm text-gray-700 font-semibold">الأدوات: Buffer أو Later مربوط بـ N8N</span>
+                                </div>
+
+                                <div class="workflow-box my-6">
+                                    <div class="flex flex-wrap items-center gap-2 text-sm mt-3">
+                                        <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-lg font-bold">جمع أفكار المحتوى</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-lg font-bold">صياغة بواسطة AI</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg font-bold">جدولة تلقائية</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-lg font-bold">نشر على المنصات</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3">
+                                    <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <span class="text-sm text-green-800 font-semibold">النتيجة: نشر يومي على كل المنصات دون تدخل يدوي</span>
+                                </div>
+                            </div>
+
+
+                            <!-- AREA 2: Smart Auto-Replies -->
+                            <div class="mb-12 fade-up">
+                                <div class="area-card" data-num="2">
+                                    <h3 class="text-xl font-extrabold text-gray-900 mb-1 flex items-center gap-3">
+                                        <span class="text-xl">💬</span>
+                                        الردود الآلية الذكية
+                                    </h3>
+                                    <p class="text-orange-600 text-sm font-bold mb-4">استجابة فورية لعملائك على مدار الساعة</p>
+                                </div>
+
+                                <p>
+                                    عملاؤك يتوقعون رداً فورياً. مع ربط <strong>ChatGPT بنظام الرسائل</strong> عبر N8N، كل رسالة واردة تُحلَّل تلقائياً، يُفهم سياقها، ويُرسل رد مخصص في ثوانٍ. إذا كانت المسألة معقدة، يُحوَّل العميل تلقائياً لموظف بشري.
+                                </p>
+
+                                <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-lg p-3 mb-4">
+                                    <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <span class="text-sm text-gray-700 font-semibold">الأدوات: ChatGPT + ManyChat أو WhatsApp API</span>
+                                </div>
+
+                                <div class="workflow-box my-6">
+                                    <div class="flex flex-wrap items-center gap-2 text-sm mt-3">
+                                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg font-bold">رسالة عميل</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-lg font-bold">تحليل النية بـ AI</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-lg font-bold">رد مخصص أو تحويل للبشري</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3">
+                                    <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <span class="text-sm text-green-800 font-semibold">النتيجة: استجابة فورية 24/7 ورضا عملاء أعلى</span>
+                                </div>
+                            </div>
+
+
+                            <!-- AREA 3: Paid Campaigns -->
+                            <div class="mb-12 fade-up">
+                                <div class="area-card" data-num="3">
+                                    <h3 class="text-xl font-extrabold text-gray-900 mb-1 flex items-center gap-3">
+                                        <span class="text-xl">🎯</span>
+                                        إدارة الحملات المدفوعة
+                                    </h3>
+                                    <p class="text-orange-600 text-sm font-bold mb-4">لا هدر في الميزانية بعد اليوم</p>
+                                </div>
+
+                                <p>
+                                    ميزانيتك الإعلانية تستحق حماية ذكية. بربط <strong>Google Ads API مع N8N</strong>، يمكنك إنشاء نظام مراقبة يوقف الحملات تلقائياً عند تجاوز الميزانية، وينبه فريق المبيعات فوراً عند وصول lead جديد عالي الجودة.
+                                </p>
+
+                                <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-lg p-3 mb-4">
+                                    <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <span class="text-sm text-gray-700 font-semibold">الأدوات: Google Ads API + N8N</span>
+                                </div>
+
+                                <div class="workflow-box my-6">
+                                    <div class="flex flex-wrap items-center gap-2 text-sm mt-3">
+                                        <span class="bg-red-500/20 text-red-300 px-3 py-1 rounded-lg font-bold">تجاوز الميزانية</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-lg font-bold">إيقاف تلقائي</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg font-bold">إشعار فريق المبيعات</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3">
+                                    <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <span class="text-sm text-green-800 font-semibold">النتيجة: حماية 100% للميزانية + استجابة فورية للعملاء</span>
+                                </div>
+                            </div>
+
+
+                            <!-- AREA 4: Performance Reports -->
+                            <div class="mb-12 fade-up">
+                                <div class="area-card" data-num="4">
+                                    <h3 class="text-xl font-extrabold text-gray-900 mb-1 flex items-center gap-3">
+                                        <span class="text-xl">📊</span>
+                                        تقارير الأداء التلقائية
+                                    </h3>
+                                    <p class="text-orange-600 text-sm font-bold mb-4">قرارات مبنية على بيانات حقيقية كل صباح</p>
+                                </div>
+
+                                <p>
+                                    بدلاً من قضاء ساعتين كل صباح في جمع الأرقام من منصات مختلفة، دع N8N يسحب البيانات تلقائياً من <strong>Google Analytics وإعلاناتك</strong>، ينشئ dashboard محدث، ويرسل ملخصاً صباحياً لفريقك على Slack أو البريد.
+                                </p>
+
+                                <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-lg p-3 mb-4">
+                                    <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <span class="text-sm text-gray-700 font-semibold">الأدوات: Google Analytics + Google Sheets + Slack</span>
+                                </div>
+
+                                <div class="workflow-box my-6">
+                                    <div class="flex flex-wrap items-center gap-2 text-sm mt-3">
+                                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg font-bold">سحب البيانات يومياً</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-lg font-bold">إنشاء Dashboard</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-lg font-bold">إرسال ملخص صباحي</span>
+                                    </div>
+                                </div>
+
+                                <!-- Before/After -->
+                                <div class="grid grid-cols-2 gap-4 mt-6">
+                                    <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
+                                        <div class="text-2xl mb-2">😫</div>
+                                        <span class="text-xs font-bold text-red-700 block">قبل الأتمتة</span>
+                                        <span class="text-lg font-black text-red-600 block mt-1">2 ساعة</span>
+                                        <span class="text-xs text-red-500">لإعداد تقرير واحد</span>
+                                    </div>
+                                    <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                                        <div class="text-2xl mb-2">🚀</div>
+                                        <span class="text-xs font-bold text-green-700 block">بعد الأتمتة</span>
+                                        <span class="text-lg font-black text-green-600 block mt-1">0 دقيقة</span>
+                                        <span class="text-xs text-green-500">التقرير يصلك تلقائياً</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                    <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <span class="text-sm text-green-800 font-semibold">النتيجة: قرارات أسرع مبنية على بيانات حقيقية</span>
+                                </div>
+                            </div>
+
+
+                            <!-- AREA 5: Content Personalization -->
+                            <div class="mb-12 fade-up">
+                                <div class="area-card" data-num="5">
+                                    <h3 class="text-xl font-extrabold text-gray-900 mb-1 flex items-center gap-3">
+                                        <span class="text-xl">🎨</span>
+                                        تخصيص المحتوى للجمهور
+                                    </h3>
+                                    <p class="text-orange-600 text-sm font-bold mb-4">الرسالة الصحيحة للشخص الصحيح في الوقت الصحيح</p>
+                                </div>
+
+                                <p>
+                                    كل عميل مختلف، وكل عميل يستحق محتوى يناسبه. بربط <strong>OpenAI مع CRM الخاص بك</strong>، يمكن للنظام تحليل سلوك كل مستخدم، تصنيفه تلقائياً، ثم إرسال محتوى مخصص يزيد من التفاعل والتحويل بنسبة كبيرة.
+                                </p>
+
+                                <div class="flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-lg p-3 mb-4">
+                                    <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <span class="text-sm text-gray-700 font-semibold">الأدوات: OpenAI + Segment أو CRM</span>
+                                </div>
+
+                                <div class="workflow-box my-6">
+                                    <div class="flex flex-wrap items-center gap-2 text-sm mt-3">
+                                        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-lg font-bold">سلوك المستخدم</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-lg font-bold">تصنيف تلقائي</span>
+                                        <span class="text-gray-500">→</span>
+                                        <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-lg font-bold">محتوى مخصص لكل فئة</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3">
+                                    <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <span class="text-sm text-green-800 font-semibold">النتيجة: زيادة engagement بنسبة 40%</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 3: 30-Day Plan
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-8 border-b-2 border-orange-100 pb-3">📋 خطة التنفيذ في 30 يوماً</h2>
+
+                            <p>لا تحتاج لميزانية ضخمة أو فريق كبير. فقط اتبع هذه الخطة المرحلية:</p>
+
+                            <!-- Timeline -->
+                            <div class="space-y-6 mt-8">
+                                <!-- Week 1 -->
+                                <div class="timeline-item">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm shadow-md shadow-orange-200 z-10">1</div>
+                                        <div class="flex-1">
+                                            <div class="bg-orange-50 border border-orange-100 rounded-xl p-5">
+                                                <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                                    <span class="text-orange-600">الأسبوع الأول:</span> التدقيق والاكتشاف
+                                                </h4>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>سجّل كل مهمة تسويقية يدوية تقوم بها خلال الأسبوع</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>حدد أكثر <strong>3 مهام</strong> استهلاكاً للوقت والجهد</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Week 2 -->
+                                <div class="timeline-item">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm shadow-md shadow-orange-200 z-10">2</div>
+                                        <div class="flex-1">
+                                            <div class="bg-blue-50 border border-blue-100 rounded-xl p-5">
+                                                <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                                    <span class="text-blue-600">الأسبوع الثاني:</span> البناء والربط
+                                                </h4>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>ابدأ بأتمتة <strong>مهمة واحدة فقط</strong> (الأكثر تكراراً)</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>استخدم N8N لربط الأدوات الموجودة لديك بالفعل</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Week 3 -->
+                                <div class="timeline-item">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm shadow-md shadow-orange-200 z-10">3</div>
+                                        <div class="flex-1">
+                                            <div class="bg-purple-50 border border-purple-100 rounded-xl p-5">
+                                                <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                                    <span class="text-purple-600">الأسبوع الثالث:</span> الاختبار والقياس
+                                                </h4>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-purple-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>شغّل الـ workflow على عينة صغيرة من البيانات</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-purple-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>قارن النتائج <strong>قبل/بعد</strong> الأتمتة</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Week 4 -->
+                                <div class="timeline-item">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm shadow-md shadow-orange-200 z-10">4</div>
+                                        <div class="flex-1">
+                                            <div class="bg-green-50 border border-green-100 rounded-xl p-5">
+                                                <h4 class="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                                    <span class="text-green-600">الأسبوع الرابع:</span> التوسع والتحسين
+                                                </h4>
+                                                <ul class="space-y-2">
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>أضف <strong>workflow ثانٍ</strong> بناءً على النتائج</span>
+                                                    </li>
+                                                    <li class="flex items-start gap-2 text-sm text-gray-600">
+                                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                        <span>أتمتة إرسال التقارير الأسبوعية للإدارة</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 4: Budget Table
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-orange-100 pb-3">💰 أدوات مقترحة حسب الميزانية</h2>
+
+                            <p>اختر الباقة التي تناسب ميزانيتك وابدأ اليوم:</p>
+
+                            <!-- Budget Tabs -->
+                            <div class="flex flex-wrap gap-2 mt-6 mb-6" id="budget-tabs">
+                                <button class="budget-tab active px-5 py-2.5 rounded-full text-sm font-bold border-2 border-orange-600 bg-orange-600 text-white transition-all" data-tab="free">🆓 مجانية</button>
+                                <button class="budget-tab px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-orange-400 hover:text-orange-600 transition-all" data-tab="medium">💳 متوسطة</button>
+                                <button class="budget-tab px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gray-200 text-gray-600 hover:border-orange-400 hover:text-orange-600 transition-all" data-tab="pro">🏢 احترافية</button>
+                            </div>
+
+                            <!-- Tab Content: Free -->
+                            <div class="budget-content" id="tab-free">
+                                <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h4 class="font-bold text-gray-900 text-lg flex items-center gap-2">🆓 الباقة المجانية</h4>
+                                        <span class="text-2xl font-black text-green-600">$0<span class="text-sm font-normal text-gray-500">/شهر</span></span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>N8N Community Edition</strong> — مفتوح المصدر ومجاني بالكامل</span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>Google Sheets</strong> — كقاعدة بيانات بسيطة</span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>ChatGPT Free</strong> — للمهام البسيطة</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-green-700 mt-4 bg-green-100 p-2 rounded-lg">✅ مثالية للأفراد والمشاريع الصغيرة جداً</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab Content: Medium -->
+                            <div class="budget-content hidden" id="tab-medium">
+                                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h4 class="font-bold text-gray-900 text-lg flex items-center gap-2">💳 الباقة المتوسطة</h4>
+                                        <span class="text-2xl font-black text-blue-600">$50-100<span class="text-sm font-normal text-gray-500">/شهر</span></span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>N8N Pro</strong> — سحابي مع دعم فني</span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>Buffer Pro</strong> — جدولة متقدمة على كل المنصات</span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>ChatGPT Plus</strong> — GPT-4 مع إمكانيات متقدمة</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-blue-700 mt-4 bg-blue-100 p-2 rounded-lg">⭐ الأنسب للشركات الصغيرة والمتوسطة</p>
+                                </div>
+                            </div>
+
+                            <!-- Tab Content: Pro -->
+                            <div class="budget-content hidden" id="tab-pro">
+                                <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h4 class="font-bold text-gray-900 text-lg flex items-center gap-2">🏢 الباقة الاحترافية</h4>
+                                        <span class="text-2xl font-black text-orange-600">$300+<span class="text-sm font-normal text-gray-500">/شهر</span></span>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>N8N Enterprise</strong> — أمان متقدم + SLA</span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>HubSpot CRM</strong> — إدارة عملاء شاملة</span>
+                                        </div>
+                                        <div class="flex items-center gap-3 text-sm text-gray-700">
+                                            <svg class="w-5 h-5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                            <span><strong>Custom AI Models</strong> — نماذج مخصصة لعملك</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-xs text-orange-700 mt-4 bg-orange-100 p-2 rounded-lg">🚀 للشركات الكبيرة التي تحتاج حلول متكاملة</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SECTION 5: Mistakes to Avoid
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-orange-100 pb-3">⚠️ أخطاء تجنّبها</h2>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-red-600 font-bold text-lg">✕</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm">أتمتة كل شيء دفعة واحدة</h4>
+                                        <p class="text-sm text-red-700 mb-0">ستغرق في التعقيد. ابدأ بمهمة واحدة واتقنها أولاً.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-red-600 font-bold text-lg">✕</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm">إهمال الجودة لصالح السرعة</h4>
+                                        <p class="text-sm text-red-700 mb-0">الأتمتة بدون مراجعة = أخطاء متكررة على نطاق واسع.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-red-600 font-bold text-lg">✕</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-red-800 text-sm">عدم مراجعة النتائج باستمرار</h4>
+                                        <p class="text-sm text-red-700 mb-0">النظام يحتاج تحسين مستمر. خصص 30 دقيقة أسبوعياً للمراجعة.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-green-50 border border-green-200 rounded-xl p-4">
+                                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <span class="text-green-600 font-bold text-lg">✓</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-green-800 text-sm">القاعدة الذهبية: ابدأ صغيراً، وسّع تدريجياً</h4>
+                                        <p class="text-sm text-green-700 mb-0">كل أسبوع أضف شيئاً جديداً. خلال 3 أشهر، سيكون لديك نظام متكامل.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             CONCLUSION
+                             ============================== -->
+                        <div class="mb-12 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-orange-100 pb-3">📌 الخلاصة</h2>
+
+                            <blockquote>
+                                "الأتمتة ليست استبدالاً للإنسان—هي تحريره للإبداع. دع الآلة تتعامل مع الروتين، وركّز أنت على ما يحتاج لمسة إنسانية حقيقية."
+                            </blockquote>
+
+                            <p>
+                                أتمتة التسويق ليست مشروعاً ضخماً. هي رحلة تبدأ بخطوة واحدة صغيرة. اختر مجالاً واحداً من المجالات الخمسة أعلاه، طبّقه هذا الأسبوع، واشعر بالفرق بنفسك.
+                            </p>
+
+                            <!-- Summary Box -->
+                            <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8 mt-6">
+                                <h4 class="font-bold text-gray-900 mb-4">ملخص المجالات الخمسة:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-orange-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">1</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">📅 جدولة المحتوى</span>
+                                            <span class="text-gray-500 text-sm block">— نشر يومي تلقائي</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-orange-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">2</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">💬 الردود الذكية</span>
+                                            <span class="text-gray-500 text-sm block">— استجابة 24/7</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-orange-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">3</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🎯 إدارة الحملات</span>
+                                            <span class="text-gray-500 text-sm block">— حماية الميزانية</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-orange-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">4</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">📊 التقارير التلقائية</span>
+                                            <span class="text-gray-500 text-sm block">— قرارات أسرع</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-orange-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">5</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🎨 تخصيص المحتوى</span>
+                                            <span class="text-gray-500 text-sm block">— +40% تفاعل</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CTA Box -->
+                            <div class="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200/50 rounded-2xl p-8 text-center">
+                                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">هل تريد خطة أتمتة مخصصة لتسويقك؟</h3>
+                                <p class="text-gray-600 mb-6 max-w-lg mx-auto">
+                                    سأحلل عملياتك التسويقية الحالية وأرسم لك خارطة طريق واضحة لأتمتة الأعمال المتكررة وزيادة النتائج — كل ذلك في استشارة مجانية مدتها 15 دقيقة.
+                                </p>
+                                <a href="../index.html#contact " class="inline-flex items-center justify-center gap-2 bg-saudi text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-saudi-light transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    <span>احجز استشارة مجانية (15 دقيقة)</span>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SHARE BUTTONS
+                             ============================== -->
+                        <div class="border-t border-gray-200 pt-8 fade-up">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <h4 class="font-bold text-gray-700 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                                    شارك المقالة:
+                                </h4>
+                                <div class="flex items-center gap-3">
+                                    <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="LinkedIn">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                    </a>
+                                    <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="X">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                    <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-700 hover:bg-green-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="واتساب">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                    </a>
+                                    <button onclick="copyArticleLink()" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 hover:bg-saudi hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="نسخ الرابط" id="copy-btn">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAGS -->
+                        <div class="mt-8 pt-6 border-t border-gray-100 fade-up">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-sm font-bold text-gray-500">الوسوم:</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-orange-600 hover:text-white transition-colors cursor-pointer">أتمتة التسويق</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-orange-600 hover:text-white transition-colors cursor-pointer">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-orange-600 hover:text-white transition-colors cursor-pointer">تسويق رقمي</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-orange-600 hover:text-white transition-colors cursor-pointer">ChatGPT</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-orange-600 hover:text-white transition-colors cursor-pointer">حملات إعلانية</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-orange-600 hover:text-white transition-colors cursor-pointer">CRM</span>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+
+                <!-- ============================
+                     SIDEBAR
+                     ============================ -->
+                <aside class="lg:col-span-1 space-y-8 fade-up" style="transition-delay:200ms;">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+
+                        <!-- Author Card -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 text-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg ring-2 ring-orange-200">
+                                <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="eager" decoding="async">
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg">عبدالله نبيل</h3>
+                            <p class="text-sm text-orange-600 font-semibold mb-3">خبير أتمتة التسويق</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-5">
+                                أساعد الشركات على أتمتة تسويقها الرقمي لمضاعفة النتائج بأقل جهد. 50+ مشروع ناجح في مختلف القطاعات.
+                            </p>
+                            <a href="../index.html#contact " class="block w-full py-3 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all duration-300 shadow-md hover:shadow-lg text-sm">
+                                استشارة مجانية
+                            </a>
+                            <div class="flex justify-center gap-3 mt-4">
+                                <a href="https://linkedin.com/abdullah_nabil_n8n" target="_blank" class="text-gray-400 hover:text-blue-600 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                </a>
+                                <a href="https://x.com/abdullah_nabil_" target="_blank" class="text-gray-400 hover:text-gray-800 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </a>
+                                <a href="https://wa.me/967718672576" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Download Checklist -->
+                        <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border border-orange-100">
+                            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <h3 class="font-bold text-gray-900 mb-2">📋 Checklist أتمتة التسويق</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">قائمة مرجعية من 25 نقطة لأتمتة تسويقك خطوة بخطوة. حمّلها مجاناً وابدأ التنفيذ اليوم.</p>
+                            <a href="#" class="block w-full py-3 bg-orange-600 text-white font-bold rounded-lg hover:bg-orange-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm text-center">
+                                <span class="flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    تحميل الـ Checklist (PDF)
+                                </span>
+                            </a>
+                        </div>
+
+                        <!-- Related Articles -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                مقالات ذات صلة
+                            </h3>
+                            <div class="space-y-4">
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-orange-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🤖</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-orange-700 transition-colors leading-snug">5 طرق مبتكرة لدمج ChatGPT في عملك</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">6 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-orange-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">💡</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-orange-700 transition-colors leading-snug">كيف توفر 20 ساعة أسبوعياً باستخدام N8N</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">5 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-orange-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🏆</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-orange-700 transition-colors leading-snug">كيف وفّرنا لشركة عقارات 35% من التكاليف</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">5 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="../blog.html" class="block text-center mt-5 text-saudi font-bold text-sm hover:underline">
+                                عرض جميع المقالات ←
+                            </a>
+                        </div>
+
+                        <!-- Newsletter Mini -->
+                        <div class="bg-orange-600 rounded-2xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+                            <div class="relative z-10">
+                                <div class="text-2xl mb-2">📣</div>
+                                <h3 class="font-bold mb-2">نصائح تسويق أسبوعية</h3>
+                                <p class="text-orange-100 text-sm mb-4">اشترك واحصل على أحدث استراتيجيات أتمتة التسويق في بريدك.</p>
+                                <form class="space-y-2" onsubmit="handleSidebarSubscribe(event)">
+                                    <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-orange-200 focus:outline-none focus:border-white/50 text-sm" dir="ltr" required>
+                                    <button type="submit" class="w-full py-2.5 bg-white text-orange-600 font-bold rounded-lg hover:bg-gray-100 transition-all text-sm">اشترك مجاناً</button>
+                                </form>
+                                <div id="sidebar-subscribe-success" class="hidden text-center py-3">
+                                    <p class="text-orange-100 font-bold text-sm">✅ تم الاشتراك بنجاح!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="py-16 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg>
+        </div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-3xl fade-up">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">جاهز لأتمتة تسويقك ومضاعفة نتائجك؟ 📣</h2>
+            <p class="text-xl text-green-100 mb-8 leading-relaxed">
+                دعني أبني لك نظام أتمتة تسويقي متكامل يعمل على مدار الساعة ويوفر عليك ساعات من العمل اليدوي كل أسبوع.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="../index.html#contact " class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <span>احجز استشارة مجانية</span>
+                </a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="../index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="../about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="../services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="../projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="../blog.html" class="text-white font-bold text-sm">المدونة</a></li>
+                        <li><a href="../index.html#contact " class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a><span>|</span><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // =============================================
+        // MOBILE MENU
+        // =============================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+
+        // =============================================
+        // NAVBAR SHADOW
+        // =============================================
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 10);
+        }, { passive: true });
+
+
+        // =============================================
+        // FADE-UP ANIMATION
+        // =============================================
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.style.transitionDelay || '0ms';
+                    entry.target.style.transitionDelay = delay;
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
+
+
+        // =============================================
+        // SMOOTH SCROLL
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+
+
+        // =============================================
+        // BUDGET TABS
+        // =============================================
+        const budgetTabs = document.querySelectorAll('.budget-tab');
+        const budgetContents = document.querySelectorAll('.budget-content');
+
+        budgetTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+
+                // Update tab styles
+                budgetTabs.forEach(t => {
+                    t.classList.remove('active', 'bg-orange-600', 'text-white', 'border-orange-600');
+                    t.classList.add('border-gray-200', 'text-gray-600');
+                });
+                tab.classList.add('active', 'bg-orange-600', 'text-white', 'border-orange-600');
+                tab.classList.remove('border-gray-200', 'text-gray-600');
+
+                // Show/hide content
+                budgetContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById('tab-' + target).classList.remove('hidden');
+            });
+        });
+
+
+        // =============================================
+        // COPY LINK
+        // =============================================
+        function copyArticleLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                btn.classList.add('bg-saudi', 'text-white');
+                btn.classList.remove('bg-gray-100', 'text-gray-500');
+                setTimeout(() => {
+                    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+                    btn.classList.remove('bg-saudi', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-500');
+                }, 2000);
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            });
+        }
+
+
+        // =============================================
+        // SIDEBAR SUBSCRIBE
+        // =============================================
+        function handleSidebarSubscribe(e) {
+            e.preventDefault();
+            const form = e.target;
+            const successMsg = document.getElementById('sidebar-subscribe-success');
+            form.style.display = 'none';
+            successMsg.classList.remove('hidden');
+        }
+    </script>
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

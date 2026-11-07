@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام ربط Trello مع Telegram وSupabase — إشعارات ذكية للمهام | عبدالله نبيل</title>
+    <meta name="description" content="نظام أتمتة شامل يربط Trello بـ Telegram عبر Supabase — إشعارات فورية عند تعيين المهام، تنبيهات المواعيد النهائية، ورسائل مرحة مخصصة. حمّل المشروع مجاناً.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        trello: '#0079BF',
+                        telegram: '#0088CC',
+                        supabase: '#3ECF8E'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity .6s ease-out,transform .6s ease-out}.fade-up.visible{opacity:1;transform:translateY(0)}
+        .text-gradient{background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-image:linear-gradient(to left,#155724,#1e7e34,#28a745)}
+        ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#f1f1f1}::-webkit-scrollbar-thumb{background:#155724;border-radius:4px}
+        .bg-dots{background-image:radial-gradient(circle,#d1d5db 1px,transparent 1px);background-size:24px 24px}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(21,87,36,.4)}50%{box-shadow:0 0 0 12px rgba(21,87,36,0)}}
+        .step-number{position:relative}.step-number::after{content:'';position:absolute;inset:-4px;border-radius:50%;background:rgba(21,87,36,.1);animation:pulseGlow 3s ease-in-out infinite}
+        .tool-card{transition:all .3s ease}.tool-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.1)}
+        .before-after-card{transition:all .3s ease;border:2px solid transparent}.before-after-card:hover{border-color:rgba(21,87,36,.2)}
+        .lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);justify-content:center;align-items:center;cursor:zoom-out}.lightbox.active{display:flex}.lightbox img{max-width:95%;max-height:90vh;border-radius:12px}
+        .sticky-cta{transform:translateY(100%);transition:transform .4s ease}.sticky-cta.visible{transform:translateY(0)}
+        .img-zoom{transition:transform .5s ease;cursor:zoom-in}.img-zoom:hover{transform:scale(1.02)}
+        .setup-step{transition:all .3s ease}.setup-step:hover{transform:translateX(-4px)}
+        .code-block{background:#1e293b;border-radius:12px;overflow:hidden}.code-block pre{padding:20px;overflow-x:auto;font-size:13px;line-height:1.6}.code-block code{color:#e2e8f0;font-family:'Courier New',monospace}
+        .code-header{background:#0f172a;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+        .copy-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#94a3b8;padding:4px 12px;border-radius:6px;font-size:12px;cursor:pointer;transition:all .2s}.copy-btn:hover{background:rgba(255,255,255,.2);color:#fff}.copy-btn.copied{background:#155724;color:#fff;border-color:#155724}
+        .promo-card{transition:all .3s ease;position:relative;overflow:hidden}.promo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(to right,#155724,#28a745);transform:scaleX(0);transition:transform .3s ease}.promo-card:hover::before{transform:scaleX(1)}.promo-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.1)}
+        @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}.animated-gradient{background-size:200% 200%;animation:gradientShift 6s ease infinite}
+        #whatsapp-float{position:fixed;bottom:24px;left:24px;z-index:50;transition:bottom .4s cubic-bezier(.4,0,.2,1)}#whatsapp-float.lifted{bottom:80px}@media(max-width:640px){#whatsapp-float.lifted{bottom:90px}}
+        @keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}#whatsapp-float:not(.lifted){animation:floatBtn 3s ease-in-out infinite}#whatsapp-float.lifted{animation:none}
+
+        /* Telegram message animation */
+        @keyframes telegramSlide{0%{opacity:0;transform:translateY(15px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
+        .tg-msg{animation:telegramSlide .5s ease-out forwards;opacity:0}
+        .tg-msg:nth-child(1){animation-delay:.3s}.tg-msg:nth-child(2){animation-delay:.9s}.tg-msg:nth-child(3){animation-delay:1.5s}
+
+        /* Flow architecture */
+        @keyframes flowPulse{0%,100%{opacity:.3}50%{opacity:1}}.flow-dot{animation:flowPulse 2s ease-in-out infinite}.flow-dot:nth-child(2){animation-delay:.3s}.flow-dot:nth-child(3){animation-delay:.6s}
+
+        .workflow-card{transition:all .4s cubic-bezier(.4,0,.2,1)}.workflow-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0"><a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">عبدالله <span class="text-gray-800">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a></div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#about" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#services" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#portfolio" class="text-saudi font-medium relative group">مشاريعي<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#blog" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">المدونة<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="#download" class="hidden lg:inline-flex items-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all hover:shadow-lg transform hover:-translate-y-0.5">⬇️ حمّل المشروع مجاناً</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi" aria-label="فتح القائمة"><svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg><svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="../index.html#portfolio" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">مشاريعي</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4"><a href="#download" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">⬇️ حمّل المشروع مجاناً</a></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- BREADCRUMB -->
+    <div class="pt-24 pb-4 bg-gray-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center gap-2 text-sm text-gray-500">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../projects.html" class="hover:text-saudi transition-colors">إدارة المشاريع</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-saudi font-semibold">ربط Trello مع Telegram</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="text-center lg:text-right fade-up">
+                    <div class="inline-flex items-center gap-2 bg-saudi/10 text-saudi px-4 py-2 rounded-full text-sm font-bold mb-6">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                        <span>مجاني بالكامل — 3 أنظمة فرعية في مشروع واحد</span>
+                    </div>
+                    <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                        مهام Trello تصل إلى
+                        <span class="text-gradient">Telegram فوراً</span>
+                        مع إشعارات المواعيد النهائية
+                    </h1>
+                    <p class="text-lg lg:text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        نظام أتمتة شامل يراقب بطاقات Trello، يسجّل البيانات في Supabase، يرسل إشعارات Telegram عند تعيين المهام أو إزالتها، ويُنبّه الفريق تلقائياً عند اقتراب المواعيد النهائية — <span class="font-bold text-saudi">مع رسائل مرحة مخصصة!</span>
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-black text-trello mb-1">📋</div>
+                            <div class="text-xs text-gray-500 font-semibold">Trello → Telegram</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-black text-saudi mb-1">⏰</div>
+                            <div class="text-xs text-gray-500 font-semibold">تنبيه المواعيد النهائية</div>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+                            <div class="text-2xl lg:text-3xl font-black text-supabase mb-1">🗄️</div>
+                            <div class="text-xs text-gray-500 font-semibold">تخزين ذكي في Supabase</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#download" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold rounded-lg text-white bg-saudi hover:bg-saudi-light transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            حمّل المشروع مجاناً
+                        </a>
+                        <a href="#workflows" class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-200 text-base font-bold rounded-lg text-gray-700 bg-white hover:border-saudi hover:text-saudi transition-all">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            اكتشف الأنظمة الثلاثة
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative fade-up" style="transition-delay:200ms">
+                    <div class="relative group">
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-trello/20 rounded-2xl z-0 group-hover:rotate-12 transition-transform duration-500"></div>
+                        <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-telegram/20 rounded-full z-0 group-hover:-translate-x-2 transition-transform duration-500"></div>
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white z-10 bg-white">
+                            <img src="9.jpg" alt="نظام ربط Trello مع Telegram - N8N Workflow" class="w-full h-auto img-zoom" onclick="openLightbox(this.src)" loading="eager" decoding="async">
+                            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-md"><div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span><span class="text-xs font-bold text-gray-700">3 Workflows</span></div></div>
+                            <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>اضغط للتكبير</div>
+                        </div>
+                        <div class="absolute -right-6 top-8 z-20 bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-gray-50" style="animation:float 3s ease-in-out infinite"><div class="flex items-center gap-2"><div class="bg-blue-100 p-1.5 rounded-full"><svg class="w-4 h-4 text-trello" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></div><div><div class="text-[10px] text-gray-500 font-bold">مزامنة</div><div class="text-xs font-black text-gray-800">Trello</div></div></div></div>
+                        <div class="absolute -left-8 bottom-12 z-20 bg-white p-3 rounded-xl shadow-lg border border-gray-50" style="animation:float 4s ease-in-out infinite reverse"><div class="flex items-center gap-2"><div class="bg-blue-50 p-1.5 rounded-full"><svg class="w-4 h-4 text-telegram" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></div><div><div class="text-[10px] text-gray-500 font-bold">إشعارات</div><div class="text-xs font-black text-telegram">Telegram</div></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANNER -->
+    <section class="py-4 bg-gradient-to-r from-saudi/5 via-green-50 to-saudi/5 border-y border-saudi/10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="../projects.html" class="flex flex-col sm:flex-row items-center justify-between gap-3 group">
+                <div class="flex items-center gap-3"><div class="bg-saudi/10 p-2 rounded-lg"><svg class="w-5 h-5 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div><span class="text-sm font-bold text-gray-900">هذا المشروع جزء من <span class="text-saudi">10 قوالب مجانية لإدارة المشاريع</span></span></div>
+                <div class="flex items-center gap-2 text-saudi font-bold text-sm group-hover:underline"><span>اكتشف جميع القوالب</span><svg class="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></div>
+            </a>
+        </div>
+    </section>
+
+    <!-- TELEGRAM DEMO -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">شاهد الإشعارات الحية</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">هكذا تصل الإشعارات إلى <span class="text-telegram">Telegram</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">رسائل مخصصة ومرحة تُرسل تلقائياً عند كل حدث في Trello.</p>
+            </div>
+
+            <div class="max-w-md mx-auto fade-up">
+                <div class="bg-[#0E1621] rounded-2xl overflow-hidden shadow-2xl border border-gray-700/50">
+                    <!-- Telegram Header -->
+                    <div class="bg-[#17212B] px-5 py-3 flex items-center gap-3 border-b border-gray-700/30">
+                        <div class="w-10 h-10 bg-trello rounded-full flex items-center justify-center text-white font-bold text-sm">TB</div>
+                        <div><div class="font-bold text-white text-sm">Trello Bot 🤖</div><div class="text-[11px] text-gray-400">متصل الآن</div></div>
+                    </div>
+                    <!-- Messages -->
+                    <div class="p-4 space-y-3 min-h-[320px]">
+                        <div class="tg-msg bg-[#2B5278] text-white px-4 py-3 rounded-2xl rounded-tl-md max-w-[85%] shadow-sm">
+                            <p class="text-sm">📝 يا <strong>@أحمد</strong>! تم إضافتك لبطاقة <strong>"تصميم الواجهة الأمامية"</strong>. حظاً سعيداً! 🎯</p>
+                            <div class="mt-2 bg-black/20 rounded-lg p-2.5 text-xs space-y-1">
+                                <div>📄 <strong>الوصف:</strong> تصميم واجهة الموقع الجديد</div>
+                                <div>🔗 <strong>الرابط:</strong> <span class="text-blue-300 underline">Link</span></div>
+                                <div>⏰ <strong>الموعد:</strong> 15/7/2025</div>
+                            </div>
+                            <div class="text-[10px] text-gray-300 mt-1 text-left">9:15 ص ✓✓</div>
+                        </div>
+
+                        <div class="tg-msg bg-[#2B5278] text-white px-4 py-3 rounded-2xl rounded-tl-md max-w-[85%] shadow-sm">
+                            <p class="text-sm">🔥 <strong>@سارة</strong>، تم إزالتك من بطاقة <strong>"مراجعة API"</strong>. يا محظوظة! 😄</p>
+                            <div class="text-[10px] text-gray-300 mt-1 text-left">9:18 ص ✓✓</div>
+                        </div>
+
+                        <div class="tg-msg bg-[#2B5278] text-white px-4 py-3 rounded-2xl rounded-tl-md max-w-[85%] shadow-sm">
+                            <p class="text-sm">⚠️⚠️⚠️<br>يا <strong>@خالد</strong>! عندك مهمة موعدها <strong>اليوم</strong>! تحرّك الحين!!!</p>
+                            <div class="mt-2 bg-black/20 rounded-lg p-2.5 text-xs space-y-1">
+                                <div>📝 <strong>المهمة:</strong> إطلاق v2.0</div>
+                                <div>📓 <strong>اللوحة:</strong> مشروع التطبيق</div>
+                                <div>⏰ <strong>الموعد:</strong> اليوم!</div>
+                            </div>
+                            <div class="text-[10px] text-gray-300 mt-1 text-left">9:00 ص ✓✓</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3 WORKFLOWS -->
+    <section id="workflows" class="py-20 bg-gray-50 overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up">
+                <span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">3 أنظمة فرعية في مشروع واحد</span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">كل حدث في Trello يُعالج بذكاء</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">النظام يتكون من 3 مسارات عمل تعمل معاً: إنشاء البطاقات، إشعارات الأعضاء، وتنبيهات المواعيد.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Workflow 1 -->
+                <div class="workflow-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm fade-up relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-trello to-blue-400"></div>
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"><svg class="w-6 h-6 text-trello" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></div>
+                        <div><span class="bg-blue-100 text-trello px-2 py-0.5 rounded-full text-[10px] font-bold">نظام #1</span><h3 class="font-bold text-gray-900 mt-1">إنشاء البطاقات والمزامنة</h3></div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-5">عند إنشاء بطاقة جديدة في Trello، يتم تسجيلها تلقائياً في Supabase وإنشاء Webhook مخصص لمراقبة تحديثاتها المستقبلية.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-trello rounded-full"></span><span class="text-gray-600">Trello Trigger → إنشاء بطاقة</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-supabase rounded-full"></span><span class="text-gray-600">حفظ في Supabase (cards)</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-purple-500 rounded-full"></span><span class="text-gray-600">إنشاء Webhook للبطاقة</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-orange-500 rounded-full"></span><span class="text-gray-600">مزامنة المواعيد والبيانات</span></div>
+                    </div>
+                </div>
+
+                <!-- Workflow 2 -->
+                <div class="workflow-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm fade-up relative overflow-hidden" style="transition-delay:150ms">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-telegram to-blue-300"></div>
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center"><svg class="w-6 h-6 text-telegram" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                        <div><span class="bg-sky-100 text-telegram px-2 py-0.5 rounded-full text-[10px] font-bold">نظام #2</span><h3 class="font-bold text-gray-900 mt-1">إشعارات الأعضاء</h3></div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-5">عند إضافة أو إزالة عضو من بطاقة، يُرسل رسالة Telegram مخصصة ومرحة مع تفاصيل المهمة — ويُحدّث قاعدة البيانات تلقائياً.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-trello rounded-full"></span><span class="text-gray-600">Webhook → كشف نوع الحدث</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-supabase rounded-full"></span><span class="text-gray-600">فحص/إنشاء المستخدم</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span><span class="text-gray-600">ربط المستخدم بالبطاقة</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-telegram rounded-full"></span><span class="text-gray-600">رسالة Telegram مرحة 🎉</span></div>
+                    </div>
+                </div>
+
+                <!-- Workflow 3 -->
+                <div class="workflow-card bg-white rounded-2xl p-8 border border-gray-100 shadow-sm fade-up relative overflow-hidden" style="transition-delay:300ms">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-orange-400"></div>
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center"><svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                        <div><span class="bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-[10px] font-bold">نظام #3</span><h3 class="font-bold text-gray-900 mt-1">تنبيهات المواعيد النهائية</h3></div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-5">كل 12 ساعة، يفحص جميع البطاقات المستحقة اليوم ويرسل تنبيه عاجل لكل عضو مُعيّن عليها عبر Telegram.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-orange-500 rounded-full"></span><span class="text-gray-600">Schedule Trigger (كل 12 ساعة)</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-supabase rounded-full"></span><span class="text-gray-600">بطاقات مستحقة اليوم</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span><span class="text-gray-600">جلب أعضاء كل بطاقة</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span><span class="text-gray-600">تنبيه عاجل ⚠️ عبر Telegram</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE vs AFTER -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up"><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">هل فريقك <span class="text-red-600">ينسى المواعيد النهائية؟</span></h2><p class="text-gray-600 max-w-3xl mx-auto text-lg"><span class="font-bold text-red-600">44%</span> من الفرق تفوّت مواعيد التسليم لأن لا أحد يتابع البطاقات في Trello.</p></div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="before-after-card bg-red-50/50 p-8 rounded-2xl border border-red-100 fade-up">
+                    <div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></div><div><h3 class="text-xl font-bold text-red-800">قبل الأتمتة</h3></div></div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">لا أحد يعرف أنه مُعيّن</span><span class="text-gray-500 text-sm">Trello لا يُشعر الأعضاء بشكل فعّال</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">مواعيد نهائية تمر بصمت</span><span class="text-gray-500 text-sm">لا تنبيهات حقيقية قبل أو عند الموعد</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">بيانات غير موثقة</span><span class="text-gray-500 text-sm">لا سجل مركزي للمهام والأعضاء</span></div></li>
+                    </ul>
+                </div>
+                <div class="before-after-card bg-green-50/50 p-8 rounded-2xl border border-green-100 fade-up" style="transition-delay:150ms">
+                    <div class="flex items-center gap-3 mb-6"><div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div><div><h3 class="text-xl font-bold text-saudi-dark">بعد الأتمتة</h3></div></div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">إشعار فوري على Telegram</span><span class="text-gray-500 text-sm">رسالة مرحة ومخصصة لكل عضو</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">تنبيه عاجل للمواعيد</span><span class="text-gray-500 text-sm">كل 12 ساعة — لا مهمة تُنسى</span></div></li>
+                        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><div><span class="font-bold text-gray-800 block">توثيق في Supabase</span><span class="text-gray-500 text-sm">كل بطاقة، عضو، وربط — موثق تلقائياً</span></div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up"><span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">المنظومة التقنية</span><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">5 أدوات تعمل في تناغم</h2></div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
+                <div class="tool-card bg-white p-5 rounded-xl border border-gray-100 shadow-sm text-center fade-up"><div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-orange-100 to-red-100 rounded-xl flex items-center justify-center"><svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg></div><h4 class="font-bold text-gray-900 text-sm">N8N</h4><p class="text-[10px] text-gray-500">محرك الأتمتة</p></div>
+                <div class="tool-card bg-white p-5 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay:60ms"><div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-blue-100 to-sky-100 rounded-xl flex items-center justify-center"><svg class="w-7 h-7 text-trello" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></div><h4 class="font-bold text-gray-900 text-sm">Trello</h4><p class="text-[10px] text-gray-500">إدارة المهام</p></div>
+                <div class="tool-card bg-white p-5 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay:120ms"><div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-sky-100 to-blue-100 rounded-xl flex items-center justify-center"><svg class="w-7 h-7 text-telegram" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></div><h4 class="font-bold text-gray-900 text-sm">Telegram</h4><p class="text-[10px] text-gray-500">الإشعارات</p></div>
+                <div class="tool-card bg-white p-5 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay:180ms"><div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-center justify-center"><svg class="w-7 h-7 text-supabase" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg></div><h4 class="font-bold text-gray-900 text-sm">Supabase</h4><p class="text-[10px] text-gray-500">قاعدة البيانات</p></div>
+                <div class="tool-card bg-white p-5 rounded-xl border border-gray-100 shadow-sm text-center fade-up" style="transition-delay:240ms"><div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center"><svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg></div><h4 class="font-bold text-gray-900 text-sm">Webhooks</h4><p class="text-[10px] text-gray-500">ربط الأحداث</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="py-20 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10"><svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 fade-up"><h2 class="text-3xl lg:text-4xl font-bold mb-4">أرقام تتحدث عن نفسها</h2></div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all"><div class="text-5xl font-black mb-2">0</div><div class="text-green-200 font-semibold text-sm">مواعيد مفقودة</div><p class="text-green-300/70 text-xs">تنبيه كل 12 ساعة</p></div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all" style="transition-delay:100ms"><div class="text-5xl font-black mb-2">⚡</div><div class="text-green-200 font-semibold text-sm">إشعار فوري</div><p class="text-green-300/70 text-xs">خلال ثوانٍ من الحدث</p></div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all" style="transition-delay:200ms"><div class="text-5xl font-black mb-2">3</div><div class="text-green-200 font-semibold text-sm">أنظمة فرعية</div><p class="text-green-300/70 text-xs">في مشروع واحد متكامل</p></div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 text-center fade-up hover:bg-white/15 transition-all" style="transition-delay:300ms"><div class="text-5xl font-black mb-2">😄</div><div class="text-green-200 font-semibold text-sm">رسائل مرحة</div><p class="text-green-300/70 text-xs">5 رسائل عشوائية لكل حدث</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section id="download" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up"><span class="text-saudi font-bold tracking-wider text-sm uppercase mb-2 block">حمّل وشغّل</span><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">احصل على المشروع مجاناً</h2></div>
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-gradient-to-br from-saudi/5 via-green-50 to-white rounded-3xl border-2 border-saudi/20 overflow-hidden shadow-xl mb-12 fade-up">
+                    <div class="grid lg:grid-cols-5">
+                        <div class="lg:col-span-3 p-8 lg:p-10">
+                            <div class="flex items-center gap-3 mb-6"><div class="w-14 h-14 bg-saudi rounded-xl flex items-center justify-center shadow-lg shadow-saudi/20"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></div><div><h3 class="text-xl font-black text-gray-900">تحميل ملف المشروع</h3><p class="text-sm text-gray-500">ملف JSON جاهز للاستيراد في N8N</p></div></div>
+                            <div class="bg-white rounded-xl p-4 border border-gray-200 mb-6"><div class="flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div><div><div class="font-bold text-gray-900 text-sm">trello-telegram-supabase.json</div><div class="text-xs text-gray-500">N8N Multi-Workflow Template</div></div></div><div class="text-left"><div class="text-xs text-gray-500">الحجم</div><div class="text-sm font-bold text-gray-700">~20 KB</div></div></div></div>
+                            <a href="#" download class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-8 py-4 bg-saudi text-white font-bold rounded-xl hover:bg-saudi-light transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg" aria-disabled="true" tabindex="-1" title="الرابط غير متاح في النسخة الحالية"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg><span>تحميل المشروع مجاناً</span></a>
+                            <p class="text-xs text-gray-500 mt-3 flex items-center gap-1"><svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>مجاني 100%</p>
+                        </div>
+                        <div class="lg:col-span-2 bg-gray-900 text-white p-8 lg:p-10 flex flex-col justify-center relative overflow-hidden">
+                            <div class="relative z-10">
+                                <div class="text-sm text-gray-400 mb-2">المتطلبات</div><h4 class="text-lg font-bold mb-4">تحتاج 4 حسابات</h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center gap-2 bg-white/10 p-2.5 rounded-lg"><span class="w-6 h-6 bg-orange-500/20 rounded flex items-center justify-center text-xs">🔧</span><span>N8N (مجاني)</span></div>
+                                    <div class="flex items-center gap-2 bg-white/10 p-2.5 rounded-lg"><span class="w-6 h-6 bg-trello/20 rounded flex items-center justify-center text-xs">📋</span><span>Trello API Key</span></div>
+                                    <div class="flex items-center gap-2 bg-white/10 p-2.5 rounded-lg"><span class="w-6 h-6 bg-telegram/20 rounded flex items-center justify-center text-xs">✈️</span><span>Telegram Bot Token</span></div>
+                                    <div class="flex items-center gap-2 bg-white/10 p-2.5 rounded-lg"><span class="w-6 h-6 bg-supabase/20 rounded flex items-center justify-center text-xs">🗄️</span><span>Supabase (مجاني)</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Setup -->
+                <div class="fade-up">
+                    <div class="text-center mb-10"><h3 class="text-2xl font-bold text-gray-900 mb-3">دليل الإعداد</h3></div>
+                    <div class="space-y-6 max-w-3xl mx-auto">
+                        <div class="setup-step bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-10 h-10 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-1">1</div><div><h4 class="text-lg font-bold text-gray-900 mb-2">إعداد Trello API</h4><p class="text-gray-600 text-sm mb-3">احصل على API Key و Token من <a href="https://developer.atlassian.com" target="_blank" class="text-saudi font-bold hover:underline">Atlassian Developer ↗</a></p><div class="bg-gray-50 p-3 rounded-lg text-sm text-gray-700">ضع Board ID في Trello Trigger node (افتح بطاقة، أضف .json للرابط، ابحث عن "idList")</div></div></div></div>
+
+                        <div class="setup-step bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-10 h-10 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-1">2</div><div><h4 class="text-lg font-bold text-gray-900 mb-2">إعداد Supabase</h4><p class="text-gray-600 text-sm mb-3">أنشئ 3 جداول في <a href="https://supabase.com" target="_blank" class="text-saudi font-bold hover:underline">Supabase ↗</a>:</p>
+                        <div class="grid grid-cols-3 gap-2 text-xs"><div class="bg-gray-50 p-2 rounded-lg text-center"><span class="font-bold text-supabase">cards</span><br>id, card_name, board_name, due_date, url, completed</div><div class="bg-gray-50 p-2 rounded-lg text-center"><span class="font-bold text-supabase">users</span><br>id, name</div><div class="bg-gray-50 p-2 rounded-lg text-center"><span class="font-bold text-supabase">card_user</span><br>cardId, userId</div></div></div></div></div>
+
+                        <div class="setup-step bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-10 h-10 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-1">3</div><div><h4 class="text-lg font-bold text-gray-900 mb-2">إعداد Telegram Bot</h4><p class="text-gray-600 text-sm">أنشئ بوت عبر <strong class="text-saudi">@BotFather</strong> في Telegram، انسخ Token، واضبط Chat ID في nodes الإرسال.</p></div></div></div>
+
+                        <div class="setup-step bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all"><div class="flex items-start gap-4"><div class="w-10 h-10 bg-saudi text-white rounded-full flex items-center justify-center font-black text-sm flex-shrink-0 mt-1">4</div><div><h4 class="text-lg font-bold text-gray-900 mb-2">خصّص أسماء المستخدمين</h4><p class="text-gray-600 text-sm mb-3">في nodes "username" و "usernames 1"، اربط أسماء Trello بمعرّفات Telegram:</p>
+                        <div class="code-block"><div class="code-header"><span class="text-xs text-gray-400 font-mono">Username Mapping</span><button class="copy-btn" onclick="copyCode(this,'cfg1')">نسخ</button></div><pre><code id="cfg1"><span style="color:#fbbf24">"أحمد"</span>: <span style="color:#a5f3fc">"@ahmed_tg"</span>,
+<span style="color:#fbbf24">"سارة"</span>: <span style="color:#a5f3fc">"@sara_tg"</span>,
+<span style="color:#fbbf24">"خالد"</span>: <span style="color:#a5f3fc">"@khaled_tg"</span></code></pre></div></div></div></div>
+
+                        <div class="bg-gradient-to-br from-saudi/5 to-green-50 rounded-xl p-6 border-2 border-saudi/20 text-center"><div class="w-16 h-16 bg-saudi/10 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-saudi" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div><h4 class="text-xl font-bold text-saudi mb-2">🎉 النظام جاهز!</h4><p class="text-gray-600 text-sm">أنشئ بطاقة في Trello → أضف عضواً → شاهد الإشعار في Telegram خلال ثوانٍ!</p></div>
+                    </div>
+                </div>
+
+                <div class="mt-10 bg-blue-50 rounded-xl p-6 border border-blue-100 flex flex-col sm:flex-row items-center gap-4 fade-up">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0"><svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
+                    <div class="text-center sm:text-right flex-1"><h4 class="font-bold text-blue-900 mb-1">تحتاج مساعدة أو تخصيص؟</h4><p class="text-blue-700 text-sm">يمكن ربط النظام مع Slack, WhatsApp, Notion أو أي أداة أخرى — تواصل معي!</p></div>
+                    <a href="../index.html#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 text-sm flex-shrink-0 shadow-md">اطلب المساعدة</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-up"><h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">أسئلة شائعة</h2></div>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="border border-gray-200 rounded-xl overflow-hidden fade-up"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">هل يعمل مع Trello المجاني؟</span><svg class="w-5 h-5 text-saudi transform transition-transform flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">نعم! يعمل مع جميع خطط Trello بما فيها المجانية. فقط تحتاج API Key من Atlassian.</p></div></div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden fade-up" style="transition-delay:80ms"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">هل يمكن استبدال Telegram بـ Slack أو WhatsApp؟</span><svg class="w-5 h-5 text-saudi transform transition-transform flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">بالتأكيد! فقط استبدل Telegram nodes بـ <strong>Slack, WhatsApp Business API, أو Discord</strong> — بتعديلات بسيطة.</p></div></div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden fade-up" style="transition-delay:160ms"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">ما تكلفة التشغيل الشهرية؟</span><svg class="w-5 h-5 text-saudi transform transition-transform flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600"><strong>مجاني تماماً!</strong> Trello مجاني، Supabase مجاني (حتى 500MB)، Telegram مجاني، N8N مجاني للاستضافة الذاتية.</p></div></div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden fade-up" style="transition-delay:240ms"><button class="faq-toggle w-full flex items-center justify-between p-6 text-right hover:bg-gray-50" onclick="toggleFaq(this)"><span class="font-bold text-gray-900 text-lg">هل يمكن تخصيص الرسائل المرحة؟</span><svg class="w-5 h-5 text-saudi transform transition-transform flex-shrink-0 mr-4 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><div class="faq-content hidden px-6 pb-6"><p class="text-gray-600">نعم! في Code node يوجد 5 رسائل لكل حدث (إضافة/إزالة). عدّلها أو أضف المزيد بسهولة — بالعربية أو الإنجليزية!</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="py-20 bg-gradient-to-br from-saudi via-saudi-light to-saudi animated-gradient relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-dots"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mx-auto text-center fade-up">
+                <h2 class="text-3xl lg:text-4xl font-black text-white mb-6">لا تدع مهمة تمر بدون إشعار.<br><span class="text-green-200">اربط Trello بـ Telegram الآن.</span></h2>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#download" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-100 transition-all transform hover:scale-105 text-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>حمّل المشروع مجاناً</a>
+                    <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 bg-green-600 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-green-700 transition-all transform hover:scale-105 text-lg border border-green-500" title="WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>ساعدني في الإعداد</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8"><div class="container mx-auto px-4 sm:px-6 lg:px-8"><div class="grid md:grid-cols-3 gap-10 mb-12"><div><a href="../index.html" class="text-2xl font-bold text-white inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a><p class="text-gray-400 text-sm">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي.</p></div><div><h4 class="font-bold text-white mb-4">روابط</h4><ul class="space-y-2"><li><a href="../index.html" class="text-gray-400 hover:text-white text-sm">الرئيسية</a></li><li><a href="../projects.html" class="text-gray-400 hover:text-white text-sm">إدارة المشاريع</a></li><li><a href="../index.html#contact" class="text-gray-400 hover:text-white text-sm">تواصل معي</a></li></ul></div>                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div></div><div class="border-t border-gray-800 pt-8"><p class="text-sm text-gray-500 text-center">جميع الحقوق محفوظة © 2024 عبدالله نبيل 🇸🇦</p></div></div></footer>
+
+    <!-- WHATSAPP -->
+    <a id="whatsapp-float" href="https://wa.me/967718672576" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg><span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span></a>
+
+    <!-- STICKY CTA -->
+    <div id="sticky-cta-bar" class="sticky-cta fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-2xl py-3 px-4"><div class="container mx-auto flex items-center justify-between gap-4"><div class="hidden sm:block"><div class="text-sm font-bold text-gray-900">ربط Trello مع Telegram</div><div class="text-xs text-gray-500">مجاني — 3 أنظمة فرعية في مشروع واحد</div></div><a href="#download" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light text-sm shadow-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>حمّل مجاناً</a></div></div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()"><button class="absolute top-6 left-6 text-white/80 hover:text-white z-10" onclick="closeLightbox()"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button><img id="lightbox-img" src="" alt="صورة مكبرة"></div>
+
+    <script>
+        const mb=document.getElementById('mobile-menu-btn'),mm=document.getElementById('mobile-menu'),io=document.getElementById('menu-icon-open'),ic=document.getElementById('menu-icon-close');
+        mb.addEventListener('click',()=>{mm.classList.toggle('hidden');io.classList.toggle('hidden');ic.classList.toggle('hidden')});
+        document.querySelectorAll('.mobile-nav-link').forEach(l=>l.addEventListener('click',()=>{mm.classList.add('hidden');io.classList.remove('hidden');ic.classList.add('hidden')}));
+        const so=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');so.unobserve(el.target)}})},{threshold:.1});
+        document.querySelectorAll('.fade-up').forEach(el=>so.observe(el));
+        document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const id=this.getAttribute('href');if(id==='#')return;const t=document.querySelector(id);if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-80,behavior:'smooth'})})});
+        const nb=document.getElementById('navbar');window.addEventListener('scroll',()=>{nb.classList.toggle('shadow-md',window.scrollY>10)},{passive:true});
+        const sc=document.getElementById('sticky-cta-bar'),wf=document.getElementById('whatsapp-float');let ss=false;
+        window.addEventListener('scroll',()=>{const t=window.innerHeight*.8,f=document.querySelector('footer'),ft=f?f.getBoundingClientRect().top:Infinity;if(window.scrollY>t&&ft>window.innerHeight){if(!ss){sc.classList.add('visible');wf.classList.add('lifted');ss=true}}else if(ss){sc.classList.remove('visible');wf.classList.remove('lifted');ss=false}},{passive:true});
+        const lb=document.getElementById('lightbox'),li=document.getElementById('lightbox-img');
+        function openLightbox(s){li.src=s;lb.classList.add('active');document.body.style.overflow='hidden'}
+        function closeLightbox(){lb.classList.remove('active');document.body.style.overflow=''}
+        document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lb.classList.contains('active'))closeLightbox()});
+        function toggleFaq(b){const c=b.nextElementSibling,i=b.querySelector('.faq-icon'),o=!c.classList.contains('hidden');document.querySelectorAll('.faq-content').forEach(x=>x.classList.add('hidden'));document.querySelectorAll('.faq-icon').forEach(x=>x.classList.remove('rotate-180'));if(!o){c.classList.remove('hidden');i.classList.add('rotate-180')}}
+        function copyCode(b,id){const t=document.getElementById(id).textContent;navigator.clipboard.writeText(t).then(()=>{b.textContent='✓ تم';b.classList.add('copied');setTimeout(()=>{b.textContent='نسخ';b.classList.remove('copied')},2000)})}
+    </script>
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

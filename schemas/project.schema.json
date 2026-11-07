@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/project.schema.json",
+  "title": "Portfolio project",
+  "type": "object",
+  "required": ["id", "title", "category", "description", "tags", "image", "detailPage", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^project-[0-9]{2,}$"},
+    "title": {"type": "string", "minLength": 2},
+    "category": {"type": "string"},
+    "description": {"type": "string"},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "image": {"type": ["string", "null"]},
+    "imageAlt": {"type": "string"},
+    "detailPage": {"type": ["string", "null"]},
+    "workflowFile": {"type": ["string", "null"]},
+    "workflowDownloadAvailable": {"type": "boolean"},
+    "pipeline": {"type": "array", "items": {"type": "string"}},
+    "metrics": {"type": "array", "items": {"type": "object", "required": ["label", "value"], "properties": {"label": {"type": "string"}, "value": {"type": "string"}}, "additionalProperties": false}},
+    "accentColor": {"type": ["string", "null"]},
+    "status": {"enum": ["draft", "published", "archived"]}
+  },
+  "additionalProperties": false
+}

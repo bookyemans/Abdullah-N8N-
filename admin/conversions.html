@@ -1,0 +1,39 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>تحليل التحويلات | A5 Admin</title><link rel="stylesheet" href="/assets/css/admin.css"></head><body><div class="admin-shell" data-admin-layout><div class="empty">جارٍ التحقق من صلاحية الدخول...</div></div><script type="module">
+import {initAdmin,fmtNum,showError,escapeHtml} from '/assets/js/admin-common.js';
+import {api} from '/assets/js/admin-auth.js';
+try {
+  await initAdmin('/admin/conversions.html');
+  const root=document.getElementById('admin-content');
+  root.innerHTML=`
+  <div class="section-head"><div><h2>تحليل التحويلات والعملاء المحتملين</h2><p class="sub">قياس انتقال الزيارات إلى طلبات تواصل، مع إسناد المصدر والخدمة والصفحة.</p></div><div class="toolbar"><select id="range" class="field compact"><option value="7">آخر 7 أيام</option><option value="30" selected>آخر 30 يوماً</option><option value="90">آخر 90 يوماً</option></select><button class="btn secondary" id="refresh">تحديث</button></div></div><div id="notice"></div>
+  <div class="grid stats" id="conversion-kpis"><article class="card"><div class="stat-label">الزوار الفريدون</div><div class="stat-value">—</div></article><article class="card"><div class="stat-label">العملاء المحتملون</div><div class="stat-value">—</div></article><article class="card"><div class="stat-label">معدل تحويل الزوار</div><div class="stat-value">—</div></article><article class="card"><div class="stat-label">نقرات واتساب</div><div class="stat-value">—</div></article></div>
+  <section class="card"><div class="section-head"><div><h2>مسار التحويل</h2><p class="sub">من مشاهدة الموقع إلى إرسال طلب تواصل.</p></div></div><div class="funnel" id="funnel"></div></section>
+  <section class="card" style="margin-top:18px"><div class="section-head"><h2>الزيارات وطلبات التواصل يومياً</h2><span class="muted" id="period"></span></div><div class="chart conversion-chart" id="daily-chart"></div><div class="chart-legend"><span><i class="legend-views"></i> مشاهدات الصفحات</span><span><i class="legend-leads"></i> طلبات التواصل</span></div></section>
+  <div class="grid two-col" style="margin-top:18px"><section class="card"><div class="section-head"><h2>أداء مصادر الزيارات</h2></div><div class="table-wrap"><table><thead><tr><th>المصدر</th><th>الزوار</th><th>الطلبات</th><th>معدل التحويل</th></tr></thead><tbody id="sources"></tbody></table></div></section><section class="card"><div class="section-head"><h2>الخدمات الأكثر طلباً</h2></div><div id="services" class="rank-list"></div></section></div>
+  <div class="grid two-col" style="margin-top:18px"><section class="card"><div class="section-head"><h2>الصفحات التي تجلب طلبات تواصل</h2></div><div class="table-wrap"><table><thead><tr><th>صفحة المصدر</th><th>الطلبات</th><th>الزوار المحولون</th></tr></thead><tbody id="pages"></tbody></table></div></section><section class="card"><div class="section-head"><h2>حالة العملاء المحتملين</h2></div><div id="statuses" class="rank-list"></div></section></div>
+  <section class="card" style="margin-top:18px"><div class="section-head"><h2>ملخص أداء المتابعة</h2></div><div class="grid stats compact-stats" id="lead-status-kpis"></div><p class="sub">الطلبات غير المرغوبة مستبعدة من حساب معدل التحويل. قد يتجاوز عدد الطلبات عدد الزوار المحولين إذا أرسل الزائر أكثر من طلب.</p></section>`;
+  const empty='<div class="empty">لا توجد بيانات ضمن هذه الفترة.</div>';
+  const labels={new:'جديد',in_progress:'قيد المتابعة',replied:'تم الرد',closed:'مغلق',spam:'غير مرغوب'};
+  const n=v=>fmtNum(v||0);
+  function renderRank(rows,key){if(!rows?.length)return empty;const max=Math.max(1,...rows.map(x=>Number(x.leads||x.total||0)));return rows.map(x=>{const value=Number(x.leads||x.total||0);return `<div class="rank-row"><span>${escapeHtml(x[key]||'غير محدد')}</span><div class="progress"><span style="width:${Math.max(2,value/max*100)}%"></span></div><strong>${n(value)}</strong></div>`}).join('')}
+  async function load(){
+    const d=await api(`/api/admin/conversions?days=${document.getElementById('range').value}`);
+    const t=d.totals||{};
+    document.getElementById('conversion-kpis').innerHTML=[[t.unique_visitors,'الزوار الفريدون'],[t.total_leads,'العملاء المحتملون'],[`${Number(t.conversion_rate||0).toLocaleString('ar',{maximumFractionDigits:2})}%`,'معدل تحويل الزوار'],[t.whatsapp_clicks,'نقرات واتساب']].map(([v,l])=>`<article class="card"><div class="stat-label">${l}</div><div class="stat-value">${typeof v==='string'?v:n(v)}</div></article>`).join('');
+    document.getElementById('period').textContent=`آخر ${n(d.range_days)} يوماً`;
+    const funnel=[['الزوار الفريدون',t.unique_visitors],['الجلسات',t.sessions],['نقرات واتساب',t.whatsapp_clicks],['طلبات التواصل',t.total_leads]];const max=Math.max(1,Number(t.unique_visitors||0));
+    document.getElementById('funnel').innerHTML=funnel.map(([label,value],i)=>`<div class="funnel-row"><div class="funnel-label"><strong>${label}</strong><span>${n(value)}</span></div><div class="funnel-track"><span style="width:${Math.min(100,Math.max(Number(value||0)>0?2:0,Number(value||0)/max*100))}%"></span></div></div>`).join('');
+    const daily=d.daily||[],maxViews=Math.max(1,...daily.map(x=>Number(x.page_views||0))),maxLeads=Math.max(1,...daily.map(x=>Number(x.leads||0)));
+    document.getElementById('daily-chart').innerHTML=daily.length?daily.map(x=>`<div class="bar-col"><div class="bar-pair"><div class="bar view-bar" style="height:${Math.max(2,Number(x.page_views||0)/maxViews*78)}%" title="${n(x.page_views)} مشاهدة"></div><div class="bar lead-bar" style="height:${Math.max(Number(x.leads||0)>0?2:0,Number(x.leads||0)/maxLeads*78)}%" title="${n(x.leads)} طلب"></div></div><span class="bar-label">${new Date(x.day_utc).toLocaleDateString('ar',{day:'numeric',month:'numeric'})}</span></div>`).join(''):empty;
+    document.getElementById('sources').innerHTML=(d.sources||[]).map(x=>`<tr><td>${escapeHtml(x.source)}</td><td>${n(x.visitors)}</td><td>${n(x.leads)}</td><td>${Number(x.conversion_rate||0).toLocaleString('ar',{maximumFractionDigits:2})}%</td></tr>`).join('')||'<tr><td colspan="4" class="empty">لا توجد بيانات</td></tr>';
+    document.getElementById('services').innerHTML=renderRank(d.services,'service');
+    document.getElementById('pages').innerHTML=(d.top_pages||[]).map(x=>`<tr><td>${escapeHtml(x.page_path)}</td><td>${n(x.leads)}</td><td>${n(x.converted_visitors)}</td></tr>`).join('')||'<tr><td colspan="3" class="empty">لا توجد بيانات</td></tr>';
+    const statusRows=Object.entries(d.statuses||{}).map(([status,total])=>({status,total}));document.getElementById('statuses').innerHTML=renderRank(statusRows,'status').replace(/<span>([^<]+)<\/span>/g,(m,v)=>m);
+    document.getElementById('lead-status-kpis').innerHTML=[[t.open_leads,'طلبات مفتوحة'],[t.replied_leads,'تم الرد عليها'],[t.closed_leads,'مغلقة'],[t.spam_leads,'غير مرغوبة']].map(([v,l])=>`<article class="card"><div class="stat-label">${l}</div><div class="stat-value">${n(v)}</div></article>`).join('');
+    document.querySelectorAll('#statuses .rank-row > span').forEach(el=>{el.textContent=labels[el.textContent]||el.textContent});
+  }
+  document.getElementById('range').addEventListener('change',()=>load().catch(e=>showError(document.getElementById('notice'),e)));
+  document.getElementById('refresh').addEventListener('click',()=>load().catch(e=>showError(document.getElementById('notice'),e)));
+  await load();
+}catch(e){showError(document.getElementById('admin-content')||document.querySelector('[data-admin-layout]'),e)}
+</script></body></html>

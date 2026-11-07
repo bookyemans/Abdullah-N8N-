@@ -1,0 +1,414 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "projects.html",
+  "projects": [
+    {
+      "id": "project-01",
+      "title": "وكيل ذكاء اصطناعي لإدارة الاجتماعات",
+      "category": "أتمتة الاجتماعات",
+      "description": "وكيل AI يستمع لاجتماعاتك، يحلل المحادثات، يستخرج المهام تلقائياً، ويوزعها على الفريق.",
+      "tags": [
+        "N8N",
+        "GPT-4o",
+        "Fireflies",
+        "Airtable",
+        "Gmail"
+      ],
+      "image": "Manager/1.jpg",
+      "imageAlt": "وكيل ذكاء اصطناعي لإدارة الاجتماعات",
+      "detailPage": "Manager/1.html",
+      "workflowFile": null,
+      "workflowDownloadAvailable": false,
+      "pipeline": [
+        "Fireflies",
+        "N8N",
+        "GPT-4o"
+      ],
+      "metrics": [
+        {
+          "label": "النتيجة",
+          "value": "95% تقليل يدوي"
+        },
+        {
+          "label": "الأثر",
+          "value": "صفر مهام مفقودة"
+        }
+      ],
+      "accentColor": "#3b82f6",
+      "status": "published"
+    },
+    {
+      "id": "project-02",
+      "title": "تتبع مهام Trello تلقائياً في Google Sheets",
+      "category": "إدارة المهام",
+      "description": "نظام أتمتة يسحب جميع مهام Trello يومياً ويسجلها في جداول جوجل لتتبع تقدم المشاريع.",
+      "tags": [
+        "N8N",
+        "Trello",
+        "Google Sheets"
+      ],
+      "image": "Manager/2.jpg",
+      "imageAlt": "تتبع مهام Trello",
+      "detailPage": "Manager/2.html",
+      "workflowFile": null,
+      "workflowDownloadAvailable": false,
+      "pipeline": [
+        "Trello",
+        "N8N",
+        "Sheets"
+      ],
+      "metrics": [
+        {
+          "label": "التوفير",
+          "value": "3+ ساعات/أسبوع"
+        },
+        {
+          "label": "الأثر",
+          "value": "سجل تاريخي كامل"
+        }
+      ],
+      "accentColor": "#10b981",
+      "status": "published"
+    },
+    {
+      "id": "project-03",
+      "title": "بوت تيليجرام الذكي للمهام الصوتية",
+      "category": "وكلاء الذكاء الاصطناعي",
+      "description": "بوت يحوّل رسائلك الصوتية إلى مهام منظمة في Trello تلقائياً باستخدام تفريغ Whisper.",
+      "tags": [
+        "N8N",
+        "Telegram",
+        "Whisper",
+        "Groq AI"
+      ],
+      "image": "Manager/4.jpg",
+      "imageAlt": "بوت تيليجرام الذكي",
+      "detailPage": "Manager/4.html",
+      "workflowFile": "Manager/4.json",
+      "workflowDownloadAvailable": true,
+      "pipeline": [
+        "Telegram",
+        "N8N",
+        "Whisper"
+      ],
+      "metrics": [
+        {
+          "label": "السرعة",
+          "value": "10 ثوانٍ فقط"
+        },
+        {
+          "label": "التوفر",
+          "value": "عمل 24/7"
+        }
+      ],
+      "accentColor": "#8b5cf6",
+      "status": "published"
+    },
+    {
+      "id": "project-04",
+      "title": "تقرير أسبوعي ذكي لـ Microsoft Teams",
+      "category": "أتمتة الاجتماعات",
+      "description": "يحلل محادثات فريقك على Teams أسبوعياً بالذكاء الاصطناعي ويُنشئ تقريراً شاملاً.",
+      "tags": [
+        "N8N",
+        "MS Teams",
+        "GPT-4.1",
+        "Google Docs"
+      ],
+      "image": "Manager/5.jpg",
+      "imageAlt": "تقرير أسبوعي ذكي",
+      "detailPage": "Manager/5.html",
+      "workflowFile": "Manager/5.json",
+      "workflowDownloadAvailable": true,
+      "pipeline": [
+        "Teams",
+        "N8N",
+        "GPT-4.1"
+      ],
+      "metrics": [
+        {
+          "label": "التوفير",
+          "value": "5+ ساعات"
+        },
+        {
+          "label": "التحليل",
+          "value": "فردي وجماعي"
+        }
+      ],
+      "accentColor": "#0ea5e9",
+      "status": "published"
+    },
+    {
+      "id": "project-05",
+      "title": "تقرير Retrospective ذكي من Jira",
+      "category": "إدارة المهام",
+      "description": "يُحلل مهام Jira المكتملة ويُنشئ تقرير Lessons Learned احترافي تلقائياً.",
+      "tags": [
+        "N8N",
+        "Jira",
+        "GPT-4o-mini",
+        "Google Docs"
+      ],
+      "image": "Manager/6.jpg",
+      "imageAlt": "تقرير Retrospective",
+      "detailPage": "Manager/6.html",
+      "workflowFile": null,
+      "workflowDownloadAvailable": false,
+      "pipeline": [
+        "Jira",
+        "N8N",
+        "GPT-4o"
+      ],
+      "metrics": [
+        {
+          "label": "التوفير",
+          "value": "4+ ساعات/Epic"
+        },
+        {
+          "label": "التحليل",
+          "value": "6 أقسام"
+        }
+      ],
+      "accentColor": "#f59e0b",
+      "status": "published"
+    },
+    {
+      "id": "project-06",
+      "title": "نظام ذكي لإدارة تسليم المشاريع",
+      "category": "وكلاء الذكاء الاصطناعي",
+      "description": "أوركسترا من 5 وكلاء AI لتحليل المشاريع، تقدير الجهد، توزيع المهام تلقائياً.",
+      "tags": [
+        "N8N",
+        "Claude 3.5 Sonnet",
+        "Multi-Agent API"
+      ],
+      "image": "Manager/7.jpg",
+      "imageAlt": "نظام ذكي لإدارة تسليم المشاريع",
+      "detailPage": "Manager/7.html",
+      "workflowFile": null,
+      "workflowDownloadAvailable": false,
+      "pipeline": [
+        "Claude",
+        "N8N",
+        "Multi-Agent"
+      ],
+      "metrics": [
+        {
+          "label": "الوكلاء",
+          "value": "5 وكلاء AI"
+        },
+        {
+          "label": "الأثر",
+          "value": "كشف مبكر"
+        }
+      ],
+      "accentColor": "#8b5cf6",
+      "status": "published"
+    },
+    {
+      "id": "project-07",
+      "title": "مدير مشاريع ذكي بالمحادثة",
+      "category": "وكلاء الذكاء الاصطناعي",
+      "description": "وكيل ذكاء اصطناعي يحوّل محادثاتك النصية إلى مهام منظمة في Google Sheets.",
+      "tags": [
+        "N8N Chat",
+        "GPT-4.1 Mini",
+        "Google Sheets"
+      ],
+      "image": "Manager/8.jpg",
+      "imageAlt": "مدير مشاريع ذكي",
+      "detailPage": "Manager/8.html",
+      "workflowFile": "Manager/8.json",
+      "workflowDownloadAvailable": true,
+      "pipeline": [
+        "Chat",
+        "GPT-4.1",
+        "Sheets"
+      ],
+      "metrics": [
+        {
+          "label": "السرعة",
+          "value": "أسرع 5x"
+        },
+        {
+          "label": "الذكاء",
+          "value": "ذاكرة سياق"
+        }
+      ],
+      "accentColor": "#22c55e",
+      "status": "published"
+    },
+    {
+      "id": "project-08",
+      "title": "ربط Trello مع Telegram و Supabase",
+      "category": "إشعارات وتصعيد",
+      "description": "إشعارات فورية عند تعيين المهام، تنبيهات للمواعيد النهائية، ورسائل مخصصة.",
+      "tags": [
+        "N8N",
+        "Trello",
+        "Telegram",
+        "Supabase"
+      ],
+      "image": "Manager/9.jpg",
+      "imageAlt": "ربط Trello مع Telegram",
+      "detailPage": "Manager/9.html",
+      "workflowFile": "Manager/9.json",
+      "workflowDownloadAvailable": true,
+      "pipeline": [
+        "Trello",
+        "N8N",
+        "Telegram"
+      ],
+      "metrics": [
+        {
+          "label": "الأنظمة",
+          "value": "3 أنظمة فرعية"
+        },
+        {
+          "label": "الأثر",
+          "value": "صفر مفقود"
+        }
+      ],
+      "accentColor": "#f97316",
+      "status": "published"
+    },
+    {
+      "id": "project-09",
+      "title": "مراقبة تنفيذ البناء بالذكاء الاصطناعي",
+      "category": "وكلاء الذكاء الاصطناعي",
+      "description": "يحلل صور مواقع البناء عبر Vision AI، يكتشف العيوب والمخاطر الهندسية.",
+      "tags": [
+        "N8N",
+        "GPT-4.1 Vision",
+        "Google Drive",
+        "Gmail"
+      ],
+      "image": "Manager/10.jpg",
+      "imageAlt": "مراقبة تنفيذ البناء",
+      "detailPage": "Manager/10.html",
+      "workflowFile": "Manager/10.json",
+      "workflowDownloadAvailable": true,
+      "pipeline": [
+        "Drive",
+        "N8N",
+        "Vision AI"
+      ],
+      "metrics": [
+        {
+          "label": "التحليل",
+          "value": "5 محاور"
+        },
+        {
+          "label": "التوفير",
+          "value": "12,000+ ر/ش"
+        }
+      ],
+      "accentColor": "#6366f1",
+      "status": "published"
+    },
+    {
+      "id": "project-10",
+      "title": "سكرم ماستر افتراضي بالذكاء الاصطناعي",
+      "category": "أتمتة الاجتماعات",
+      "description": "يدير اجتماعات السكرم اليومية، يسأل الفريق عبر Slack، ويولّد تقارير ذكية.",
+      "tags": [
+        "N8N",
+        "Slack",
+        "Asana",
+        "o4-mini"
+      ],
+      "image": "Manager/11.jpg",
+      "imageAlt": "سكرم ماستر افتراضي",
+      "detailPage": "Manager/11.html",
+      "workflowFile": null,
+      "workflowDownloadAvailable": false,
+      "pipeline": [
+        "Slack",
+        "N8N",
+        "Asana"
+      ],
+      "metrics": [
+        {
+          "label": "البديل",
+          "value": "Daily Standup"
+        },
+        {
+          "label": "التوفير",
+          "value": "15 دقيقة/مطور"
+        }
+      ],
+      "accentColor": "#3b82f6",
+      "status": "published"
+    },
+    {
+      "id": "project-11",
+      "title": "مساعد اجتماعات Zoom الذكي",
+      "category": "أتمتة الاجتماعات",
+      "description": "يسحب تسجيلات Zoom، يُنشئ محاضر، يوزع المهام على ClickUp، ويجدول المتابعات.",
+      "tags": [
+        "N8N",
+        "Zoom API",
+        "Claude 3.7",
+        "ClickUp",
+        "Outlook"
+      ],
+      "image": "Manager/12.jpg",
+      "imageAlt": "مساعد اجتماعات Zoom",
+      "detailPage": "Manager/12.html",
+      "workflowFile": null,
+      "workflowDownloadAvailable": false,
+      "pipeline": [
+        "Zoom",
+        "N8N",
+        "Claude"
+      ],
+      "metrics": [
+        {
+          "label": "المراحل",
+          "value": "6 مراحل"
+        },
+        {
+          "label": "التوفير",
+          "value": "90 دقيقة"
+        }
+      ],
+      "accentColor": "#06b6d4",
+      "status": "published"
+    },
+    {
+      "id": "project-12",
+      "title": "نظام تنبيه وتصعيد المهام العاجلة",
+      "category": "إشعارات وتصعيد",
+      "description": "يراقب المهام العاجلة، يُرسل تنبيهات بريدية، ويُصعّد تلقائياً عبر Telegram وJira.",
+      "tags": [
+        "N8N",
+        "Google Sheets",
+        "Gmail",
+        "Telegram",
+        "Jira"
+      ],
+      "image": "Manager/13.jpg",
+      "imageAlt": "نظام تنبيه وتصعيد",
+      "detailPage": "Manager/13.html",
+      "workflowFile": "Manager/13.json",
+      "workflowDownloadAvailable": true,
+      "pipeline": [
+        "Sheets",
+        "N8N",
+        "Jira"
+      ],
+      "metrics": [
+        {
+          "label": "التصعيد",
+          "value": "3 مراحل"
+        },
+        {
+          "label": "التغطية",
+          "value": "100% حرجة"
+        }
+      ],
+      "accentColor": "#ef4444",
+      "status": "published"
+    }
+  ]
+}

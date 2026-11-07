@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستقبل الأتمتة في السعودية: 5 اتجاهات لعام 2025 | عبدالله نبيل</title>
+    <meta name="description" content="كيف ستتغير بيئة الأعمال السعودية مع رؤية 2030؟ توقعاتي للاتجاهات القادمة في الأتمتة والذكاء الاصطناعي بناءً على خبرة 50+ مشروع.">
+    <meta name="keywords" content="رؤية 2030, أتمتة, السعودية, ذكاء اصطناعي, N8N, تحول رقمي, مستقبل الأعمال, ChatGPT عربي">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        saudi: { DEFAULT: '#155724', light: '#1e7e34', dark: '#0b3d16' },
+                        tech: { gray: '#F5F5F5', slate: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #155724, #1e7e34, #28a745);
+        }
+        .text-gradient-slate {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to left, #475569, #64748b, #94a3b8);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .bg-dots {
+            background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #155724; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1e7e34; }
+
+        .article-prose h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        .article-prose p {
+            color: #4b5563;
+            line-height: 1.9;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .article-prose blockquote {
+            border-right: 4px solid #64748b;
+            padding: 1.25rem 1.5rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #374151;
+        }
+
+        .trend-card {
+            position: relative;
+            padding-right: 4.5rem;
+        }
+        .trend-card::before {
+            content: attr(data-num);
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, #475569, #94a3b8);
+            color: white;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 14px rgba(71, 85, 105, 0.25);
+        }
+
+        .vision-line {
+            position: relative;
+            padding-right: 2rem;
+        }
+        .vision-line::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            background: #155724;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(21, 87, 36, 0.15);
+        }
+        .vision-line::after {
+            content: '';
+            position: absolute;
+            right: 4px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(to bottom, #155724, transparent);
+        }
+        .vision-line:last-child::after {
+            display: none;
+        }
+    </style>
+
+    <!-- Performance and accessibility baseline -->
+    <meta name="theme-color" content="#155724">
+    <style id="a5-performance-accessibility">
+      :focus-visible { outline: 3px solid #155724; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        html:focus-within { scroll-behavior: auto !important; }
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+        .fade-up { opacity: 1 !important; transform: none !important; }
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-sans overflow-x-hidden">
+
+    <!-- ============================================
+         HEADER
+         ============================================ -->
+    <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="../index.html" class="text-2xl font-bold text-saudi tracking-wide">
+                        عبدالله <span class="text-gray-800">نبيل</span>
+                        <span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span>
+                    </a>
+                </div>
+                <nav class="hidden lg:flex space-x-8 space-x-reverse">
+                    <a href="../index.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">الرئيسية<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../about.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">من أنا<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../services.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">خدماتي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../projects.html" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">مشاريعي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                    <a href="../blog.html" class="text-saudi font-bold relative group">المدونة<span class="absolute bottom-0 right-0 w-full h-0.5 bg-saudi"></span></a>
+                    <a href="../index.html#contact" class="text-gray-600 hover:text-saudi font-medium transition-colors relative group">تواصل معي<span class="absolute bottom-0 right-0 w-0 h-0.5 bg-saudi transition-all duration-300 group-hover:w-full"></span></a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html#contact" class="hidden lg:inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-full text-white bg-saudi hover:bg-saudi-light transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">اطلب استشارة مجانية</a>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-md text-gray-600 hover:text-saudi focus:outline-none" aria-label="القائمة">
+                        <svg class="h-7 w-7" id="menu-icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg class="h-7 w-7 hidden" id="menu-icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="../index.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">الرئيسية</a>
+                <a href="../about.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">من أنا</a>
+                <a href="../services.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">خدماتي</a>
+                <a href="../projects.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">مشاريعي</a>
+                <a href="../blog.html" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-bold text-saudi bg-green-50">المدونة</a>
+                <a href="../index.html#contact" class="mobile-nav-link block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-saudi hover:bg-green-50">تواصل معي</a>
+                <div class="pt-4 px-4">
+                    <a href="../index.html#contact" class="block w-full text-center px-6 py-3 rounded-full text-white bg-saudi hover:bg-saudi-light font-semibold">اطلب استشارة مجانية</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ============================================
+         ARTICLE HERO
+         ============================================ -->
+    <section class="relative pt-32 pb-12 lg:pt-40 lg:pb-16 overflow-hidden bg-gradient-to-b from-slate-50/80 via-gray-50 to-white">
+        <div class="absolute inset-0 z-0 opacity-15 bg-dots"></div>
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 C 30 60 70 60 100 100 Z" fill="#f1f5f9"/></svg>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Breadcrumb -->
+            <div class="flex items-center justify-center gap-2 text-sm text-gray-500 mb-8 fade-up">
+                <a href="../index.html" class="hover:text-saudi transition-colors">الرئيسية</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <a href="../blog.html" class="hover:text-saudi transition-colors">المدونة</a>
+                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-slate-700 font-bold">توقعات</span>
+            </div>
+
+            <div class="text-center max-w-4xl mx-auto fade-up">
+                <!-- Badges -->
+                <div class="mb-6 flex items-center justify-center gap-3 flex-wrap">
+                    <span class="bg-gray-700 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md">🔮 توقعات</span>
+                    <span class="bg-green-100 text-green-800 text-xs font-bold px-4 py-1.5 rounded-full border border-green-200">رؤية 2030 🇸🇦</span>
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-3xl lg:text-4xl xl:text-5xl font-black text-gray-900 leading-tight mb-6">
+                    مستقبل الأتمتة في السعودية: <span class="text-gradient">5 اتجاهات</span> لعام 2025
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+                    كيف ستتغير بيئة الأعمال السعودية مع رؤية 2030؟ توقعاتي للاتجاهات القادمة في الأتمتة والذكاء الاصطناعي.
+                </p>
+
+                <!-- Meta Info -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                            <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        </div>
+                        <span class="font-semibold text-gray-700">عبدالله نبيل</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span>20 نوفمبر 2024</span>
+                    </div>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>9 دقائق قراءة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         ARTICLE CONTENT + SIDEBAR
+         ============================================ -->
+    <section class="py-12 lg:py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
+
+                <!-- ============================
+                     MAIN ARTICLE CONTENT
+                     ============================ -->
+                <div class="lg:col-span-2">
+                    <article class="article-prose max-w-3xl fade-up">
+
+                        <!-- Featured Image -->
+                        <div class="rounded-2xl overflow-hidden mb-10 bg-gradient-to-br from-slate-200 via-gray-100 to-slate-200 h-64 lg:h-80 flex items-center justify-center shadow-lg border border-slate-200/50 relative">
+                            <div class="absolute inset-0 bg-gradient-to-br from-slate-200/30 to-transparent"></div>
+                            <div class="text-center relative z-10">
+                                <span class="text-7xl block mb-3">🔮</span>
+                                <span class="text-sm font-bold text-slate-700 bg-white/80 px-4 py-2 rounded-full shadow-sm">2025 × الأتمتة × رؤية 2030</span>
+                            </div>
+                        </div>
+
+                        <!-- ==============================
+                             INTRODUCTION
+                             ============================== -->
+                        <div class="bg-slate-50 border border-slate-100 rounded-xl p-6 mb-10">
+                            <p class="text-gray-700 leading-relaxed text-lg mb-0">
+                                السعودية تشهد تحولاً رقمياً غير مسبوق. مع رؤية 2030، الأتمتة لم تعد خياراً — هي <strong class="text-slate-800">لغة النجاح الجديدة</strong>. بناءً على عملي مع <strong class="text-slate-800">50+ شركة سعودية</strong>، إليك 5 اتجاهات ستُعيد تشكيل الأعمال في 2025.
+                            </p>
+                        </div>
+
+
+                        <!-- ==============================
+                             TREND 1: Data-Driven Automation
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <div class="trend-card" data-num="1">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">🧠</span>
+                                    الأتمتة الذكية الموجهة بالبيانات
+                                </h2>
+                                <p class="text-slate-500 text-sm font-bold mb-4">نهاية عصر "أتمتة كل شيء عشوائياً"</p>
+                            </div>
+
+                            <p>
+                                في 2024، رأيت شركات كثيرة تؤتمت عمليات لمجرد أنها تستطيع — بدون تحليل حقيقي للأولويات. النتيجة؟ أنظمة معقدة لا تحقق عائداً يُذكر. <strong>2025 ستكون مختلفة</strong>.
+                            </p>
+
+                            <p>
+                                لن تُبنى workflows من فراغ. كل قرار أتمتة سيكون مبنياً على <strong>تحليل فعلي لسلوك العملاء والموظفين</strong>. الشركات الذكية ستبدأ بالسؤال: "أين نخسر أكثر وقت ومال؟" — وتؤتمت هذه النقاط أولاً.
+                            </p>
+
+                            <!-- Example Box -->
+                            <div class="bg-blue-50 border border-blue-100 rounded-xl p-5 mt-6 flex items-start gap-3">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-blue-800 mb-1">💡 مثال حقيقي</h4>
+                                    <p class="text-sm text-blue-700 leading-relaxed mb-0">شركات تستخدم <strong>Heatmaps + AI</strong> لتحليل سير العمل وتحديد أي مهمة تستهلك أكثر وقت — ثم تؤتمتها أولاً. النتيجة: توفير إضافي <strong>25%</strong> مقارنة بالأتمتة العشوائية.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">التأثير: توفير إضافي 25% مقارنة بالأتمتة العشوائية</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             TREND 2: Arabic Language AI
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <div class="trend-card" data-num="2">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">🗣️</span>
+                                    اللغة العربية في مركز الثورة
+                                </h2>
+                                <p class="text-slate-500 text-sm font-bold mb-4">من "يفهم عربي شوي" إلى "يتحدث كأنه سعودي"</p>
+                            </div>
+
+                            <p>
+                                نماذج GPT-4 وClaude أصبحت بارعة في العربية بشكل لم نتخيله قبل سنة. <strong>2025 سنشهد انفجاراً في chatbots العربية الذكية</strong> التي تفهم اللهجة السعودية، السياق الثقافي، وحتى النكات المحلية.
+                            </p>
+
+                            <p>
+                                هذا يعني أن أي شركة سعودية يمكنها الآن تقديم <strong>خدمة عملاء عربية 100% آلية</strong> بفهم ثقافي عميق — بدون الحاجة لفريق كامل يعمل 24 ساعة.
+                            </p>
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-5 text-center">
+                                    <div class="text-3xl font-black text-green-700 mb-1">85%</div>
+                                    <div class="text-xs font-bold text-green-800">من الشركات السعودية</div>
+                                    <div class="text-xs text-green-600 mt-1">ستستخدم AI عربي للتواصل بحلول 2025</div>
+                                </div>
+                                <div class="bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200 rounded-xl p-5 text-center">
+                                    <div class="text-3xl font-black text-purple-700 mb-1">3x</div>
+                                    <div class="text-xs font-bold text-purple-800">تحسن في دقة</div>
+                                    <div class="text-xs text-purple-600 mt-1">فهم اللهجة السعودية خلال 2024</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">الفرصة: خدمة عملاء عربية 24/7 بتكلفة أقل 80% من الفريق البشري</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             TREND 3: SME Automation
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <div class="trend-card" data-num="3">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">🚀</span>
+                                    الأتمتة للشركات الصغيرة والمتوسطة
+                                </h2>
+                                <p class="text-slate-500 text-sm font-bold mb-4">ديمقراطية التحول الرقمي</p>
+                            </div>
+
+                            <p>
+                                في السابق، كانت الأتمتة حكراً على الشركات الكبيرة بميزانيات ضخمة. <strong>هذا تغيّر تماماً</strong>. أدوات مثل N8N وLow-code platforms جعلت التحول الرقمي في متناول أصغر متجر أو مكتب.
+                            </p>
+
+                            <!-- Before/After -->
+                            <div class="grid grid-cols-2 gap-4 mt-6">
+                                <div class="bg-red-50 border border-red-100 rounded-xl p-5 text-center">
+                                    <div class="text-2xl mb-2">😫</div>
+                                    <span class="text-xs font-bold text-red-700 block">السابق</span>
+                                    <span class="text-xl font-black text-red-600 block mt-1">50,000</span>
+                                    <span class="text-xs text-red-500">ريال لنظام أتمتة واحد</span>
+                                </div>
+                                <div class="bg-green-50 border border-green-100 rounded-xl p-5 text-center">
+                                    <div class="text-2xl mb-2">🚀</div>
+                                    <span class="text-xs font-bold text-green-700 block">القادم (2025)</span>
+                                    <span class="text-xl font-black text-green-600 block mt-1">2,500</span>
+                                    <span class="text-xs text-green-500">ريال لحل أتمتة متكامل</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-saudi/5 border border-saudi/20 rounded-xl p-5 mt-6 flex items-start gap-3">
+                                <div class="w-8 h-8 bg-saudi/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-lg">🇸🇦</div>
+                                <div>
+                                    <h4 class="font-bold text-saudi mb-1">هدف رؤية 2030</h4>
+                                    <p class="text-sm text-gray-700 leading-relaxed mb-0">الوصول إلى <strong>1 مليون شركة سعودية رقمية</strong> — والأتمتة هي المفتاح لتحقيق هذا الهدف الطموح.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">التأثير: أتمتة كاملة لمتجر صغير بسعر راتب موظف واحد لشهر</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             TREND 4: Gov + Private Integration
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <div class="trend-card" data-num="4">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">🔗</span>
+                                    التكامل بين الأنظمة الحكومية والخاصة
+                                </h2>
+                                <p class="text-slate-500 text-sm font-bold mb-4">ربط كل شيء بكل شيء</p>
+                            </div>
+
+                            <p>
+                                ربط ERP الشركة مع المنصات الحكومية مثل <strong>Qiwa، مدير، سلامة، والتأمينات الاجتماعية</strong> أصبح أسهل وأكثر موثوقية. في 2025، هذا التكامل سيكون المعيار وليس الاستثناء.
+                            </p>
+
+                            <!-- Workflow Example -->
+                            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200 mt-6">
+                                <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2 text-sm">
+                                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                    مثال workflow: توظيف موظف جديد
+                                </h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                        <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-sm">1️⃣</span>
+                                        <span class="text-sm text-gray-700">موظف جديد يُضاف في النظام الداخلي</span>
+                                    </div>
+                                    <div class="flex items-center justify-center text-gray-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                    </div>
+                                    <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                        <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-sm">2️⃣</span>
+                                        <span class="text-sm text-gray-700">تسجيل تلقائي في التأمينات الاجتماعية</span>
+                                    </div>
+                                    <div class="flex items-center justify-center text-gray-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                    </div>
+                                    <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                        <span class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center text-sm">3️⃣</span>
+                                        <span class="text-sm text-gray-700">فتح حساب بنكي + إصدار التصاريح المطلوبة</span>
+                                    </div>
+                                    <div class="flex items-center justify-center text-gray-300">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                    </div>
+                                    <div class="flex items-center gap-3 bg-white rounded-lg p-3 border border-gray-100">
+                                        <span class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center text-sm">4️⃣</span>
+                                        <span class="text-sm text-gray-700">إشعار المدير + إعداد بيئة العمل تلقائياً ✅</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">التأثير: تأسيس شركة في يوم واحد بدلاً من أسبوع</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             TREND 5: Ethical Automation
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <div class="trend-card" data-num="5">
+                                <h2 class="text-2xl font-extrabold text-gray-900 mb-1 flex items-center gap-3 border-b-0 pb-0 mt-0">
+                                    <span class="text-2xl">⚖️</span>
+                                    الأتمتة الأخلاقية والشفافة
+                                </h2>
+                                <p class="text-slate-500 text-sm font-bold mb-4">الثقة هي العملة الجديدة</p>
+                            </div>
+
+                            <p>
+                                مع انتشار AI في كل مكان، الأسئلة تزداد: <strong>من يتحمل المسؤولية عندما يخطئ الروبوت؟ كم من بيانات العملاء تُستخدم فعلاً؟</strong> الشركات التي تجيب على هذه الأسئلة بشفافية ستكسب ثقة العملاء.
+                            </p>
+
+                            <p>
+                                توقعي: <strong>2025 ستظهر "شهادات الأتمتة الأخلاقية"</strong> — معايير رسمية تضمن أن الشركة تستخدم AI بشكل مسؤول وشفاف. الشركات التي تحصل عليها ستتمتع بميزة تنافسية حقيقية.
+                            </p>
+
+                            <div class="bg-slate-50 rounded-xl p-6 border border-slate-100 mt-6">
+                                <h4 class="font-bold text-gray-800 text-sm mb-3">مبادئ الأتمتة الأخلاقية:</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <span class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </span>
+                                        <span><strong>الشفافية:</strong> إخبار العميل عندما يتحدث مع روبوت</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <span class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </span>
+                                        <span><strong>الخصوصية:</strong> حماية بيانات العملاء وعدم مشاركتها</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <span class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </span>
+                                        <span><strong>المساءلة:</strong> وجود بشري مسؤول عن كل قرار آلي</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <span class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                            <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </span>
+                                        <span><strong>العدالة:</strong> ضمان عدم التحيز في القرارات الآلية</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 bg-green-50 border border-green-100 rounded-lg p-3 mt-4">
+                                <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                <span class="text-sm text-green-800 font-semibold">الفرصة للمتميزين: الشفافية تُصبح ميزة تنافسية حقيقية</span>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             VISION 2030 × AUTOMATION
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-green-100 pb-3">🇸🇦 رؤية 2030 × الأتمتة</h2>
+
+                            <p>
+                                كل اتجاه من الاتجاهات الخمسة يتقاطع مباشرة مع أهداف رؤية 2030. إليك كيف تترابط القطع:
+                            </p>
+
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 lg:p-8 border-2 border-green-200/50 mt-6">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="w-12 h-12 bg-saudi rounded-xl flex items-center justify-center text-white text-2xl shadow-md">🇸🇦</div>
+                                    <div>
+                                        <h4 class="font-black text-gray-900 text-lg">أهداف رؤية 2030 المرتبطة بالأتمتة</h4>
+                                        <span class="text-xs text-gray-500">وكيف ستُحقَّق تقنياً</span>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div class="vision-line">
+                                        <div class="bg-white rounded-xl p-5 border border-green-100 shadow-sm">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 text-lg">📊</div>
+                                                <div>
+                                                    <h5 class="font-bold text-gray-900 mb-1">الاقتصاد الرقمي</h5>
+                                                    <p class="text-sm text-gray-600 mb-1">الهدف: <strong class="text-saudi">24% من الناتج المحلي</strong> من القطاع الرقمي</p>
+                                                    <span class="text-xs text-green-700 bg-green-50 px-2 py-0.5 rounded-full">الأتمتة هي محرك هذا التحول</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="vision-line">
+                                        <div class="bg-white rounded-xl p-5 border border-green-100 shadow-sm">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 text-lg">👨‍💻</div>
+                                                <div>
+                                                    <h5 class="font-bold text-gray-900 mb-1">توطين التقنية</h5>
+                                                    <p class="text-sm text-gray-600 mb-1">الهدف: <strong class="text-saudi">25,000 وظيفة</strong> في AI والأتمتة للسعوديين</p>
+                                                    <span class="text-xs text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">فرصة ضخمة لمتخصصي N8N</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="vision-line">
+                                        <div class="bg-white rounded-xl p-5 border border-green-100 shadow-sm">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0 text-lg">⏰</div>
+                                                <div>
+                                                    <h5 class="font-bold text-gray-900 mb-1">جودة الحياة</h5>
+                                                    <p class="text-sm text-gray-600 mb-1">الهدف: تقليل <strong class="text-saudi">30% من الوقت المهدور</strong> في المهام الروتينية</p>
+                                                    <span class="text-xs text-yellow-700 bg-yellow-50 px-2 py-0.5 rounded-full">الأتمتة تحرر الموظفين للإبداع</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             MY PERSONAL PREDICTIONS
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-slate-100 pb-3">🔮 توقعاتي الشخصية لنهاية 2025</h2>
+
+                            <p>
+                                بعيداً عن الأرقام الرسمية، إليك <strong>3 توقعات جريئة</strong> بناءً على ما أراه يومياً في السوق السعودي:
+                            </p>
+
+                            <div class="space-y-4 mt-6">
+                                <div class="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-slate-300 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-4">
+                                        <span class="w-10 h-10 bg-slate-700 text-white rounded-xl flex items-center justify-center flex-shrink-0 text-lg font-black shadow-md">1</span>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-lg mb-2">70% من الشركات السعودية ستستخدم AI يومياً</h4>
+                                            <p class="text-gray-600 text-sm leading-relaxed mb-0">ليس في المختبرات — بل في العمليات اليومية. من الرد على العملاء إلى إعداد التقارير. الذكاء الاصطناعي سيصبح أداة عمل أساسية مثل البريد الإلكتروني.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-slate-300 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-4">
+                                        <span class="w-10 h-10 bg-slate-700 text-white rounded-xl flex items-center justify-center flex-shrink-0 text-lg font-black shadow-md">2</span>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-lg mb-2">N8N سيصبح منصة وطنية مدعومة</h4>
+                                            <p class="text-gray-600 text-sm leading-relaxed mb-0">مع توجه الحكومة لدعم الأدوات مفتوحة المصدر وتخفيض تكاليف التحول الرقمي، أتوقع أن نرى N8N ضمن المنصات المعتمدة رسمياً.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-slate-300 hover:shadow-md transition-all">
+                                    <div class="flex items-start gap-4">
+                                        <span class="w-10 h-10 bg-slate-700 text-white rounded-xl flex items-center justify-center flex-shrink-0 text-lg font-black shadow-md">3</span>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-lg mb-2">المسوق التقليدي سيتحول لـ "مسوق أتمتة"</h4>
+                                            <p class="text-gray-600 text-sm leading-relaxed mb-0">لن يكفي أن تعرف كيف تكتب إعلان أو تصمم حملة. المسوق الناجح في 2025 سيحتاج فهم الأتمتة، تحليل البيانات، وبناء workflows تسويقية آلية.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             ADVICE FOR COMPANIES
+                             ============================== -->
+                        <div class="mb-14 fade-up">
+                            <div class="bg-saudi rounded-2xl p-8 text-white relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                                <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                                <div class="relative z-10">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-2xl">💡</div>
+                                        <h3 class="text-xl font-black">نصيحتي لكل صاحب عمل سعودي</h3>
+                                    </div>
+                                    <p class="text-green-100 text-lg leading-relaxed mb-4">
+                                        <strong class="text-white">لا تنتظر 2025</strong>. ابدأ الآن بـ workflow واحد — حتى لو كان بسيطاً. أتمتة الردود على واتساب. تنظيم العملاء في جدول. أي شيء.
+                                    </p>
+                                    <p class="text-green-100 text-lg leading-relaxed mb-0">
+                                        <strong class="text-white">التأخر يعني تكلفة أكبر لاحقاً</strong> — ليس فقط مالياً، بل في فقدان العملاء لصالح منافسين أسرع وأكثر كفاءة.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             CONCLUSION + CTA
+                             ============================== -->
+                        <div class="mb-12 fade-up">
+                            <h2 class="text-2xl font-extrabold text-gray-900 mb-6 border-b-2 border-slate-100 pb-3">📌 الخلاصة: 2025 هي سنة الأتمتة السعودية</h2>
+
+                            <p>
+                                الاتجاهات الخمسة التي استعرضناها ليست مجرد تنبؤات — هي <strong>واقع يتشكل الآن</strong>. الشركات التي تستعد اليوم ستقود السوق غداً. والشركات التي تنتظر ستجد نفسها تلحق بالركب.
+                            </p>
+
+                            <!-- Summary Grid -->
+                            <div class="bg-gray-50 rounded-xl p-6 border border-gray-100 mb-8 mt-6">
+                                <h4 class="font-bold text-gray-900 mb-4">ملخص الاتجاهات الخمسة:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-slate-700 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">1</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🧠 أتمتة موجهة بالبيانات</span>
+                                            <span class="text-gray-500 text-sm block">— قرارات أذكى وتوفير إضافي 25%</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-slate-700 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">2</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🗣️ AI عربي متقدم</span>
+                                            <span class="text-gray-500 text-sm block">— خدمة عملاء 24/7 بفهم ثقافي</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-slate-700 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">3</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🚀 ديمقراطية الأتمتة</span>
+                                            <span class="text-gray-500 text-sm block">— حلول بـ 2,500 بدل 50,000 ريال</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-slate-700 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">4</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">🔗 تكامل حكومي-خاص</span>
+                                            <span class="text-gray-500 text-sm block">— تأسيس شركة في يوم واحد</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-7 h-7 bg-slate-700 text-white rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold">5</span>
+                                        <div>
+                                            <span class="text-gray-700 font-semibold">⚖️ أتمتة أخلاقية</span>
+                                            <span class="text-gray-500 text-sm block">— الشفافية كميزة تنافسية</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Final CTA Box -->
+                            <div class="bg-gradient-to-r from-slate-50 to-gray-50 border-2 border-slate-200/50 rounded-2xl p-8 text-center mt-8">
+                                <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">هل شركتك جاهزة لـ 2025؟</h3>
+                                <p class="text-gray-600 mb-6 max-w-lg mx-auto">
+                                    دعني أقيّم جاهزية شركتك للتحول الرقمي وأرسم لك خطة انتقال واقعية ومخصصة لحالتك. التقييم مجاني وبدون التزام.
+                                </p>
+                                <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-saudi text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-saudi-light transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                    <span>تقييم جاهزية مجاني</span>
+                                </a>
+                                <p class="text-xs text-gray-500 mt-4">🕐 رد خلال 24 ساعة</p>
+                            </div>
+                        </div>
+
+
+                        <!-- ==============================
+                             SHARE BUTTONS
+                             ============================== -->
+                        <div class="border-t border-gray-200 pt-8 fade-up">
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <h4 class="font-bold text-gray-700 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                                    شارك المقالة:
+                                </h4>
+                                <div class="flex items-center gap-3">
+                                    <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="LinkedIn">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                    </a>
+                                    <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-700 hover:bg-gray-800 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="X">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </a>
+                                    <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-700 hover:bg-green-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="واتساب">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                    </a>
+                                    <button onclick="copyArticleLink()" class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 hover:bg-saudi hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" title="نسخ الرابط" id="copy-btn">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAGS -->
+                        <div class="mt-8 pt-6 border-t border-gray-100 fade-up">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-sm font-bold text-gray-500">الوسوم:</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">رؤية 2030</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">أتمتة</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">السعودية</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">ذكاء اصطناعي</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">N8N</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">تحول رقمي</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">توقعات 2025</span>
+                                <span class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded-full hover:bg-slate-700 hover:text-white transition-colors cursor-pointer">ChatGPT عربي</span>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+
+                <!-- ============================
+                     SIDEBAR
+                     ============================ -->
+                <aside class="lg:col-span-1 space-y-8 fade-up" style="transition-delay:200ms;">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+
+                        <!-- Author Card -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 text-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-white shadow-lg ring-2 ring-slate-200">
+                                <img src="../image2.webp" alt="عبدالله نبيل" class="w-full h-full object-cover" loading="eager" decoding="async">
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-lg">عبدالله نبيل</h3>
+                            <p class="text-sm text-slate-600 font-semibold mb-3">خبير أتمتة سعودي</p>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                                أساعد الشركات السعودية على دخول عصر الأتمتة والذكاء الاصطناعي بخطوات عملية ومدروسة. 50+ مشروع ناجح في مختلف القطاعات.
+                            </p>
+
+                            <a href="../index.html#contact" class="block w-full py-3 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all duration-300 shadow-md hover:shadow-lg text-sm mb-3">
+                                استشارة استراتيجية
+                            </a>
+                            <div class="flex justify-center gap-3 mt-4">
+                                <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-gray-800 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </a>
+                                <a href="https://wa.me/967718672576" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Vision 2030 Report -->
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 text-center">
+                            <div class="text-3xl mb-3">🇸🇦</div>
+                            <h3 class="font-bold text-gray-900 mb-2">تقرير رؤية 2030</h3>
+                            <p class="text-sm text-gray-600 mb-4">اطلع على آخر التحديثات حول التحول الرقمي في المملكة</p>
+                            <a href="#" class="block w-full py-2.5 bg-saudi text-white font-bold rounded-lg hover:bg-saudi-light transition-all text-sm">
+                                تحميل التقرير (PDF)
+                            </a>
+                        </div>
+
+                        <!-- Related Articles -->
+                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                            <h3 class="text-lg font-bold text-gray-900 mb-5 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                مقالات ذات صلة
+                            </h3>
+                            <div class="space-y-4">
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-slate-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">⚖️</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">N8N vs Zapier vs Make: أيهم يناسب عملك؟</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">7 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-slate-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🤖</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">5 طرق مبتكرة لدمج ChatGPT في عملك</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">6 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="#" class="group block p-3 bg-white rounded-xl border border-gray-100 hover:border-slate-200 hover:shadow-sm transition-all">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg flex items-center justify-center flex-shrink-0 text-xl">🏆</div>
+                                        <div>
+                                            <h4 class="text-sm font-bold text-gray-900 group-hover:text-saudi transition-colors leading-snug">كيف وفّرنا لشركة عقارات 35% من التكاليف</h4>
+                                            <span class="text-xs text-gray-500 mt-1 block">7 دقائق قراءة</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="../blog.html" class="block text-center mt-5 text-saudi font-bold text-sm hover:underline">
+                                عرض جميع المقالات ←
+                            </a>
+                        </div>
+
+                        <!-- Newsletter Mini -->
+                        <div class="bg-slate-700 rounded-2xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+                            <div class="relative z-10">
+                                <div class="text-2xl mb-2">🔮</div>
+                                <h3 class="font-bold mb-2">تحديثات أسبوعية</h3>
+                                <p class="text-slate-300 text-sm mb-4">اشترك واحصل على أحدث الرؤى حول مستقبل الأتمتة في السعودية.</p>
+                                <form class="space-y-2" onsubmit="handleSidebarSubscribe(event)">
+                                    <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:border-white/50 text-sm" dir="ltr" required>
+                                    <button type="submit" class="w-full py-2.5 bg-white text-slate-700 font-bold rounded-lg hover:bg-gray-100 transition-all text-sm">اشترك مجاناً</button>
+                                </form>
+                                <div id="sidebar-subscribe-success" class="hidden text-center py-3">
+                                    <p class="text-slate-300 font-bold text-sm">✅ تم الاشتراك بنجاح!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="py-16 bg-saudi text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 100 M100 0 L0 100" stroke="white" stroke-width="0.5"/></svg>
+        </div>
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-white/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-4 text-center relative z-10 max-w-3xl fade-up">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">المستقبل يبدأ اليوم — هل أنت جاهز؟ 🚀</h2>
+            <p class="text-xl text-green-100 mb-8 leading-relaxed">
+                دعني أقيّم جاهزية شركتك لعام 2025 وأصمم لك خطة أتمتة تُعدّك للمرحلة القادمة من رؤية 2030.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="../index.html#contact" class="inline-flex items-center justify-center gap-2 bg-white text-saudi font-bold py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span>تقييم جاهزية مجاني</span>
+                </a>
+                <a href="https://wa.me/967718672576" target="_blank" class="inline-flex items-center justify-center gap-2 border-2 border-white/30 text-white font-bold py-4 px-10 rounded-full hover:bg-white/10 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <a href="../index.html" class="text-2xl font-bold text-white tracking-wide inline-block mb-4">عبدالله <span class="text-saudi">نبيل</span><span class="block text-xs text-gray-500 font-normal -mt-1">خبير أتمتة N8N</span></a>
+                    <p class="text-gray-400 text-sm leading-relaxed">متخصص في أتمتة الأعمال ودمج الذكاء الاصطناعي لتحقيق كفاءة تشغيلية غير مسبوقة.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../index.html" class="text-gray-400 hover:text-white transition-colors text-sm">الرئيسية</a></li>
+                        <li><a href="../about.html" class="text-gray-400 hover:text-white transition-colors text-sm">من أنا</a></li>
+                        <li><a href="../services.html" class="text-gray-400 hover:text-white transition-colors text-sm">الخدمات</a></li>
+                        <li><a href="../projects.html" class="text-gray-400 hover:text-white transition-colors text-sm">المشاريع</a></li>
+                        <li><a href="../blog.html" class="text-white font-bold text-sm">المدونة</a></li>
+                        <li><a href="../index.html#contact" class="text-gray-400 hover:text-white transition-colors text-sm">تواصل معي</a></li>
+                    </ul>
+                </div>
+                                                                            <div>
+                    <h4 class="font-bold text-white mb-4">تابعني</h4>
+                    <div class="flex gap-3">
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/abdullah-nabil-n8n" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-saudi hover:text-white transition-all" title="LinkedIn">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <!-- X (Twitter) -->
+                        <a href="https://x.com/abdullah_nabil_" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="X (Twitter)">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/967718672576" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-green-500 hover:text-white transition-all" title="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:abdullah0nabil@gmail.com" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white transition-all" title="Email">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/abdullah-nabil" target="_blank" class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-700 hover:text-white transition-all" title="GitHub">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                    </div>
+
+                    <!-- النشرة البريدية -->
+                    <div class="mt-6">
+                        <h4 class="font-bold text-white mb-2 text-sm">احصل على نصائح أتمتة مجانية</h4>
+                        <p class="text-gray-500 text-xs mb-3">انضم لأكثر من 500 متابع.</p>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="flex gap-2" id="newsletter-form">
+                            <input type="email" name="email" placeholder="بريدك الإلكتروني" required class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:border-saudi outline-none" dir="ltr">
+                            <button type="submit" class="px-4 py-2 bg-saudi rounded-lg text-white text-sm font-bold hover:bg-saudi-light transition-colors">اشترك</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">جميع الحقوق محفوظة لعبدالله نبيل © 2024 | صُنع بفخر في السعودية 🇸🇦</p>
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <a href="#" class="hover:text-white transition-colors">سياسة الخصوصية</a><span>|</span><a href="#" class="hover:text-white transition-colors">الشروط والأحكام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================
+         FLOATING WHATSAPP
+         ============================================ -->
+    <a href="https://wa.me/967718672576" target="_blank" class="fixed bottom-6 left-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 group" title="واتساب" style="animation: float 3s ease-in-out infinite;">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654z"/></svg>
+        <span class="absolute left-full ml-3 top-1/2 -translate-y-1/2 bg-gray-800 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden md:block pointer-events-none shadow-lg">تواصل مباشرة</span>
+        <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30"></span>
+    </a>
+
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // MOBILE MENU
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+        // NAVBAR SHADOW
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('shadow-md', window.scrollY > 10);
+        }, { passive: true });
+
+        // FADE-UP ANIMATION
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.style.transitionDelay || '0ms';
+                    entry.target.style.transitionDelay = delay;
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => scrollObserver.observe(el));
+
+        // SMOOTH SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#' || !targetId) return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const pos = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // COPY LINK
+        function copyArticleLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                btn.classList.add('bg-saudi', 'text-white');
+                btn.classList.remove('bg-gray-100', 'text-gray-500');
+                setTimeout(() => {
+                    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>';
+                    btn.classList.remove('bg-saudi', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-500');
+                }, 2000);
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            });
+        }
+
+        // SIDEBAR SUBSCRIBE
+        function handleSidebarSubscribe(e) {
+            e.preventDefault();
+            const form = e.target;
+            const successMsg = document.getElementById('sidebar-subscribe-success');
+            form.style.display = 'none';
+            successMsg.classList.remove('hidden');
+        }
+    </script>
+
+    <!-- Newsletter Form Handler -->
+    <script>
+    
+    </script>
+
+<!-- ✅ نظام الفورمات الموحد -->
+<script src="../global-forms.js"></script>
+</body>
+</html>

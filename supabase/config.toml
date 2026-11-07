@@ -1,0 +1,19 @@
+project_id = "a5-site"
+
+[api]
+enabled = true
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+major_version = 15
+
+[auth]
+enabled = true
+site_url = "http://localhost:8788"
+additional_redirect_urls = ["http://127.0.0.1:8788", "https://YOUR-DOMAIN.example"]
+enable_signup = false
+
+[auth.email]
+enable_signup = false

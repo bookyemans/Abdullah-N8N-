@@ -1,0 +1,11 @@
+# Cloudflare Pages project configuration
+name = "site-a5"
+pages_build_output_dir = "."
+compatibility_date = "2026-11-06"
+
+# Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in Cloudflare Pages
+# Settings > Variables and Secrets. Never add real values to this file.
+
+# Bind a Cloudflare KV namespace in Pages > Settings > Functions > KV namespace bindings:
+# Variable name: CONFIG_KV. Store encryption key CONFIG_ENCRYPTION_KEY as a Secret.
+# Do not put KV IDs or real secrets in source control.
